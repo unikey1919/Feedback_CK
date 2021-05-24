@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_assignment"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/menu_assignment" />
+        <item
+            android:id="@+id/nav_class"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_class" />
+        <item
+            android:id="@+id/nav_module"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/menu_module" />
+        <item
+            android:id="@+id/nav_enrollment"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/menu_enrollment" />
+        <item
+            android:id="@+id/nav_feedback"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_feedback" />
+        <item
+            android:id="@+id/nav_result"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_result" />
+        <item
+            android:id="@+id/nav_question"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/menu_question" />
+        <item
+            android:id="@+id/nav_contact"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/menu_contact" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_logout" />
+    </group>
+</menu>

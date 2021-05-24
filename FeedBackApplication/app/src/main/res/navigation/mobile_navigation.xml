@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.feedbackapplication.ui.home.HomeFragment"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_assignment"
+        android:name="com.example.feedbackapplication.ui.assignment.AssignmentFragment"
+        tools:layout="@layout/assignment_fragment" />
+
+    <fragment
+        android:id="@+id/nav_class"
+        android:name="com.example.feedbackapplication.ui.classjoin.ClassFragment"
+        tools:layout="@layout/class_fragment" />
+
+    <fragment
+        android:id="@+id/nav_module"
+        android:name="com.example.feedbackapplication.ui.module.ModuleFragment"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_enrollment"
+        android:name="com.example.feedbackapplication.ui.enrollment.EnrollmentFragment"
+        tools:layout="@layout/enrollment_fragment" />
+
+    <fragment
+        android:id="@+id/nav_feedback"
+        android:name="com.example.feedbackapplication.ui.feedback.FeedbackFragment"
+        tools:layout="@layout/feedback_fragment" />
+
+    <fragment
+        android:id="@+id/nav_result"
+        android:name="com.example.feedbackapplication.ui.result.ResultFragment"
+        tools:layout="@layout/result_fragment" />
+
+    <fragment
+        android:id="@+id/nav_question"
+        android:name="com.example.feedbackapplication.ui.question.QuestionFragment"
+        tools:layout="@layout/question_fragment" />
+
+    <fragment
+        android:id="@+id/nav_contact"
+        android:name="com.example.feedbackapplication.ui.contact.ContactFragment"
+        tools:layout="@layout/contact_fragment" />
+
+    <fragment
+        android:id="@+id/nav_logout"
+        android:name="com.example.feedbackapplication.ui.logout.LogoutFragment"
+        tools:layout="@layout/logout_fragment"/>
+
+    <fragment
+        android:id="@+id/nav_join"
+        android:name="com.example.feedbackapplication.ui.join.JoinFragment"
+        tools:layout="@layout/join_fragment" />
+
+</navigation>
