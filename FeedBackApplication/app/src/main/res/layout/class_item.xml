@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/class_item"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:textColor="@color/black"
+        android:id="@+id/txtClassID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Class ID: 11"
+        android:textSize="20sp" />
+
+    <TextView
+        android:textColor="@color/black"
+        android:id="@+id/txtClassName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Class Name: Class 11"
+        android:textSize="20sp"
+        android:layout_below="@id/txtClassID"/>
+
+    <TextView
+        android:textColor="@color/black"
+        android:id="@+id/txtCapacity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Capacity: 50"
+        android:textSize="20sp"
+        android:layout_below="@id/txtClassName"/>
+
+    <TextView
+        android:textColor="@color/black"
+        android:id="@+id/txtStartDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Date: 22/09/2020"
+        android:textSize="20sp"
+        android:layout_below="@id/txtCapacity"/>
+
+    <TextView
+        android:textColor="@color/black"
+        android:id="@+id/txtEndDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="End Date: 22/09/2020"
+        android:textSize="20sp"
+        android:layout_below="@id/txtStartDate"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnEditClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtClassName"
+        android:layout_marginLeft="127dp"
+        android:layout_marginTop="-41dp"
+        android:layout_toRightOf="@id/txtCapacity"
+        android:backgroundTint="#28EC30"
+        android:src="@drawable/ic_pencil"
+        app:tint="#F5F8F7" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnDeleteClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtClassName"
+        android:layout_marginLeft="129dp"
+        android:layout_marginTop="21dp"
+        android:layout_toRightOf="@id/txtCapacity"
+        android:backgroundTint="#EC0923"
+        android:src="@drawable/ic_bin"
+        app:tint="#F5F8F7" />
+
+</RelativeLayout>

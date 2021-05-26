@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/trainee_item_trainer"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:textColor="@color/black"
+        android:id="@+id/txtNumber_trainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Number: 1"
+        android:textSize="20sp" />
+
+    <TextView
+        android:textColor="@color/black"
+        android:id="@+id/txtTraineeID_trainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Trainee ID: 1"
+        android:textSize="20sp"
+        android:layout_below="@id/txtNumber_trainer"/>
+
+    <TextView
+        android:textColor="@color/black"
+        android:id="@+id/txtTraineeName_trainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Trainee Name: Nguyễn Văn A"
+        android:textSize="20sp"
+        android:layout_below="@id/txtTraineeID_trainer"/>
+
+</RelativeLayout>
