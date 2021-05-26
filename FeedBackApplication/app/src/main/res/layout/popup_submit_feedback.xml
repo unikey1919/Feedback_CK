@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="70dp"
+
+    android:orientation="vertical"
+    android:paddingLeft="35dp"
+    android:paddingTop="20dp"
+    android:paddingRight="35dp"
+    android:paddingBottom="40dp">
+
+    <ImageView
+        android:id="@+id/image_notifi"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="60dp"
+        app:srcCompat="@drawable/ic_deny" />
+
+    <TextView
+        android:id="@+id/txt_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:text="Are you sure?"
+        android:textColor="@color/black"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/txt_notifi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Do you want to sumbmit Feedbacl"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnOk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ok"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            app:backgroundTint="#FA2929"
+            android:background="#FA2929"
+            android:text="Cancel"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+
+</LinearLayout>

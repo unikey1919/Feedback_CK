@@ -27,22 +27,26 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        NavController navController;
         //get role for each user
         try{
             KEY_ROLE = getIntent().getStringExtra("role");
             if(KEY_ROLE.equals("admin")){
                 setContentView(R.layout.admin_layout);
+                navController = Navigation.findNavController(this, R.id.nav_host_fragment);
             }
-            if(KEY_ROLE.equals("trainer")){
+            else if(KEY_ROLE.equals("trainer")){
                 setContentView(R.layout.trainer_layout);
+                navController = Navigation.findNavController(this, R.id.nav_host_fragment);
             }
-            if(KEY_ROLE.equals("trainee")){
+            else { //if(KEY_ROLE.equals("trainee"))
                 setContentView(R.layout.trainee_layout);
+                navController = Navigation.findNavController(this, R.id.nav_host_fragment);
             }
         }
         catch (Exception e){
             setContentView(R.layout.activity_main);
+            navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         }
 
 
@@ -61,10 +65,11 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_assignment, R.id.nav_class,R.id.nav_module,R.id.nav_enrollment,R.id.nav_feedback,R.id.nav_result,R.id.nav_question,R.id.nav_question,R.id.nav_contact,R.id.nav_logout,R.id.nav_join)
+                R.id.nav_home, R.id.nav_assignment, R.id.nav_class,R.id.nav_module,R.id.nav_enrollment,R.id.nav_feedback,
+                R.id.nav_result,R.id.nav_question,R.id.nav_question,R.id.nav_contact,R.id.nav_logout,R.id.nav_join)
                 .setDrawerLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
