@@ -37,39 +37,9 @@ public class FeedbackFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        btnLogin = root.findViewById(R.id.btnLoginHome);
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        ImageButton doFeedback = root.findViewById(R.id.imageButton);
-        doFeedback = root.findViewById(R.id.imageButton);
-        doFeedback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DoFeedback doFeedback1 = new DoFeedback();
-                doFeedback1.show(getActivity().getSupportFragmentManager(),"show"); //add
-
-            }
-        });
-
-
         return root;
-        //return inflater.inflate(R.layout.feedback_fragment, container, false);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(FeedbackViewModel.class);
-        // TODO: Use the ViewModel
     }
 
 }
