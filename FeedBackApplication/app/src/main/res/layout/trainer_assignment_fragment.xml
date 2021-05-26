@@ -3,25 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.assignment.AssignmentFragment">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/text_assignment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:layout_marginEnd="14dp"
+        android:layout_marginEnd="15dp"
         android:text="Assignment"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="40sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/btnSearch"
+        app:layout_constraintEnd_toStartOf="@+id/btnSearch_trainer"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/edtSearch"
+        android:id="@+id/edtSearch_trainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="30dp"
@@ -33,13 +32,13 @@
         android:paddingLeft="5dp"
         android:textColor="@color/black"
         android:textSize="22sp"
-        app:layout_constraintBottom_toBottomOf="@+id/btnSearch"
-        app:layout_constraintEnd_toStartOf="@+id/btnSearch"
+        app:layout_constraintBottom_toBottomOf="@+id/btnSearch_trainer"
+        app:layout_constraintEnd_toStartOf="@+id/btnSearch_trainer"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnSearch" />
+        app:layout_constraintTop_toTopOf="@+id/btnSearch_trainer" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnNewAssignment"
+        android:id="@+id/btnNewAssignment_trainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
@@ -51,7 +50,7 @@
         app:tint="#F5F8F7" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_assignment"
+        android:id="@+id/rcv_assignment_trainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="36dp"
@@ -61,19 +60,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSearch" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSearch_trainer" />
 
     <Button
-        android:id="@+id/btnSearch"
+        android:id="@+id/btnSearch_trainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="19dp"
-        android:layout_marginEnd="13dp"
+        android:layout_marginEnd="12dp"
         android:backgroundTint="@color/red"
         android:text="Search"
         android:textAllCaps="false"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/edtSearch"
-        app:layout_constraintTop_toBottomOf="@+id/btnNewAssignment" />
+        app:layout_constraintStart_toEndOf="@+id/edtSearch_trainer"
+        app:layout_constraintTop_toBottomOf="@+id/btnNewAssignment_trainer" />
 </androidx.constraintlayout.widget.ConstraintLayout>
