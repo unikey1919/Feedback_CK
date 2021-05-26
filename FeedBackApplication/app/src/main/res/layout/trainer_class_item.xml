@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/trainer_class_item"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:textColor="@color/black"
+        android:id="@+id/txtClassID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Class ID: 11"
+        android:textSize="20sp" />
+
+    <TextView
+        android:textColor="@color/black"
+        android:id="@+id/txtClassName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Class Name: Class"
+        android:textSize="20sp"
+        android:layout_below="@id/txtClassID"/>
+
+    <TextView
+        android:textColor="@color/black"
+        android:id="@+id/txtCapacity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Number of Trainee: 6"
+        android:textSize="20sp"
+        android:layout_below="@id/txtClassName"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:backgroundTint="#854ED3"
+        android:id="@+id/btnSeeClass_Trainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtClassID"
+        android:layout_marginLeft="39dp"
+        android:layout_marginTop="-15dp"
+        android:layout_toRightOf="@id/txtClassName"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@drawable/ic_eye_icon"
+        app:tint="#F5F8F7"/>
+
+
+</RelativeLayout>
