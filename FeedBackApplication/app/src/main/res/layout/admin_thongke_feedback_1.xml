@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Spinner
+        android:id="@+id/sp_class"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginEnd="65dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintBottom_toBottomOf="@+id/tvClass"
+        app:layout_constraintEnd_toStartOf="@+id/sp_module"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvClass" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:text="Module:"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/sp_class"
+        app:layout_constraintTop_toTopOf="@+id/sp_module" />
+
+    <Spinner
+        android:id="@+id/sp_module"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="9dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/sp_class"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="16dp"
+        android:text="Class:"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvFeedbackStatistic_class"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="89dp"
+        android:text="Feedback Statistics of Class Class 1"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvFeedbackStatistic_module"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="30dp"
+        android:text="Feedback statictis of module Truyền thông và Mạng máy tính"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/pieChart"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChart"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="86dp"
+        android:layout_marginBottom="88dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnShowOverview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvFeedbackStatistic_class" />
+
+    <Button
+        android:id="@+id/btnShowOverview"
+        android:layout_width="0dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="33dp"
+        android:backgroundTint="#F8430A"
+        android:text="Show Overview"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btnShowDetail"
+        app:layout_constraintEnd_toStartOf="@+id/btnShowDetail"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnShowDetail"
+        android:layout_width="145dp"
+        android:layout_height="53dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="157dp"
+        android:backgroundTint="#F8430A"
+        android:text="Show Detail"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
