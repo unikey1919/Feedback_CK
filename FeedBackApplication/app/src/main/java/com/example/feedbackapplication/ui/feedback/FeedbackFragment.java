@@ -40,14 +40,14 @@ public class FeedbackFragment extends Fragment {
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        btnLogin = root.findViewById(R.id.btnLoginHome);
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
+//        btnLogin = root.findViewById(R.id.btnLoginHome);
+//        btnLogin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), LoginActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         ImageButton doFeedback = root.findViewById(R.id.imageButton);
         doFeedback = root.findViewById(R.id.imageButton);
