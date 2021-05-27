@@ -73,4 +73,25 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+    public Bundle getMyData() {
+        //send data to fragment
+        KEY_ROLE = getIntent().getStringExtra("role");
+        Bundle hm = new Bundle();
+        if(KEY_ROLE == null){
+            hm.putString("val1","null");
+            KEY_ROLE = "cant null to equal";
+        }
+        if(KEY_ROLE.equals("admin")){
+            hm.putString("val1","admin");
+        }
+        if(KEY_ROLE.equals("trainer")){
+            hm.putString("val1","trainer");
+        }
+        if(KEY_ROLE.equals("trainee")){
+            hm.putString("val1","trainee");
+        }
+        return hm;
+    }
+
 }
