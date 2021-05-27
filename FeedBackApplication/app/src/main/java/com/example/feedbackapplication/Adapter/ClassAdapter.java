@@ -1,4 +1,4 @@
 package com.example.feedbackapplication.Adapter;
 
-public class Module {
+public class ClassAdapter {
 }

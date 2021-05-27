@@ -23,7 +23,32 @@
     <fragment
         android:id="@+id/nav_module"
         android:name="com.example.feedbackapplication.ui.module.ModuleFragment"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_nav_module_to_nav_add"
+            app:destination="@id/nav_add_module" />
+        <action
+            android:id="@+id/action_nav_module_to_nav_edit"
+            app:destination="@id/nav_edit_module" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_add_module"
+        android:name="com.example.feedbackapplication.ui.module.AddModuleFragment"
+        tools:layout="@layout/fragment_add_module">
+        <action
+            android:id="@+id/action_nav_add_to_nav_module"
+            app:destination="@id/nav_module" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_edit_module"
+        android:name="com.example.feedbackapplication.ui.module.EditModuleFragment"
+        tools:layout="@layout/fragment_edit_module">
+        <action
+            android:id="@+id/action_nav_edit_to_nav_module"
+            app:destination="@id/nav_module" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_enrollment"
@@ -59,5 +84,7 @@
         android:id="@+id/nav_join"
         android:name="com.example.feedbackapplication.ui.join.JoinFragment"
         tools:layout="@layout/join_fragment" />
+
+
 
 </navigation>

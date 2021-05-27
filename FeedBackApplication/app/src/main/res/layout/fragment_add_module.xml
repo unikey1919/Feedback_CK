@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.module.AddModuleFragment">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Add Module List"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/txtModuleName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Module Name"
+        android:textColor="@color/black"
+        android:layout_below="@+id/title"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        app:hintEnabled="false"
+        style="@style/MyDenseOutlined"
+        android:id="@+id/txt_ip_ModuleName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtModuleName"
+        android:layout_marginHorizontal="10dp"
+        app:errorEnabled="true">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_ip_edt_ModuleName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/txtStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Date"
+        android:textColor="@color/black"
+        android:layout_below="@+id/txt_ip_ModuleName"/>
+    <com.google.android.material.textfield.TextInputLayout
+        app:hintEnabled="false"
+        style="@style/MyDenseOutlined"
+        android:id="@+id/txt_ip_Start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_ip_ModuleName"
+        android:inputType="textPassword"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="10dp"
+        app:errorEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_ip_edt_startDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_baseline_calendar_today_24"
+            android:hint="dd/mm/yy"
+             />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/txtEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="End Date"
+        android:textColor="@color/black"
+        android:layout_below="@+id/txt_ip_Start"/>
+    <com.google.android.material.textfield.TextInputLayout
+        app:hintEnabled="false"
+        style="@style/MyDenseOutlined"
+        android:id="@+id/txt_ip_End"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtEnd"
+        android:inputType="textPassword"
+        android:layout_marginHorizontal="10dp"
+        app:errorEnabled="true">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_ip_edt_endDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="dd/mm/yy"
+            android:drawableEnd="@drawable/ic_baseline_calendar_today_24"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/txtAdminID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AdminID"
+        android:textColor="@color/black"
+        android:layout_below="@+id/txt_ip_End"/>
+
+    <TextView
+        android:id="@+id/txtFbTitle"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FeedBack Title"
+        android:textColor="@color/black"
+        android:layout_below="@+id/txt_ip_AdminID"/>
+    <com.google.android.material.textfield.TextInputLayout
+        app:hintEnabled="false"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:id="@+id/txt_ip_FbTitle"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/txtFbTitle"
+        android:inputType="textPassword"
+        android:layout_marginHorizontal="10dp"
+        app:errorEnabled="true">
+        <AutoCompleteTextView
+            android:id="@+id/actFeedBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="Hello" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        app:hintEnabled="false"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:id="@+id/txt_ip_AdminID"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/txtAdminID"
+        android:inputType="textPassword"
+        android:layout_marginHorizontal="10dp"
+        app:errorEnabled="true">
+
+        <AutoCompleteTextView
+            android:id="@+id/actAdminID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/txtFbStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="FeedBack Start Date"
+        android:textColor="@color/black"
+        android:layout_below="@+id/txt_ip_FbTitle"/>
+    <com.google.android.material.textfield.TextInputLayout
+        app:hintEnabled="false"
+        style="@style/MyDenseOutlined"
+        android:id="@+id/txt_ip_FbStart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtFbStart"
+        android:inputType="textPassword"
+        android:layout_marginHorizontal="10dp"
+        app:errorEnabled="true">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="dd/mm/yy"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/txtFbEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FeedBack End Date"
+        android:textColor="@color/black"
+        android:layout_below="@+id/txt_ip_FbStart"/>
+    <com.google.android.material.textfield.TextInputLayout
+        app:hintEnabled="false"
+        style="@style/MyDenseOutlined"
+        android:id="@+id/txt_ip_FbEnd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtFbEnd"
+        android:inputType="textPassword"
+        android:layout_marginHorizontal="10dp"
+        app:errorEnabled="true">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="dd/mm/yy"
+            android:drawableEnd="@drawable/ic_baseline_calendar_today_24"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:layout_below="@id/txt_ip_FbEnd"
+        android:layout_alignParentRight="true"
+        android:backgroundTint="@color/black"/>
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        android:layout_marginRight="10dp"
+        android:layout_below="@id/txt_ip_FbEnd"
+        android:layout_toLeftOf="@+id/btnBack"
+        android:backgroundTint="@color/black"/>
+
+</RelativeLayout>

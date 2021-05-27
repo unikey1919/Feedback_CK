@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+    tools:showIn="navigation_view"
+    tools:context=".ui.join.TraineeDrawer"
+    >
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="single"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".ui.join.TraineeDrawer"
+       >
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_camera"
@@ -20,6 +25,7 @@
             android:id="@+id/nav_join"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_join" />
+
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_menu_slideshow"

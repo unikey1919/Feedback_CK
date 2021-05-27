@@ -1,4 +1,4 @@
 package com.example.feedbackapplication.Adapter;
 
-public class Assignment {
+public class AssignmentAdapter {
 }
