@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/assignment_item"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:textColor="@color/black"
+        android:id="@+id/txtNo"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="No: 1"
+        android:textSize="20sp" />
+
+    <TextView
+        android:textColor="@color/black"
+        android:id="@+id/txtModuleName"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Module Name: Truyền thông và mạng máy tính"
+        android:textSize="20sp"
+        android:layout_below="@id/txtNo"/>
+
+    <TextView
+        android:textColor="@color/black"
+        android:id="@+id/txtClassName"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Class Name: Class 1"
+        android:textSize="20sp"
+        android:layout_below="@id/txtModuleName"/>
+
+    <TextView
+        android:textColor="@color/black"
+        android:id="@+id/txtTrainerName"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Trainer Name: Trainer1"
+        android:textSize="20sp"
+        android:layout_below="@id/txtClassName"/>
+
+    <TextView
+        android:textColor="@color/black"
+        android:id="@+id/txtRegistrationCode"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Registration Code: CL14M14T1602467739"
+        android:textSize="20sp"
+        android:layout_below="@id/txtTrainerName"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnEditClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtModuleName"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="-54dp"
+        android:layout_toRightOf="@id/txtClassName"
+        android:backgroundTint="#28EC30"
+        android:src="@drawable/ic_pencil"
+        app:tint="#F5F8F7" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnDeleteClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtModuleName"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="12dp"
+        android:layout_toRightOf="@id/txtClassName"
+        android:backgroundTint="#EC0923"
+        android:src="@drawable/ic_bin"
+        app:tint="#F5F8F7" />
+
+</RelativeLayout>

@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="50dp"
+    android:padding="10dp"
+    >
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#00C32121"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="TRAINNING Module Feedback"
+
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text12"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="Module: Truyền thông và mạng máy tính"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text3"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="Class: Class12"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="70dp"
+            android:layout_height="88dp"
+            android:layout_marginLeft="300dp"
+            android:layout_marginTop="-80dp"
+            app:srcCompat="@drawable/ic_logouser" />
+
+        <TextView
+            android:id="@+id/name_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="280dp"
+            android:layout_marginTop="-20dp"
+            android:text="Le Ngoc Tu"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="TOPIC/LESSION EVALUATION"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="A. GENERAL COMMENT"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/style_border_edit_text" />
+
+        <TextView
+            android:id="@+id/text6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="B. DETAIL EVALUATION"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+<!--222222222222-->
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/question1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="1. Trainning program and content"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+<!--  Cau hoi -->
+        <TextView
+            android:id="@+id/question1.1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="1.1 The trainning Object"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+        <com.devprovider.customview.ToggleButtonGroupTableLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:id="@+id/radGroup1">
+            <TableRow>
+                <RadioButton android:id="@+id/rad1" android:text="Strongly disagree"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    />
+                <RadioButton android:id="@+id/rad2" android:text="disagree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                     />
+            </TableRow>
+            <TableRow>
+                <RadioButton android:id="@+id/rad3" android:text="undecided"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    />
+                <RadioButton android:id="@+id/rad4" android:text="agree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    />
+            </TableRow>
+            <TableRow>
+                <RadioButton android:id="@+id/rad5" android:text="Strong agree"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    />
+            </TableRow>
+        </com.devprovider.customview.ToggleButtonGroupTableLayout>
+        <TextView
+            android:id="@+id/question1.2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="1.2 The course is useful for my work. (Khóa học có ích cho công việc của tôi)"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+        <com.devprovider.customview.ToggleButtonGroupTableLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:id="@+id/radGroup1.2">
+            <TableRow>
+                <RadioButton android:id="@+id/rad1.2a" android:text="Strongly disagree"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    />
+                <RadioButton android:id="@+id/rad1.2b" android:text="disagree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    />
+            </TableRow>
+            <TableRow>
+                <RadioButton android:id="@+id/rad1.2c" android:text="undecided"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    />
+                <RadioButton android:id="@+id/rad1.2d" android:text="agree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    />
+            </TableRow>
+            <TableRow>
+                <RadioButton android:id="@+id/rad1.2e" android:text="Strong agree"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    />
+            </TableRow>
+        </com.devprovider.customview.ToggleButtonGroupTableLayout>
+
+        <TextView
+            android:id="@+id/question1.3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="1.3 The material attributed were pertiment and helpful (Tài liệu hoc tập bổ ích)"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+        <com.devprovider.customview.ToggleButtonGroupTableLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:id="@+id/radGroup1.3">
+            <TableRow>
+                <RadioButton android:id="@+id/rad1.3a" android:text="Strongly disagree"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    />
+                <RadioButton android:id="@+id/rad1.3b" android:text="disagree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    />
+            </TableRow>
+            <TableRow>
+                <RadioButton android:id="@+id/rad1.3c" android:text="undecided"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    />
+                <RadioButton android:id="@+id/rad1.3d" android:text="agree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    />
+            </TableRow>
+            <TableRow>
+                <RadioButton android:id="@+id/rad1.3e" android:text="Strong agree"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    />
+            </TableRow>
+        </com.devprovider.customview.ToggleButtonGroupTableLayout>
+    </LinearLayout>
+        <!--    Block of Question-->
+<!--     -->
+
+        <!--    Cau hoi so 2 -->
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/question2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="2. Trainer/Coach"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/question2.1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="2.1 How are you"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+            <com.devprovider.customview.ToggleButtonGroupTableLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:id="@+id/radGroup2.1">
+                <TableRow>
+                    <RadioButton android:id="@+id/rad2.1a" android:text="Strongly disagree"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        />
+                    <RadioButton android:id="@+id/rad2.1b" android:text="disagree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        />
+                </TableRow>
+                <TableRow>
+                    <RadioButton android:id="@+id/rad2.1c" android:text="undecided"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        />
+                    <RadioButton android:id="@+id/rad2.1d" android:text="agree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        />
+                </TableRow>
+                <TableRow>
+                    <RadioButton android:id="@+id/rad2.1e" android:text="Strong agree"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        />
+                </TableRow>
+            </com.devprovider.customview.ToggleButtonGroupTableLayout>
+        </LinearLayout>
+        <!--    Cau hoi so 3-->
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/question3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="3. Crouse organization"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/question3.1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="3.1 Lorem oke, màu chắc tui up hình lên mạng mới dùng extention lấy màu đc, file pdf k lấy màu đcĐăng ThắngĐăng  màu đcĐăng ThắngĐăng Thắng sent M màu đcĐăng ThắngĐăng Thắng sent M Thắng sent May 24 at 5:12 PMMọi ng nhớ ở đúng nhánh, làm xong nói t, t merge"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+            <com.devprovider.customview.ToggleButtonGroupTableLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:id="@+id/radGroup3.1">
+                <TableRow>
+                    <RadioButton android:id="@+id/rad3.1a" android:text="Strongly disagree"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        />
+                    <RadioButton android:id="@+id/rad3.1b" android:text="disagree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        />
+                </TableRow>
+                <TableRow>
+                    <RadioButton android:id="@+id/rad3.1c" android:text="undecided"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        />
+                    <RadioButton android:id="@+id/rad3.1d" android:text="agree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        />
+                </TableRow>
+                <TableRow>
+                    <RadioButton android:id="@+id/rad3.1e" android:text="Strong agree"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        />
+                </TableRow>
+            </com.devprovider.customview.ToggleButtonGroupTableLayout>
+        </LinearLayout>
+
+        <!--    Cau hoi so 4 -->
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/question4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="4. Other"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/question4.1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="4.1 How are you How are you How are you How are you How are you"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <com.devprovider.customview.ToggleButtonGroupTableLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:id="@+id/radGroup4.1">
+                <TableRow>
+                    <RadioButton android:id="@+id/rad4.1a" android:text="Strongly disagree"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        />
+                    <RadioButton android:id="@+id/rad4.1b" android:text="disagree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        />
+                </TableRow>
+                <TableRow>
+                    <RadioButton android:id="@+id/rad4.1c" android:text="undecided"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        />
+                    <RadioButton android:id="@+id/rad4.1d" android:text="agree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        />
+                </TableRow>
+                <TableRow>
+                    <RadioButton android:id="@+id/rad4.1e" android:text="Strong agree"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        />
+                </TableRow>
+            </com.devprovider.customview.ToggleButtonGroupTableLayout>
+        </LinearLayout>
+
+        <Button
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="120dp"
+            android:background="#4772ff"
+            android:gravity="center"
+            android:text="SUBMIT" />
+    </LinearLayout>
+</ScrollView>

@@ -20,16 +20,7 @@ public class ClassFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        classViewModel =
-                new ViewModelProvider(this).get(ClassViewModel.class);
         View root = inflater.inflate(R.layout.class_fragment, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
-        classViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
         return root;
     }
 }
