@@ -14,19 +14,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.feedbackapplication.Adapter.ModuleAdapter;
 import com.example.feedbackapplication.LoginActivity;
 import com.example.feedbackapplication.R;
 import com.example.feedbackapplication.model.Module;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class ModuleFragment extends Fragment {
+public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListener {
 
     private ModuleViewModel myViewModel;
     private ModuleAdapter adapter;
@@ -50,7 +53,7 @@ public class ModuleFragment extends Fragment {
                 new FirebaseRecyclerOptions.Builder<Module>()
                         .setQuery(database, Module.class)
                         .build();
-        adapter = new ModuleAdapter(options);
+        adapter = new ModuleAdapter(options,this);
         rcvModule.setAdapter(adapter);
 
         //Save data
@@ -74,5 +77,30 @@ public class ModuleFragment extends Fragment {
     public void onStop() {
         super.onStop();
         adapter.startListening();
+    }
+
+    @Override
+    public void updateClicked(Module module) {
+        Bundle bundle = new Bundle();
+        bundle.putString("name",module.getModuleName());
+        bundle.putString("adminID",module.getAdminID());
+        bundle.putInt("id",module.getModuleID());
+        Navigation.findNavController(getView()).navigate(R.id.action_nav_module_to_nav_edit,bundle);
+    }
+
+    @Override
+    public void deleteClicked(Module module) {
+        String key = String.valueOf(module.getModuleID());
+        FirebaseDatabase.getInstance().getReference()
+                .child("Module")
+                .child(key)
+                .setValue(null)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(getActivity(),"Update successfully" ,Toast.LENGTH_SHORT).show();
+                    }
+                });
+
     }
 }

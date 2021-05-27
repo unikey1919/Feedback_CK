@@ -1,26 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
-    android:orientation="vertical"
-    android:id="@+id/item_module"
+    android:background="#00C32121"
+    android:orientation="horizontal"
     android:layout_marginBottom="10dp">
 
-    <TextView
-        android:id="@+id/txtModuleID"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:textSize="16sp" />
-    <TextView
-        android:id="@+id/txtModuleName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16sp" />
-    <TextView
-        android:id="@+id/txtAdminID"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16sp" />
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/style_feedback_item"
+        android:orientation="vertical"
+        android:paddingLeft="10dp">
+        <TextView
+            android:id="@+id/txtModuleID"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/txtModuleName"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/txtAdminID"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/txtStartDate"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/txtEndDate"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/txtFeedBack"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/txtFbStart"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/txtFbEnd"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </LinearLayout>
+    <ImageButton
+        android:id="@+id/btnEditModule"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="-30dp"
+        android:layout_marginTop="60dp"
+
+        android:adjustViewBounds="true"
+        android:background="#00FFFFFF"
+
+        android:maxWidth="80dp"
+        android:maxHeight="80dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/ic_feedbackitem_1" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnDeleteModule"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="-60dp"
+        android:layout_marginTop="130dp"
+        android:backgroundTint="#EC0923"
+        android:src="@drawable/ic_bin"
+        app:tint="#F5F8F7" />
+
+
 
 </LinearLayout>

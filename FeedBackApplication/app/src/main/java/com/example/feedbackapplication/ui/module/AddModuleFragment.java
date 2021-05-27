@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.feedbackapplication.R;
 import com.example.feedbackapplication.model.Module;
@@ -40,8 +41,8 @@ public class AddModuleFragment extends Fragment {
     private ArrayAdapter<String> adapter;
     private AutoCompleteTextView adminID;
     private TextInputEditText moduleName, moduleID;
+    private Module module;
     private int maxID = 0;
-
 
     @Nullable
     @Override
@@ -64,8 +65,6 @@ public class AddModuleFragment extends Fragment {
                     for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                         maxID = Integer.parseInt(dataSnapshot.getKey());
                     }
-
-
                 }else {
 
                 }
@@ -89,6 +88,7 @@ public class AddModuleFragment extends Fragment {
                 Module module = new Module(moduleID,adminId,name);
 
                 reference.child(String.valueOf(moduleID)).setValue(module);
+                Toast.makeText(v.getContext(),"Add successfully" ,Toast.LENGTH_SHORT).show();
             }
         });
 

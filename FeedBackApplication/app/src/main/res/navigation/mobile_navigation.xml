@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_nav_module_to_nav_add"
             app:destination="@id/nav_add_module" />
+        <action
+            android:id="@+id/action_nav_module_to_nav_edit"
+            app:destination="@id/nav_edit_module" />
     </fragment>
 
     <fragment
@@ -35,6 +38,15 @@
         tools:layout="@layout/fragment_add_module">
         <action
             android:id="@+id/action_nav_add_to_nav_module"
+            app:destination="@id/nav_module" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_edit_module"
+        android:name="com.example.feedbackapplication.ui.module.EditModuleFragment"
+        tools:layout="@layout/fragment_edit_module">
+        <action
+            android:id="@+id/action_nav_edit_to_nav_module"
             app:destination="@id/nav_module" />
     </fragment>
 
