@@ -17,15 +17,21 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.feedbackapplication.Adapter.ModuleAdapter;
+import com.example.feedbackapplication.Adapter.ModuleRoleAdapter;
 import com.example.feedbackapplication.LoginActivity;
+import com.example.feedbackapplication.MainActivity;
 import com.example.feedbackapplication.R;
 import com.example.feedbackapplication.model.Module;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -33,28 +39,76 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
 
     private ModuleViewModel myViewModel;
     private ModuleAdapter adapter;
+    private ModuleRoleAdapter roleAdapter;
     private RecyclerView rcvModule;
-    private DatabaseReference database;
+    private DatabaseReference database, refAssignment;
     private ArrayList<Module> arrayList;
     private FloatingActionButton btnInsert;
     private FirebaseRecyclerOptions<Module> options;
+    static String role;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.module_fragment, container, false);
 
+        getDataFromDB();
+
         database = FirebaseDatabase.getInstance().getReference().child("Module");
         rcvModule = root.findViewById(R.id.rcvModule);
         rcvModule.setHasFixedSize(true);
         rcvModule.setLayoutManager(new LinearLayoutManager(root.getContext()));
+
         //Retrieve data
-        FirebaseRecyclerOptions<Module> options =
-                new FirebaseRecyclerOptions.Builder<Module>()
-                        .setQuery(database, Module.class)
-                        .build();
-        adapter = new ModuleAdapter(options,this);
-        rcvModule.setAdapter(adapter);
+        if(role.equals("admin"))
+        {
+            FirebaseRecyclerOptions<Module> options =
+                    new FirebaseRecyclerOptions.Builder<Module>()
+                            .setQuery(database, Module.class)
+                            .build();
+            adapter = new ModuleAdapter(options,this);
+            rcvModule.setAdapter(adapter);
+        }
+        //Retrieve data when trainer log
+        if(role.equals("trainer"))
+        {
+            refAssignment = FirebaseDatabase.getInstance().getReference().child("Assignment");
+            Query queryAsg = refAssignment.orderByChild("TrainerID").equalTo("trainer");
+            arrayList = new ArrayList<>();
+            roleAdapter = new ModuleRoleAdapter(getContext(),arrayList);
+            rcvModule.setAdapter(roleAdapter);
+            queryAsg.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot dataSnapshot : snapshot.getChildren())
+                    {
+                        String moduleID = dataSnapshot.child("ModuleID").getValue().toString();
+                        Query queryModule = database.child(moduleID);
+                        queryModule.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                Module module = snapshot.getValue(Module.class);
+                                arrayList.add(module);
+                                roleAdapter.notifyDataSetChanged();
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+
+                        });
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+            rcvModule.setAdapter(roleAdapter);
+        }
+
+
+
 
         //Save data
         btnInsert = root.findViewById(R.id.btnNew);
@@ -70,7 +124,10 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
     @Override
     public void onStart() {
         super.onStart();
-        adapter.startListening();
+        if(role.equals("admin")){
+            adapter.startListening();
+        }
+
     }
 
     @Override
@@ -102,5 +159,12 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
                     }
                 });
 
+    }
+
+    public void getDataFromDB(){
+        MainActivity activity = (MainActivity) getActivity();
+        Bundle results = activity.getMyData();
+        role = results.getString("val1");
+        String a = role;
     }
 }
