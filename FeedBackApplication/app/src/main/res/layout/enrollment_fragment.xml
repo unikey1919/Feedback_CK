@@ -17,7 +17,7 @@
         android:layout_marginStart="50dp"
         android:gravity="center_horizontal"
         android:textStyle="bold"/>
-    
+
     <TextView
         android:id="@+id/txt2"
         android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
         app:tint="#ffffff" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcvModule"
+        android:id="@+id/rcvEnrollment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/txt2"

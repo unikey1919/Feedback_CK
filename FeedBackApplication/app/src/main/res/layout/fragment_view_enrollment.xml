@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.enrollment.ViewEnrollmentFragment">
+
+    <RelativeLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:id="@+id/enrollment_view_trainee_item">
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/titleTraineeInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trainee's Info"
+            android:textSize="30sp"/>
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/txtTraineeID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trainee ID: tr2"
+            android:textSize="20sp"
+            android:layout_below="@id/titleTraineeInfo"/>
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/txtTraineePhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone: Phone 2"
+            android:textSize="20sp"
+            android:layout_below="@id/txtTraineeID"/>
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/txtTraineeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trainee Name: Name 2"
+            android:textSize="20sp"
+            android:layout_below="@id/txtTraineePhone"/>
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/txtAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address: Address2"
+            android:textSize="20sp"
+            android:layout_below="@id/txtTraineeName"/>
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/txtEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email: Email 2"
+            android:textSize="20sp"
+            android:layout_below="@id/txtAddress"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/enrollment_view_class_item"
+        android:layout_below="@+id/enrollment_view_trainee_item"
+        android:layout_marginTop="50dp">
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/titleClassInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Class's Info"
+            android:textSize="30sp"/>
+
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/txtClassID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Class ID: 1"
+            android:textSize="20sp"
+            android:layout_below="@id/titleClassInfo"/>
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/txtStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="StartTime: 2/2/20"
+            android:textSize="20sp"
+            android:layout_below="@id/txtClassID"/>
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/txtClassName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Class Name: 1"
+            android:textSize="20sp"
+            android:layout_below="@id/txtStart"/>
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/txtEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="End Time: 20/9/20"
+            android:textSize="20sp"
+            android:layout_below="@id/txtClassName"/>
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/txtCapacity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Capacity: 50"
+            android:textSize="20sp"
+            android:layout_below="@id/txtEnd"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:layout_below="@id/enrollment_view_class_item"
+        android:layout_alignParentRight="true"
+        android:backgroundTint="@color/red"/>
+
+</RelativeLayout>
