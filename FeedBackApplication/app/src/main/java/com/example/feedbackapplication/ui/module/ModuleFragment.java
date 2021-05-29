@@ -41,11 +41,11 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
     private ModuleAdapter adapter;
     private ModuleRoleAdapter roleAdapter;
     private RecyclerView rcvModule;
-    private DatabaseReference database, refAssignment;
+    private DatabaseReference database, refAssignment,refEnroll;
     private ArrayList<Module> arrayList;
     private FloatingActionButton btnInsert;
     private FirebaseRecyclerOptions<Module> options;
-    static String role;
+    static String role, userName;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -72,42 +72,15 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
         //Retrieve data when trainer log
         if(role.equals("trainer"))
         {
-            refAssignment = FirebaseDatabase.getInstance().getReference().child("Assignment");
-            Query queryAsg = refAssignment.orderByChild("TrainerID").equalTo("trainer");
-            arrayList = new ArrayList<>();
-            roleAdapter = new ModuleRoleAdapter(getContext(),arrayList);
-            rcvModule.setAdapter(roleAdapter);
-            queryAsg.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for(DataSnapshot dataSnapshot : snapshot.getChildren())
-                    {
-                        String moduleID = dataSnapshot.child("ModuleID").getValue().toString();
-                        Query queryModule = database.child(moduleID);
-                        queryModule.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                Module module = snapshot.getValue(Module.class);
-                                arrayList.add(module);
-                                roleAdapter.notifyDataSetChanged();
-                            }
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-
-                        });
-                    }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
+            retrieveTrainer();
             rcvModule.setAdapter(roleAdapter);
         }
-
-
+        //Retrieve data when trainee log
+        if(role.equals("trainee"))
+        {
+            retrieveTrainee();
+            rcvModule.setAdapter(roleAdapter);
+        }
 
 
         //Save data
@@ -165,6 +138,92 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
         MainActivity activity = (MainActivity) getActivity();
         Bundle results = activity.getMyData();
         role = results.getString("val1");
-        String a = role;
+        userName = results.getString("userName");
     }
+
+    public void retrieveTrainer(){
+        refAssignment = FirebaseDatabase.getInstance().getReference().child("Assignment");
+        Query queryAsg = refAssignment.orderByChild("TrainerID").equalTo(userName);
+        arrayList = new ArrayList<>();
+        roleAdapter = new ModuleRoleAdapter(getContext(),arrayList);
+        rcvModule.setAdapter(roleAdapter);
+        queryAsg.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
+                    String moduleID = dataSnapshot.child("ModuleID").getValue().toString();
+                    Query queryModule = database.child(moduleID);
+                    queryModule.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            Module module = snapshot.getValue(Module.class);
+                            arrayList.add(module);
+                            roleAdapter.notifyDataSetChanged();
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    public void retrieveTrainee(){
+        refEnroll = FirebaseDatabase.getInstance().getReference().child("Enroll");
+        refAssignment = FirebaseDatabase.getInstance().getReference().child("Assignment");
+        Query queryEnroll = refEnroll.orderByChild("trainee").equalTo(userName);
+        arrayList = new ArrayList<>();
+        roleAdapter = new ModuleRoleAdapter(getContext(),arrayList);
+        rcvModule.setAdapter(roleAdapter);
+        queryEnroll.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    int classID = dataSnapshot.child("classId").getValue(Integer.class);
+                    Query queryAsg = refAssignment.orderByChild("ClassID").equalTo(classID);
+                    queryAsg.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                                String moduleID = dataSnapshot.child("ModuleID").getValue().toString();
+                                Query queryModule = database.child(moduleID);
+                                queryModule.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        Module module = snapshot.getValue(Module.class);
+                                        arrayList.add(module);
+                                        roleAdapter.notifyDataSetChanged();
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
 }
