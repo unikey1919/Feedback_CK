@@ -10,14 +10,13 @@
         android:id="@+id/text_classlist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
         android:layout_marginTop="20dp"
         android:text="Class List"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="47sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.387"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,26 +24,20 @@
         android:id="@+id/btnNewClass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="33dp"
         android:backgroundTint="#3562E8"
         android:src="@drawable/ic_baseline_add_24"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.929"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023"
         app:tint="#F5F8F7" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_class"
-        android:layout_width="0dp"
-        android:layout_height="637dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/rcvClass"
+        android:layout_width="match_parent"
+        android:layout_height="728dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_classlist"
-        app:layout_constraintVertical_bias="0.492" />
+        app:layout_constraintTop_toBottomOf="@+id/text_classlist" />
 </androidx.constraintlayout.widget.ConstraintLayout>

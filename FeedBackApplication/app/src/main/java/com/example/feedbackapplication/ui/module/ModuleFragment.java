@@ -1,12 +1,9 @@
 package com.example.feedbackapplication.ui.module;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.feedbackapplication.Adapter.ModuleAdapter;
-import com.example.feedbackapplication.LoginActivity;
 import com.example.feedbackapplication.R;
 import com.example.feedbackapplication.model.Module;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
