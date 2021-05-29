@@ -1,5 +1,6 @@
 package com.example.feedbackapplication.ui.module;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,11 +13,13 @@ import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.example.feedbackapplication.R;
@@ -31,7 +34,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class AddModuleFragment extends Fragment {
     private Button btnBack,btnAdd;
@@ -40,14 +45,22 @@ public class AddModuleFragment extends Fragment {
     private ArrayList<String> list;
     private ArrayAdapter<String> adapter;
     private AutoCompleteTextView adminID;
-    private TextInputEditText moduleName, moduleID;
-    private Module module;
+    private TextInputEditText moduleName, startDate, endDate, feedbackStartDate, feedbackEndDate;
     private int maxID = 0;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_module, container, false);
+        //init
+        startDate = view.findViewById(R.id.txt_ip_edt_startDate);
+        endDate = view.findViewById(R.id.txt_ip_edt_endDate);
+        feedbackEndDate = view.findViewById(R.id.txt_ip_edt_FbEnd);
+        feedbackStartDate = view.findViewById(R.id.txt_ip_edt_FbStart);
+        showStartDate(startDate);
+        showStartDate(endDate);
+        showStartDate(feedbackEndDate);
+        showStartDate(feedbackStartDate);
 
         //Take data to dropdown adminID
         adminID = view.findViewById(R.id.actAdminID);
@@ -85,7 +98,13 @@ public class AddModuleFragment extends Fragment {
                 String name = moduleName.getText().toString().trim();
                 String adminId = adminID.getText().toString().trim();
                 int moduleID = maxID + 1;
-                Module module = new Module(moduleID,adminId,name);
+                String start = startDate.getText().toString().trim();
+                String end = endDate.getText().toString().trim();
+                String fbTitle = startDate.getText().toString().trim();
+                String fbStart = feedbackStartDate.getText().toString().trim();
+                String fbEnd = feedbackEndDate.getText().toString().trim();
+
+                Module module = new Module(moduleID,adminId,name,start,end,fbTitle,fbStart,fbEnd);
 
                 reference.child(String.valueOf(moduleID)).setValue(module);
                 Toast.makeText(v.getContext(),"Add successfully" ,Toast.LENGTH_SHORT).show();
@@ -121,5 +140,38 @@ public class AddModuleFragment extends Fragment {
 
            }
        });
+    }
+
+    public void showStartDate(final TextInputEditText date ){
+
+        date.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (startDate.getRight() - startDate.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        // your action here
+                        final Calendar calendar = Calendar.getInstance();
+                        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                calendar.set(Calendar.YEAR,year);
+                                calendar.set(Calendar.MONTH,month);
+                                calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(" MM/dd/yyyy");
+                                date.setText(simpleDateFormat.format(calendar.getTime()));
+
+                            }
+                        };
+                        new DatePickerDialog(getActivity(),dateSetListener,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show();
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
     }
 }

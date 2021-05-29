@@ -106,7 +106,9 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
     @Override
     public void onStop() {
         super.onStop();
-        adapter.startListening();
+        if(role.equals("admin")){
+            adapter.startListening();
+        }
     }
 
     @Override
