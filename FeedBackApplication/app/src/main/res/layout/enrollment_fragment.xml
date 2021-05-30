@@ -30,9 +30,9 @@
     <com.google.android.material.textfield.TextInputLayout
         app:hintEnabled="false"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:id="@+id/txt_ip_AdminID"
+        android:id="@+id/txt_ip_ClassName"
         android:layout_width="280dp"
-        android:layout_height="30dp"
+        android:layout_height="35dp"
         android:layout_marginTop="7dp"
         android:layout_below="@id/txt1"
         android:inputType="textPassword"
@@ -41,7 +41,7 @@
         android:layout_toRightOf="@+id/txt2">
 
         <AutoCompleteTextView
-            android:id="@+id/actAdminID"
+            android:id="@+id/actClassName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="8dp"

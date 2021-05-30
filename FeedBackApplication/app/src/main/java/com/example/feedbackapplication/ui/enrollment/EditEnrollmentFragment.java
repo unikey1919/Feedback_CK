@@ -42,23 +42,27 @@ public class EditEnrollmentFragment extends Fragment {
     private String traineed_Name;
     private int class_ID;
     private String class_Name;
+    private String key_gi_do;
+    private int newClassId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edit_enrollment, container, false);
 
-        //reference = FirebaseDatabase.getInstance().getReference().child("Enroll");
-        database = FirebaseDatabase.getInstance().getReference();
+        //reference = FirebaseDatabase.getInstance().getReference().child("Enrollment");
 
         traineeID = view.findViewById(R.id.txt_ip_edt_TraineeID);
         traineeName = view.findViewById(R.id.txt_ip_edt_TraineeName);
         className = view.findViewById(R.id.actClassName);
 
-        trainee_ID = getArguments().getString("traineeID");
-        class_ID = Integer.parseInt(getArguments().getString("classID"));
-        traineed_Name = fetchTraineeName(trainee_ID);
-        class_Name = fetchClassName(class_ID);
+        trainee_ID = getArguments().getString("TraineeID");
+        class_ID = getArguments().getInt("ClassID");
+        //traineed_Name = fetchTraineeName(trainee_ID);
+        traineed_Name = trainee_ID;
+        //class_Name = fetchClassName(class_ID);
+        class_Name = String.valueOf(class_ID);
+
 
         traineeID.setText(trainee_ID);
         traineeName.setText(traineed_Name);
@@ -69,15 +73,20 @@ public class EditEnrollmentFragment extends Fragment {
         adapter = new ArrayAdapter<>(getActivity(), R.layout.option_item,list);
         className.setAdapter(adapter);
         fetchClassNameList();
+        //newClassId =FireBaseHelper.fetchClassID(className.getText().toString().trim());
+        newClassId =7;
+        //key_gi_do = FireBaseHelper.fetchEnrollmentKey(class_ID,trainee_ID);
+        key_gi_do = "2";
 
         //update
         Button btnSave = view.findViewById(R.id.btnSave);
         btnSave.setOnClickListener(v -> {
-            String key = fetchEnrollmentKey(class_ID,trainee_ID);
+            //String key = fetchEnrollmentKey(class_ID,trainee_ID);
+            String key = key_gi_do;
             Map<String,Object> map = new HashMap<>();
-            int newClassId = fetchClassID(className.getText().toString().trim());
-            map.put("classId",newClassId);
-            map.put("trainee",trainee_ID);
+            //int newClassId = fetchClassID(className.getText().toString().trim());
+            map.put("ClassID",newClassId);
+            map.put("TraineeID",trainee_ID);
 
             FirebaseDatabase.getInstance().getReference()
                     .child("Enrollment")
@@ -93,33 +102,9 @@ public class EditEnrollmentFragment extends Fragment {
         return view;
     }
 
-    public String fetchTraineeName(String trainee_ID){
-        String trainee_key = database.child("Trainee").orderByChild("UserName").equalTo(trainee_ID).toString();
-        String trainee_name = database.child("Trainee").child(trainee_key).child("Name").toString();
-        return trainee_name;
-    }
-
-    public String fetchClassName(int class_ID){
-        String class_key = database.child("Class").orderByChild("ClassID").equalTo(class_ID).toString();
-        String class_name = database.child("Class").child(class_key).child("ClassName").toString();
-        return class_name;
-    }
-
-    public int fetchClassID(String class_name){
-        String class_key = database.child("Class").orderByChild("ClassName").equalTo(class_name).toString();
-        int class_id = Integer.parseInt(database.child("Class").child(class_key).child("ClassID").toString());
-        return class_id;
-    }
-
-    public String fetchEnrollmentKey(int class_ID, String trainee_ID){
-        String enrollment_key = database.child("Enroll")
-                .orderByChild("classId").equalTo(class_ID)
-                .orderByChild("trainee").equalTo(trainee_ID).toString();
-        return enrollment_key;
-    }
 
     public void fetchClassNameList(){
-        listener = database.child("Class").addValueEventListener(new ValueEventListener() {
+        listener = FirebaseDatabase.getInstance().getReference("Class").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){

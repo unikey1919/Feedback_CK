@@ -25,16 +25,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class AddEnrollmentFragment extends Fragment {
-    private DatabaseReference database,reference;
-    private ValueEventListener listener;
     private ArrayList<String> list;
-    private ArrayAdapter<String> adapter;
+    private ArrayAdapter<String> adapterClassID;
     private AutoCompleteTextView classID;
     private TextInputEditText traineeID;
-    private Module module;
-    private int maxID = 0;
+    private String inspirationalKey = "where_is_my_key";
 
 
     @Nullable
@@ -42,75 +40,53 @@ public class AddEnrollmentFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_enrollment, container, false);
 
-        //Take data to dropdown classID
+        //views
         classID = view.findViewById(R.id.actClassID);
-        database = FirebaseDatabase.getInstance().getReference("Class");
+        traineeID = view.findViewById(R.id.txt_ip_edt_TraineeID);
+
+        //Take data to dropdown classID
         list = new ArrayList<String>();
-        adapter = new ArrayAdapter<>(getActivity(), R.layout.option_item,list);
-        classID.setAdapter(adapter);
-
-        //database enrollment
-        reference = FirebaseDatabase.getInstance().getReference().child("Enrollment");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                        maxID = Integer.parseInt(dataSnapshot.getKey());
-                    }
-                }else {
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        adapterClassID = new ArrayAdapter<>(getActivity(), R.layout.option_item,list);
+        classID.setAdapter(adapterClassID);
 
         //Insert Data
-        traineeID = view.findViewById(R.id.txt_ip_edt_TraineeID);
         Button btnAdd = view.findViewById(R.id.btnAdd);
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String trainee_ID = traineeID.getText().toString().trim();
-                int class_ID = Integer.parseInt(classID.getText().toString().trim());
-                Enrollment enrollment = new Enrollment(class_ID,trainee_ID);
-
-                reference.child(String.valueOf(maxID + 1)).setValue(enrollment);
-                Toast.makeText(v.getContext(),"Add successfully" ,Toast.LENGTH_SHORT).show();
-            }
+        btnAdd.setOnClickListener(v -> {
+            String trainee_ID = Objects.requireNonNull(traineeID.getText()).toString().trim();
+            int class_ID = Integer.parseInt(classID.getText().toString().trim());
+            Enrollment enrollment = new Enrollment(class_ID,trainee_ID);
+            inspirationalKey = FirebaseDatabase.getInstance().getReference("Enrollment").push().getKey();
+            FirebaseDatabase.getInstance().getReference("Enrollment").child(inspirationalKey).setValue(enrollment);
+            Toast.makeText(v.getContext(),"Add successfully" ,Toast.LENGTH_SHORT).show();
         });
 
         //Back
         Button btnBack = view.findViewById(R.id.btnBack);
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_nav_add_to_nav_enrollment);
-            }
-        });
+        btnBack.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_nav_add_to_nav_enrollment));
 
         fetchData();
         return view;
     }
 
     public void fetchData(){
-        listener = database.addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("Class").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    list.add(dataSnapshot.getKey());
+                    if(dataSnapshot!=null) {
+                        Enrollment enrollment = dataSnapshot.getValue(Enrollment.class);
+                        String temp;
+                        if(enrollment!=null) {
+                            temp = String.valueOf(enrollment.getClassID());
+                            list.add(temp);
+                        }
+                    }
                 }
-                adapter.notifyDataSetChanged();
-                classID.setText(adapter.getItem(0),false);
+                adapterClassID.notifyDataSetChanged();
+                classID.setText(adapterClassID.getItem(0),false);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }

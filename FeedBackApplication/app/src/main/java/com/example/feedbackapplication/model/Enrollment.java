@@ -1,31 +1,35 @@
 package com.example.feedbackapplication.model;
 
-public class Enrollment {
-    private int classId;
-    private String trainee;
+import com.google.firebase.database.IgnoreExtraProperties;
 
+@IgnoreExtraProperties
+public class Enrollment {
+    private int ClassID;
+    private String TraineeID;
 
     public Enrollment() {
+
     }
 
-    public Enrollment(int classId, String trainee) {
-        this.classId = classId;
-        this.trainee = trainee;
+    public Enrollment(int classID, String traineeID) {
+        this.ClassID = classID;
+        this.TraineeID = traineeID;
     }
 
-    public String getTrainee() {
-        return trainee;
+
+    public int getClassID() {
+        return ClassID;
     }
 
-    public void setTrainee(String trainee) {
-        this.trainee = trainee;
+    public void setClassID(int classID) {
+        this.ClassID = classID;
     }
 
-    public int getClassId() {
-        return classId;
+    public String getTraineeID() {
+        return TraineeID;
     }
 
-    public void setClassId(int classId) {
-        this.classId = classId;
+    public void setTraineeID(String traineeID) {
+        this.TraineeID = traineeID;
     }
 }
