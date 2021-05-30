@@ -37,7 +37,6 @@ import java.util.ArrayList;
 
 public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListener {
 
-    private ModuleViewModel myViewModel;
     private ModuleAdapter adapter;
     private ModuleRoleAdapter roleAdapter;
     private RecyclerView rcvModule;
@@ -145,7 +144,7 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
         MainActivity activity = (MainActivity) getActivity();
         Bundle results = activity.getMyData();
         role = results.getString("val1");
-        userName = results.getString("userName");
+        userName = results.getString("username");
     }
 
     public void retrieveTrainer(){
