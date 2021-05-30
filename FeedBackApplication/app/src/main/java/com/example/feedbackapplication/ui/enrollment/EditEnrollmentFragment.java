@@ -1,5 +1,6 @@
 package com.example.feedbackapplication.ui.enrollment;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,15 +46,13 @@ public class EditEnrollmentFragment extends Fragment {
     private String class_Name;
     private String enrollment_key;
     private String key_gi_do;
-    private int newClassId;
+    private int newClassId=-1;
+    private int flag=0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edit_enrollment, container, false);
-
-        //reference = FirebaseDatabase.getInstance().getReference().child("Enrollment");
-
         //views
         traineeID = view.findViewById(R.id.txt_ip_edt_TraineeID);
         traineeName = view.findViewById(R.id.txt_ip_edt_TraineeName);
@@ -66,6 +65,7 @@ public class EditEnrollmentFragment extends Fragment {
         class_Name = getArguments().getString("ClassName");
         enrollment_key = getArguments().getString("EnrollmentKey");
 
+        //set texts
         traineeID.setText(trainee_ID);
         traineeName.setText(trainee_Name);
         className.setText(class_Name);
@@ -78,22 +78,13 @@ public class EditEnrollmentFragment extends Fragment {
         //update
         Button btnSave = view.findViewById(R.id.btnSave);
         btnSave.setOnClickListener(v -> {
-            fetchClassID(className.getText().toString().trim());
-            Map<String, Object> map = new HashMap<>();
-            //int newClassId = fetchClassID(className.getText().toString().trim());
-            map.put("classID", newClassId);
-            map.put("traineeID", trainee_ID);
-            FirebaseDatabase.getInstance().getReference()
-                    .child("Enrollment")
-                    .child(enrollment_key)
-                    .updateChildren(map);
-            Toast.makeText(v.getContext(), "Update successfully", Toast.LENGTH_SHORT).show();
+            btnSaveEXE();
         });
 
         //back
         Button btnBack = view.findViewById(R.id.btnBack);
         btnBack.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_nav_edit_to_nav_enrollment));
-        fetchClassNameList();
+        fetchClassNameList(); //
         return view;
     }
 
@@ -107,7 +98,45 @@ public class EditEnrollmentFragment extends Fragment {
                         list.add(temp);
                 }
                 adapterClassName.notifyDataSetChanged();
-                className.setText(adapterClassName.getItem(0), false);
+                Toast.makeText(getActivity(), "ahoy", Toast.LENGTH_LONG).show(); //chi chay 1 lan khi frag create
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+    private void btnSaveEXE(){
+        String new_class_Name = className.getText().toString().trim();
+        //query id cua new_class_Name
+        FirebaseDatabase.getInstance().getReference("Class")
+        .orderByChild("className").equalTo(new_class_Name).limitToFirst(1)
+        .addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        if (dataSnapshot != null) {
+                            newClassId = Integer.parseInt(String.valueOf(dataSnapshot.child("classID").getValue(Integer.class)));
+                            Map<String, Object> map = new HashMap<>();
+                            if(new_class_Name.equals(class_Name)){
+                                alreadyExistDialog();
+                            }else{
+                                map.put("classID", newClassId);
+                                map.put("traineeID", trainee_ID);
+                                FirebaseDatabase.getInstance().getReference()
+                                        .child("Enrollment")
+                                        .child(enrollment_key)
+                                        .updateChildren(map);
+                                Toast.makeText(getContext(), "Update successfully", Toast.LENGTH_SHORT).show();
+                                updateSuccessDialog();
+                            }
+                        }
+                    }
+                }
+                else {
+                    updateFailDialog();
+                }
             }
 
             @Override
@@ -116,24 +145,40 @@ public class EditEnrollmentFragment extends Fragment {
         });
     }
 
-    public void fetchClassID(String class_name) {
-        FirebaseDatabase.getInstance().getReference("Class")
-                .orderByChild("className").equalTo(class_name).limitToFirst(1)
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()) {
-                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                if (dataSnapshot != null) {
-                                    newClassId = Integer.parseInt(dataSnapshot.child("classID").getValue(Integer.class).toString());
-                                }
-                            }
-                        }
-                    }
+    private void alreadyExistDialog() {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.trainee_already_exists_in_the_class_dialog);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+        Button btnOK = dialog.findViewById(R.id.btnUpdateFail);
+        btnOK.setOnClickListener(v -> {
+            dialog.dismiss(); //already exists thi o lai edit ti3p
+        });
+        dialog.show();
+    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-                });
+    private void updateSuccessDialog() {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.update_success_dialog);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+        Button btnOK = dialog.findViewById(R.id.btnUpdateSuccess);
+        btnOK.setOnClickListener(v -> {
+            dialog.dismiss();
+            Navigation.findNavController(v).navigate(R.id.action_nav_edit_to_nav_enrollment);
+        });
+        dialog.show();
+    }
+
+    private void updateFailDialog() {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.update_fail_dialog);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+        Button btnOK = dialog.findViewById(R.id.btnUpdateFail);
+        btnOK.setOnClickListener(v -> {
+            dialog.dismiss(); //already exists thi o lai edit ti3p
+        });
+        dialog.show();
     }
 }
