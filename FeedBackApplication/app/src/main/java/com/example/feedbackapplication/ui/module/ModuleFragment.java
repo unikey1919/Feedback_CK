@@ -37,7 +37,6 @@ import java.util.ArrayList;
 
 public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListener {
 
-    private ModuleViewModel myViewModel;
     private ModuleAdapter adapter;
     private ModuleRoleAdapter roleAdapter;
     private RecyclerView rcvModule;
