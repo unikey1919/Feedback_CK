@@ -6,10 +6,18 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
 
+import com.example.feedbackapplication.model.Module;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -17,6 +25,8 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,11 +37,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        
         //get role for each user
         try {
             KEY_ROLE = getIntent().getStringExtra("role");
-            String username = getIntent().getStringExtra("username");
             if (KEY_ROLE.equals("admin")) {
                 setContentView(R.layout.admin_layout);
             }
@@ -76,8 +85,10 @@ public class MainActivity extends AppCompatActivity {
 
     public Bundle getMyData() {
         //send data to fragment
+        String username = getIntent().getStringExtra("username");
         KEY_ROLE = getIntent().getStringExtra("role");
         Bundle hm = new Bundle();
+        hm.putString("userName",username);
         if(KEY_ROLE == null){
             hm.putString("val1","null");
             KEY_ROLE = "cant null to equal";

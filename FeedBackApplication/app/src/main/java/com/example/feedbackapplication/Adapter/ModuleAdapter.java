@@ -34,11 +34,11 @@ public class ModuleAdapter extends FirebaseRecyclerAdapter<Module, ModuleAdapter
         holder.txtModuleID.setText("Module ID: " + model.getModuleID());
         holder.txtModuleName.setText("Module Name: " + model.getModuleName());
         holder.txtAdminID.setText("Admin ID: " + model.getAdminID());
-//        holder.txtStartDate.setText("Start Date: " );
-//        holder.txtEndDate.setText("End Date: " );
-//        holder.txtFeedBack.setText("Feedback Title: " );
-//        holder.txtFbStart.setText("Feedback StartTime: " );
-//        holder.txtFbEnd.setText("Feedback EndTime: " );
+        holder.txtStartDate.setText("Start Date: " + model.getStartDate());
+        holder.txtEndDate.setText("End Date: " + model.getEndDate() );
+        holder.txtFeedBack.setText("Feedback Title: " + model.getFeedbackTitle());
+        holder.txtFbStart.setText("Feedback StartTime: " + model.getFeedbackStartDate() );
+        holder.txtFbEnd.setText("Feedback EndTime: " + model.getFeedbackEndDate() );
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +78,7 @@ public class ModuleAdapter extends FirebaseRecyclerAdapter<Module, ModuleAdapter
             txtEndDate= itemView.findViewById(R.id.txtEndDate);
             txtFeedBack = itemView.findViewById(R.id.txtFeedBack);
             txtFbStart= itemView.findViewById(R.id.txtFbStart);
-            txtEndDate= itemView.findViewById(R.id.txtFbEnd);
+            txtFbEnd= itemView.findViewById(R.id.txtFbEnd);
             edit = itemView.findViewById(R.id.btnEditModule);
             btnDelete = itemView.findViewById(R.id.btnDeleteModule);
         }
