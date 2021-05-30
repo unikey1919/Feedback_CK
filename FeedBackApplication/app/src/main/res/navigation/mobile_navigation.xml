@@ -5,6 +5,12 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_home">
 
+
+    <fragment
+        android:id="@+id/nav_addclasssuccess"
+        android:name="com.example.feedbackapplication.ui.classjoin.AddClassSuccessDialog"
+        tools:layout="@layout/add_success_dialog" />
+
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.feedbackapplication.ui.home.HomeFragment"
@@ -21,6 +27,9 @@
         tools:layout="@layout/add_class" >
         <action
             android:id="@+id/action_nav_add_class_to_nav_class"
+            app:destination="@id/nav_class" />
+        <action
+            android:id="@+id/action_nav_add_class_to_nav_class2"
             app:destination="@id/nav_class" />
     </fragment>
 

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.feedbackapplication.Adapter.ClassAdapter;
+import com.example.feedbackapplication.MainActivity;
 import com.example.feedbackapplication.R;
 import com.example.feedbackapplication.model.Class;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -34,11 +35,13 @@ public class ClassFragment extends Fragment implements ClassAdapter.ClickListene
     private ArrayList<Class> arrayList;
     private FloatingActionButton btnInsert;
     private FirebaseRecyclerOptions<Class> options;
+    static String role, userName;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.class_fragment, container, false);
+        getDataFromDB();
 
         database = FirebaseDatabase.getInstance().getReference().child("Class");
         rcvClass = root.findViewById(R.id.rcvClass);
@@ -46,12 +49,21 @@ public class ClassFragment extends Fragment implements ClassAdapter.ClickListene
         rcvClass.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
         //Retrieve data
-        FirebaseRecyclerOptions<Class> options =
-                new FirebaseRecyclerOptions.Builder<Class>()
-                        .setQuery(database, Class.class)
-                        .build();
-        adapter = new ClassAdapter(options,this);
-        rcvClass.setAdapter(adapter);
+        if (role.equals("admin")){
+            FirebaseRecyclerOptions<Class> options =
+                    new FirebaseRecyclerOptions.Builder<Class>()
+                            .setQuery(database, Class.class)
+                            .build();
+            adapter = new ClassAdapter(options,this);
+            rcvClass.setAdapter(adapter);
+        }
+
+//        //Retrieve data when trainer log
+//        if(role.equals("trainer"))
+//        {
+//            retrieveTrainer();
+//            rcvModule.setAdapter(roleAdapter);
+//        }
 
         //Save data
         btnInsert = root.findViewById(R.id.btnNewClass);
@@ -99,5 +111,12 @@ public class ClassFragment extends Fragment implements ClassAdapter.ClickListene
                     }
                 });
 
+    }
+
+    public void getDataFromDB(){
+        MainActivity activity = (MainActivity) getActivity();
+        Bundle results = activity.getMyData();
+        role = results.getString("val1");
+        userName = results.getString("userName");
     }
 }

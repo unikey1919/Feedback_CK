@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.classjoin.AddClassFragment">
 
     <TextView
         android:id="@+id/tvAddClass"
@@ -24,7 +25,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="38dp"
+        android:layout_marginTop="41dp"
         android:layout_marginEnd="30dp"
         android:paddingLeft="5dp"
         android:text="Class Name:"
@@ -37,27 +38,39 @@
     <EditText
         android:id="@+id/edtClassName"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="0dp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="40dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginBottom="48dp"
         android:background="@drawable/khung_edittext"
         android:hint="Class Name"
         android:paddingLeft="5dp"
         android:textColor="@color/black"
         android:textSize="22sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvCapacity"
+        app:layout_constraintBottom_toTopOf="@+id/valiClassName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvClassName" />
+        app:layout_constraintTop_toBottomOf="@+id/tvClassName" />
+
+    <TextView
+        android:id="@+id/valiClassName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="30dp"
+        android:paddingLeft="5dp"
+        android:textColor="@color/red"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvClassName" />
 
     <TextView
         android:id="@+id/tvCapacity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="30dp"
         android:paddingLeft="5dp"
         android:text="Capacity:"
@@ -65,32 +78,44 @@
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvClassName" />
+        app:layout_constraintTop_toBottomOf="@+id/valiClassName" />
 
     <EditText
         android:id="@+id/edtCapacity"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="0dp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="98dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginBottom="96dp"
         android:background="@drawable/khung_edittext"
         android:hint="Capacity"
         android:paddingLeft="5dp"
         android:textColor="@color/black"
         android:textSize="22sp"
-        app:layout_constraintBottom_toBottomOf="@+id/edtStartDate"
+        app:layout_constraintBottom_toTopOf="@+id/valiCapacity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/edtClassName" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCapacity" />
+
+    <TextView
+        android:id="@+id/valiCapacity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="30dp"
+        android:paddingLeft="5dp"
+        android:textColor="@color/red"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCapacity" />
 
     <TextView
         android:id="@+id/tvStartDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="66dp"
+        android:layout_marginTop="19dp"
         android:layout_marginEnd="30dp"
         android:paddingLeft="5dp"
         android:text="Start Date:"
@@ -98,7 +123,7 @@
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCapacity" />
+        app:layout_constraintTop_toBottomOf="@+id/valiCapacity" />
 
     <EditText
         android:id="@+id/edtStartDate"
@@ -111,22 +136,34 @@
         android:paddingLeft="5dp"
         android:textColor="@color/black"
         android:textSize="22sp"
-        app:layout_constraintBottom_toBottomOf="@+id/ibtnCalendar1"
+        app:layout_constraintBottom_toTopOf="@+id/valiStartDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ibtnCalendar1" />
+        app:layout_constraintTop_toBottomOf="@+id/tvStartDate" />
+
+    <TextView
+        android:id="@+id/valiStartDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="30dp"
+        android:paddingLeft="5dp"
+        android:textColor="@color/red"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvStartDate" />
 
     <ImageButton
         android:id="@+id/ibtnCalendar1"
         android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="46dp"
+        android:layout_height="0dp"
         android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/tvEndDate"
+        app:layout_constraintBottom_toBottomOf="@+id/edtStartDate"
         app:layout_constraintEnd_toEndOf="@+id/ibtnCalendar2"
         app:layout_constraintStart_toStartOf="@+id/ibtnCalendar2"
-        app:layout_constraintTop_toTopOf="@+id/tvStartDate"
+        app:layout_constraintTop_toBottomOf="@+id/tvStartDate"
         app:srcCompat="@drawable/ic_baseline_calendar_today_24" />
 
     <TextView
@@ -134,15 +171,15 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="66dp"
+        android:layout_marginTop="22dp"
         android:layout_marginEnd="30dp"
         android:paddingLeft="5dp"
-        android:text="Start Date:"
+        android:text="End Date:"
         android:textColor="@color/black"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvStartDate" />
+        app:layout_constraintTop_toBottomOf="@+id/valiStartDate" />
 
     <EditText
         android:id="@+id/edtEndDate"
@@ -155,21 +192,33 @@
         android:paddingLeft="5dp"
         android:textColor="@color/black"
         android:textSize="22sp"
-        app:layout_constraintBottom_toBottomOf="@+id/ibtnCalendar2"
+        app:layout_constraintBottom_toTopOf="@+id/valiEndDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ibtnCalendar2" />
+        app:layout_constraintTop_toBottomOf="@+id/tvEndDate" />
+
+    <TextView
+        android:id="@+id/valiEndDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="30dp"
+        android:paddingLeft="5dp"
+        android:textColor="@color/red"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEndDate" />
 
     <ImageButton
         android:id="@+id/ibtnCalendar2"
         android:layout_width="40dp"
         android:layout_height="0dp"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="41dp"
         android:layout_marginEnd="38dp"
-        android:layout_marginBottom="20dp"
         android:background="@android:color/transparent"
-        app:layout_constraintBottom_toTopOf="@+id/btnBack"
+        app:layout_constraintBottom_toBottomOf="@+id/edtEndDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/btnBack"
         app:layout_constraintTop_toBottomOf="@+id/tvEndDate"
@@ -179,24 +228,23 @@
         android:id="@+id/btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="17dp"
         android:backgroundTint="#5175F4"
         android:text="Save"
         android:textAllCaps="false"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/btnBack"
-        app:layout_constraintTop_toBottomOf="@+id/tvEndDate" />
+        app:layout_constraintTop_toBottomOf="@+id/valiEndDate" />
 
     <Button
         android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="1dp"
         android:backgroundTint="@color/red"
         android:text="Back"
         android:textAllCaps="false"
         android:textSize="20sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/btnSave"
-        app:layout_constraintEnd_toEndOf="@+id/edtEndDate" />
+        app:layout_constraintEnd_toEndOf="@+id/valiEndDate" />
 </androidx.constraintlayout.widget.ConstraintLayout>

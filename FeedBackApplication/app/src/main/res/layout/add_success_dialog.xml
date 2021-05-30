@@ -3,18 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="300dp">
 
     <ImageView
         android:id="@+id/imageViewSuccess"
         android:layout_width="60dp"
         android:layout_height="0dp"
-        android:layout_marginTop="38dp"
-        android:layout_marginBottom="81dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginBottom="34dp"
         android:background="@drawable/success_icon"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddSuccess"
+        app:layout_constraintBottom_toTopOf="@+id/textViewSuccess"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,24 +21,24 @@
         android:id="@+id/textViewSuccess"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="573dp"
+        android:layout_marginBottom="30dp"
         android:text="Add success!"
         android:textColor="@color/black"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddSuccess"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewSuccess" />
 
     <Button
-        android:textSize="25sp"
         android:id="@+id/btnAddSuccess"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="504dp"
+        android:layout_marginBottom="32dp"
         android:text="OK"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewSuccess" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewSuccess" />
 </androidx.constraintlayout.widget.ConstraintLayout>

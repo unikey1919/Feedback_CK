@@ -32,12 +32,10 @@ public class ClassAdapter extends FirebaseRecyclerAdapter<Class, ClassAdapter.My
 
         holder.txtClassID.setText("Class ID: " + model.getClassID());
         holder.txtClassName.setText("Class Name: " + model.getClassName());
-        holder.txtCapacity.setText("Admin ID: " + model.getCapacity());
-//        holder.txtStartDate.setText("Start Date: " );
-//        holder.txtEndDate.setText("End Date: " );
-//        holder.txtFeedBack.setText("Feedback Title: " );
-//        holder.txtFbStart.setText("Feedback StartTime: " );
-//        holder.txtFbEnd.setText("Feedback EndTime: " );
+        holder.txtCapacity.setText("Capacity: " + model.getCapacity());
+        holder.txtStartDate.setText("Start Date: " + model.getStartDate());
+        holder.txtEndDate.setText("End Date: " + model.getEndDate());
+
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
