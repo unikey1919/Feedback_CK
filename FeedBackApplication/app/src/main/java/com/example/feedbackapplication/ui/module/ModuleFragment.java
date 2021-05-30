@@ -183,9 +183,9 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
     }
 
     public void retrieveTrainee(){
-        refEnroll = FirebaseDatabase.getInstance().getReference().child("Enroll");
+        refEnroll = FirebaseDatabase.getInstance().getReference().child("Enrollment");
         refAssignment = FirebaseDatabase.getInstance().getReference().child("Assignment");
-        Query queryEnroll = refEnroll.orderByChild("trainee").equalTo(userName);
+        Query queryEnroll = refEnroll.orderByChild("traineeID").equalTo(userName);
         arrayList = new ArrayList<>();
         roleAdapter = new ModuleRoleAdapter(getContext(),arrayList);
         rcvModule.setAdapter(roleAdapter);
@@ -193,7 +193,7 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    int classID = dataSnapshot.child("classId").getValue(Integer.class);
+                    int classID = dataSnapshot.child("classID").getValue(Integer.class);
                     Query queryAsg = refAssignment.orderByChild("ClassID").equalTo(classID);
                     queryAsg.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
