@@ -1,5 +1,7 @@
 package com.example.feedbackapplication.model;
+import com.google.firebase.database.IgnoreExtraProperties;
 
+@IgnoreExtraProperties
 public class Trainee {
     private String UserName;
     private String Name;
@@ -15,9 +17,9 @@ public class Trainee {
 
     }
 
-    public Trainee(String userName, String name, String email, String phone, String address, int isActive, String passWord, String activationCode, String resetPasswordCode) {
-        UserName = userName;
-        Name = name;
+    public Trainee(String UserName, String Name, String email, String phone, String address, int isActive, String passWord, String activationCode, String resetPasswordCode) {
+        this.UserName = UserName;
+        this.Name = Name;
         Email = email;
         Phone = phone;
         Address = address;
@@ -31,16 +33,16 @@ public class Trainee {
         return UserName;
     }
 
-    public void setUserName(String userName) {
-        UserName = userName;
+    public void setUserName(String UserName) {
+        this.UserName = UserName;
     }
 
     public String getName() {
         return Name;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public void setName(String Name) {
+        this.Name = Name;
     }
 
     public String getEmail() {

@@ -2,6 +2,7 @@ package com.example.feedbackapplication.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,23 +33,44 @@ public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     private Button btnLogin;
     private RecyclerView rcv_Category;
+    static String role ;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        btnLogin = root.findViewById(R.id.btnLoginHome);
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
 
-
-
+        getDataFromDB();
+        if(role.equals("null"))
+        {
+            root = inflater.inflate(R.layout.fragment_home, container, false);
+            btnLogin = root.findViewById(R.id.btnLoginHome);
+            btnLogin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
+        if(role.equals("admin"))
+        {
+            root = inflater.inflate(R.layout.fragment_dashboard_admin, container, false);
+        }
+        if(role.equals("trainer"))
+        {
+            root = inflater.inflate(R.layout.fragment_dashboard_trainer, container, false);
+        }
+        if(role.equals("trainee"))
+        {
+            root = inflater.inflate(R.layout.fragment_dashboard_trainee, container, false);
+        }
 
         return root;
+    }
+
+    public void getDataFromDB(){
+        MainActivity activity = (MainActivity) getActivity();
+        Bundle results = activity.getMyData();
+        role = results.getString("val1");
     }
 }
