@@ -2,20 +2,22 @@ package com.example.feedbackapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.example.feedbackapplication.Adapter.ModuleAdapter;
 import com.example.feedbackapplication.model.Module;
+import com.example.feedbackapplication.ui.join.JoinFragment;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
@@ -25,22 +27,25 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import java.util.ArrayList;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private Button btnLogin;
     private static String KEY_ROLE = "default";
-
+    private static String UserName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         //get role for each user
         try {
             KEY_ROLE = getIntent().getStringExtra("role");
+            String username = getIntent().getStringExtra("username");
+            Toast.makeText(this, "Show username in main: "+username, Toast.LENGTH_LONG/2).show();
+
             if (KEY_ROLE.equals("admin")) {
                 setContentView(R.layout.admin_layout);
             }
@@ -61,7 +66,9 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_assignment, R.id.nav_class, R.id.nav_module, R.id.nav_enrollment, R.id.nav_feedback, R.id.nav_result, R.id.nav_question, R.id.nav_question, R.id.nav_contact, R.id.nav_logout, R.id.nav_join,R.id.nav_add_module)
+                R.id.nav_home, R.id.nav_assignment, R.id.nav_class, R.id.nav_module, R.id.nav_enrollment,
+                R.id.nav_feedback, R.id.nav_result, R.id.nav_question, R.id.nav_question, R.id.nav_contact,
+                R.id.nav_logout, R.id.nav_join,R.id.nav_add_module)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -83,12 +90,22 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int a = item.getItemId();
+        if(a==R.id.nav_join2)
+            Log.d("TAGq", "xxxxx "+item+" *** "+a);
+        Log.d("TAGq", "onOptionsItemSelected: "+item+" *** "+a);
+        return super.onOptionsItemSelected(item);
+    }
+
+
     public Bundle getMyData() {
         //send data to fragment
-        String username = getIntent().getStringExtra("username");
         KEY_ROLE = getIntent().getStringExtra("role");
+        UserName = getIntent().getStringExtra("username");
         Bundle hm = new Bundle();
-        hm.putString("userName",username);
+        hm.putString("username",UserName);
         if(KEY_ROLE == null){
             hm.putString("val1","null");
             KEY_ROLE = "cant null to equal";

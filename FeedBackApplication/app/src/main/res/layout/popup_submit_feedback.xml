@@ -54,6 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
             app:backgroundTint="#FA2929"
+            android:background="#FA2929"
             android:text="Cancel"
             android:textSize="15sp" />
     </LinearLayout>
