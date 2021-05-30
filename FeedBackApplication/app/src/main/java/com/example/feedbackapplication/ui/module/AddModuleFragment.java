@@ -40,11 +40,11 @@ import java.util.Calendar;
 
 public class AddModuleFragment extends Fragment {
     private Button btnBack,btnAdd;
-    private DatabaseReference database,reference;
-    private ValueEventListener listener;
-    private ArrayList<String> list;
-    private ArrayAdapter<String> adapter;
-    private AutoCompleteTextView adminID;
+    private DatabaseReference database,reference, databaseFb;
+    private ValueEventListener listener, listener1;
+    private ArrayList<String> list, listTitle;
+    private ArrayAdapter<String> adapter, adapterTitle;
+    private AutoCompleteTextView adminID, fbTitle ;
     private TextInputEditText moduleName, startDate, endDate, feedbackStartDate, feedbackEndDate;
     private int maxID = 0;
 
@@ -68,6 +68,15 @@ public class AddModuleFragment extends Fragment {
         list = new ArrayList<String>();
         adapter = new ArrayAdapter<>(getActivity(),R.layout.option_item,list);
         adminID.setAdapter(adapter);
+        fetchData();
+
+        //Take data to dropdown fbTitle
+        fbTitle = view.findViewById(R.id.actFeedBack);
+        databaseFb = FirebaseDatabase.getInstance().getReference("Feedback");
+        listTitle = new ArrayList<String>();
+        adapterTitle = new ArrayAdapter<>(getActivity(),R.layout.option_item,listTitle);
+        fbTitle.setAdapter(adapterTitle);
+        fetchDataFbTitle();
 
         //database module
         reference = FirebaseDatabase.getInstance().getReference().child("Module");
@@ -100,11 +109,11 @@ public class AddModuleFragment extends Fragment {
                 int moduleID = maxID + 1;
                 String start = startDate.getText().toString().trim();
                 String end = endDate.getText().toString().trim();
-                String fbTitle = startDate.getText().toString().trim();
+                String fTitle = fbTitle.getText().toString().trim();
                 String fbStart = feedbackStartDate.getText().toString().trim();
                 String fbEnd = feedbackEndDate.getText().toString().trim();
 
-                Module module = new Module(moduleID,adminId,name,start,end,fbTitle,fbStart,fbEnd);
+                Module module = new Module(moduleID,adminId,name,start,end,fTitle,fbStart,fbEnd);
 
                 reference.child(String.valueOf(moduleID)).setValue(module);
                 Toast.makeText(v.getContext(),"Add successfully" ,Toast.LENGTH_SHORT).show();
@@ -120,7 +129,6 @@ public class AddModuleFragment extends Fragment {
             }
         });
 
-        fetchData();
         return view;
     }
 
@@ -140,6 +148,23 @@ public class AddModuleFragment extends Fragment {
 
            }
        });
+    }
+    public void fetchDataFbTitle(){
+        listener1 = databaseFb.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    listTitle.add(dataSnapshot.child("Title").getValue().toString());
+                }
+                adapterTitle.notifyDataSetChanged();
+                fbTitle.setText(adapterTitle.getItem(0),false);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     public void showStartDate(final TextInputEditText date ){
