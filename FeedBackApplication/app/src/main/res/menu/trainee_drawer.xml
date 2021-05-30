@@ -16,7 +16,7 @@
         <item
             android:id="@+id/nav_class"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_class" />
+            android:title="@string/menu_class"  />
         <item
             android:id="@+id/nav_module"
             android:icon="@drawable/ic_menu_camera"
@@ -25,6 +25,10 @@
             android:id="@+id/nav_join"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_join" />
+        <item
+            android:id="@+id/nav_join2"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Join test" />
 
         <item
             android:id="@+id/nav_logout"
