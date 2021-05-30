@@ -144,6 +144,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         String usernamePattern = "^[a-zA-Z]+(\\s[a-zA-Z]+)?$";
         String noWhiteSpace = "\\A\\w{1,20}\\z";
 
+        textInputUsername.setErrorIconDrawable(null);
         if(username.isEmpty()){
             textInputUsername.setError("Username mas have at least 1 character!");
             return false;
@@ -163,6 +164,8 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         String password = textInputPassword.getEditText().getText().toString().trim();
         String passwordPattern = "^[a-zA-Z]+(\\s[a-zA-Z]+)?$";
         String noWhiteSpace = "\\A\\w{1,20}\\z";
+        textInputPassword.setErrorIconDrawable(null);
+
         if(password.isEmpty()){
             textInputPassword.setError("Password mas have at least 1 character?");
             return false;

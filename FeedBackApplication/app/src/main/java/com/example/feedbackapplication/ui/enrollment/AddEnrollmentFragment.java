@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class AddEnrollmentFragment extends Fragment {
-    private ArrayList<String> list;
+    private final ArrayList<String> list = new ArrayList<>();
     private ArrayAdapter<String> adapterClassID;
     private AutoCompleteTextView classID;
     private TextInputEditText traineeID;
@@ -43,7 +43,6 @@ public class AddEnrollmentFragment extends Fragment {
         traineeID = view.findViewById(R.id.txt_ip_edt_TraineeID);
 
         //Take data to dropdown classID
-        list = new ArrayList<String>();
         adapterClassID = new ArrayAdapter<>(getActivity(), R.layout.option_item, list);
         classID.setAdapter(adapterClassID);
 
