@@ -106,7 +106,9 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
     @Override
     public void onStop() {
         super.onStop();
-        adapter.startListening();
+        if(role.equals("admin")){
+            adapter.startListening();
+        }
     }
 
     @Override
@@ -115,6 +117,11 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
         bundle.putString("name",module.getModuleName());
         bundle.putString("adminID",module.getAdminID());
         bundle.putInt("id",module.getModuleID());
+        bundle.putString("startDate",module.getStartDate());
+        bundle.putString("endDate",module.getEndDate());
+        bundle.putString("feedbackTitle",module.getFeedbackTitle());
+        bundle.putString("feedbackStartDate",module.getFeedbackStartDate());
+        bundle.putString("feedbackEndDate",module.getFeedbackEndDate());
         Navigation.findNavController(getView()).navigate(R.id.action_nav_module_to_nav_edit,bundle);
     }
 
