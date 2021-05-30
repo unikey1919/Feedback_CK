@@ -28,15 +28,19 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+
 
 public class AddModuleFragment extends Fragment {
     private Button btnBack,btnAdd;
@@ -46,6 +50,7 @@ public class AddModuleFragment extends Fragment {
     private ArrayAdapter<String> adapter, adapterTitle;
     private AutoCompleteTextView adminID, fbTitle ;
     private TextInputEditText moduleName, startDate, endDate, feedbackStartDate, feedbackEndDate;
+    private TextInputLayout tilModuleName, tilStartDate, tilEndDate, tilFbStart, tilFbEnd;
     private int maxID = 0;
 
     @Nullable
@@ -78,6 +83,13 @@ public class AddModuleFragment extends Fragment {
         fbTitle.setAdapter(adapterTitle);
         fetchDataFbTitle();
 
+        //validate
+        tilModuleName = view.findViewById(R.id.txt_ip_ModuleName);
+        tilStartDate = view.findViewById(R.id.txt_ip_Start);
+        tilEndDate = view.findViewById(R.id.txt_ip_End);
+        tilFbStart = view.findViewById(R.id.txt_ip_FbStart);
+        tilFbEnd = view.findViewById(R.id.txt_ip_FbEnd);
+
         //database module
         reference = FirebaseDatabase.getInstance().getReference().child("Module");
         reference.addValueEventListener(new ValueEventListener() {
@@ -104,19 +116,25 @@ public class AddModuleFragment extends Fragment {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = moduleName.getText().toString().trim();
-                String adminId = adminID.getText().toString().trim();
-                int moduleID = maxID + 1;
-                String start = startDate.getText().toString().trim();
-                String end = endDate.getText().toString().trim();
-                String fTitle = fbTitle.getText().toString().trim();
-                String fbStart = feedbackStartDate.getText().toString().trim();
-                String fbEnd = feedbackEndDate.getText().toString().trim();
+                if(!validateModuleName() | !validateStartDate() | !validateEndDate() | !validateFbStartDate() | !validateFbEndDate()){
+                    return;
+                }
+                else {
+                    String name = moduleName.getText().toString().trim();
+                    String adminId = adminID.getText().toString().trim();
+                    int moduleID = maxID + 1;
+                    String start = startDate.getText().toString().trim();
+                    String end = endDate.getText().toString().trim();
+                    String fTitle = fbTitle.getText().toString().trim();
+                    String fbStart = feedbackStartDate.getText().toString().trim();
+                    String fbEnd = feedbackEndDate.getText().toString().trim();
 
-                Module module = new Module(moduleID,adminId,name,start,end,fTitle,fbStart,fbEnd);
+                    Module module = new Module(moduleID,adminId,name,start,end,fTitle,fbStart,fbEnd);
 
-                reference.child(String.valueOf(moduleID)).setValue(module);
-                Toast.makeText(v.getContext(),"Add successfully" ,Toast.LENGTH_SHORT).show();
+                    reference.child(String.valueOf(moduleID)).setValue(module);
+                    Toast.makeText(v.getContext(),"Add successfully" ,Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -149,6 +167,7 @@ public class AddModuleFragment extends Fragment {
            }
        });
     }
+
     public void fetchDataFbTitle(){
         listener1 = databaseFb.addValueEventListener(new ValueEventListener() {
             @Override
@@ -186,7 +205,7 @@ public class AddModuleFragment extends Fragment {
                                 calendar.set(Calendar.YEAR,year);
                                 calendar.set(Calendar.MONTH,month);
                                 calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(" MM/dd/yyyy");
+                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
                                 date.setText(simpleDateFormat.format(calendar.getTime()));
 
                             }
@@ -199,4 +218,101 @@ public class AddModuleFragment extends Fragment {
             }
         });
     }
+
+    private boolean validateModuleName(){
+        String name = tilModuleName.getEditText().getText().toString().trim();
+        tilModuleName.setErrorIconDrawable(null);
+        if(name.isEmpty()){
+            tilModuleName.setError("Please enter module name and less than 255");
+            return false;
+        } else {
+            tilModuleName.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateStartDate(){
+        String start = tilStartDate.getEditText().getText().toString().trim();
+        tilStartDate.setErrorIconDrawable(null);
+        if(start.isEmpty()){
+            tilStartDate.setError("Please choose start date or fill mm/dd/yy");
+            return false;
+        } else {
+            tilStartDate.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateEndDate(){
+        String start = tilStartDate.getEditText().getText().toString().trim();
+        String end = tilEndDate.getEditText().getText().toString().trim();
+        tilEndDate.setErrorIconDrawable(null);
+        if(end.isEmpty()){
+            tilEndDate.setError("Please choose start date or fill mm/dd/yy");
+            return false;
+        }
+        if (CheckDates(start,end) == false){
+            tilEndDate.setError("Please choose end date after start date");
+            return false;
+        }else {
+            tilEndDate.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateFbStartDate(){
+        String start = tilFbStart.getEditText().getText().toString().trim();
+        tilFbStart.setErrorIconDrawable(null);
+        if(start.isEmpty()){
+            tilFbStart.setError("Please choose start date or fill mm/dd/yy");
+            return false;
+        } else {
+            tilFbStart.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateFbEndDate(){
+        String end = tilFbEnd.getEditText().getText().toString().trim();
+        String start = tilFbStart.getEditText().getText().toString().trim();
+        tilFbEnd.setErrorIconDrawable(null);
+        if(end.isEmpty()){
+            tilFbEnd.setError("Please choose start date or fill mm/dd/yy");
+            return false;
+        }
+        if (CheckDates(start,end) == false){
+            tilFbEnd.setError("Please choose end date after start date");
+            return false;
+        }else {
+            tilFbEnd.setError(null);
+            return true;
+        }
+    }
+
+    static SimpleDateFormat sdf  = new SimpleDateFormat("MM/dd/yyyy");
+    public static boolean CheckDates(String d1, String d2)  {
+        boolean b = false;
+        try {
+            if(sdf.parse(d1).before(sdf.parse(d2)))
+            {
+                b = true;//If start date is before end date
+            }
+            else if(sdf.parse(d1).equals(sdf.parse(d2)))
+            {
+                b = true;//If two dates are equal
+            }
+            else
+            {
+                b = false; //If start date is after the end date
+            }
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return b;
+    }
+
+
+
+
 }
