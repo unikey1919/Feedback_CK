@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.feedbackapplication.R;
 import com.example.feedbackapplication.model.Enrollment;
@@ -27,11 +28,11 @@ import java.util.Map;
 
 public class EditEnrollmentFragment extends Fragment {
 
-    private Button btnBack,btnSave;
-    private DatabaseReference database,reference;
+    private Button btnBack, btnSave;
+    private DatabaseReference database, reference;
     private ValueEventListener listener;
     private ArrayList<String> list;
-    private ArrayAdapter<String> adapter;
+    private ArrayAdapter<String> adapterClassName;
     private AutoCompleteTextView className;
     private TextInputEditText traineeID;
     private TextInputEditText traineeName;
@@ -39,9 +40,10 @@ public class EditEnrollmentFragment extends Fragment {
     private Enrollment enrollment;
 
     private String trainee_ID;
-    private String traineed_Name;
+    private String trainee_Name;
     private int class_ID;
     private String class_Name;
+    private String enrollment_key;
     private String key_gi_do;
     private int newClassId;
 
@@ -52,72 +54,86 @@ public class EditEnrollmentFragment extends Fragment {
 
         //reference = FirebaseDatabase.getInstance().getReference().child("Enrollment");
 
+        //views
         traineeID = view.findViewById(R.id.txt_ip_edt_TraineeID);
         traineeName = view.findViewById(R.id.txt_ip_edt_TraineeName);
         className = view.findViewById(R.id.actClassName);
 
+        //get from bundle
         trainee_ID = getArguments().getString("TraineeID");
         class_ID = getArguments().getInt("ClassID");
-        //traineed_Name = fetchTraineeName(trainee_ID);
-        traineed_Name = trainee_ID;
-        //class_Name = fetchClassName(class_ID);
-        class_Name = String.valueOf(class_ID);
-
+        trainee_Name = getArguments().getString("TraineeName");
+        class_Name = getArguments().getString("ClassName");
+        enrollment_key = getArguments().getString("EnrollmentKey");
 
         traineeID.setText(trainee_ID);
-        traineeName.setText(traineed_Name);
+        traineeName.setText(trainee_Name);
         className.setText(class_Name);
 
         //Take data to dropdown adminID
         list = new ArrayList<String>();
-        adapter = new ArrayAdapter<>(getActivity(), R.layout.option_item,list);
-        className.setAdapter(adapter);
-        fetchClassNameList();
-        //newClassId =FireBaseHelper.fetchClassID(className.getText().toString().trim());
-        newClassId =7;
-        //key_gi_do = FireBaseHelper.fetchEnrollmentKey(class_ID,trainee_ID);
-        key_gi_do = "2";
+        adapterClassName = new ArrayAdapter<>(getActivity(), R.layout.option_item, list);
+        className.setAdapter(adapterClassName);
 
         //update
         Button btnSave = view.findViewById(R.id.btnSave);
         btnSave.setOnClickListener(v -> {
-            //String key = fetchEnrollmentKey(class_ID,trainee_ID);
-            String key = key_gi_do;
-            Map<String,Object> map = new HashMap<>();
+            fetchClassID(className.getText().toString().trim());
+            Map<String, Object> map = new HashMap<>();
             //int newClassId = fetchClassID(className.getText().toString().trim());
-            map.put("ClassID",newClassId);
-            map.put("TraineeID",trainee_ID);
-
+            map.put("classID", newClassId);
+            map.put("traineeID", trainee_ID);
             FirebaseDatabase.getInstance().getReference()
                     .child("Enrollment")
-                    .child(key)
+                    .child(enrollment_key)
                     .updateChildren(map);
-            Toast.makeText(v.getContext(),"Update successfully" ,Toast.LENGTH_SHORT).show();
+            Toast.makeText(v.getContext(), "Update successfully", Toast.LENGTH_SHORT).show();
         });
 
         //back
         Button btnBack = view.findViewById(R.id.btnBack);
-        btnBack.setOnClickListener(v -> {
-        });
+        btnBack.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_nav_edit_to_nav_enrollment));
+        fetchClassNameList();
         return view;
     }
 
-
-    public void fetchClassNameList(){
-        listener = FirebaseDatabase.getInstance().getReference("Class").addValueEventListener(new ValueEventListener() {
+    public void fetchClassNameList() {
+        FirebaseDatabase.getInstance().getReference("Class").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    String className = dataSnapshot.child("ClassName").getValue(String.class);
-                    list.add(className);
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    String temp = dataSnapshot.child("className").getValue(String.class);
+                    if (temp != null)
+                        list.add(temp);
                 }
-                adapter.notifyDataSetChanged();
+                adapterClassName.notifyDataSetChanged();
+                className.setText(adapterClassName.getItem(0), false);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
+    }
+
+    public void fetchClassID(String class_name) {
+        FirebaseDatabase.getInstance().getReference("Class")
+                .orderByChild("className").equalTo(class_name).limitToFirst(1)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                if (dataSnapshot != null) {
+                                    newClassId = Integer.parseInt(dataSnapshot.child("classID").getValue(Integer.class).toString());
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
     }
 }

@@ -16,11 +16,9 @@ import androidx.navigation.Navigation;
 
 import com.example.feedbackapplication.R;
 import com.example.feedbackapplication.model.Enrollment;
-import com.example.feedbackapplication.model.Module;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -46,7 +44,7 @@ public class AddEnrollmentFragment extends Fragment {
 
         //Take data to dropdown classID
         list = new ArrayList<String>();
-        adapterClassID = new ArrayAdapter<>(getActivity(), R.layout.option_item,list);
+        adapterClassID = new ArrayAdapter<>(getActivity(), R.layout.option_item, list);
         classID.setAdapter(adapterClassID);
 
         //Insert Data
@@ -54,10 +52,10 @@ public class AddEnrollmentFragment extends Fragment {
         btnAdd.setOnClickListener(v -> {
             String trainee_ID = Objects.requireNonNull(traineeID.getText()).toString().trim();
             int class_ID = Integer.parseInt(classID.getText().toString().trim());
-            Enrollment enrollment = new Enrollment(class_ID,trainee_ID);
+            Enrollment enrollment = new Enrollment(class_ID, trainee_ID);
             inspirationalKey = FirebaseDatabase.getInstance().getReference("Enrollment").push().getKey();
             FirebaseDatabase.getInstance().getReference("Enrollment").child(inspirationalKey).setValue(enrollment);
-            Toast.makeText(v.getContext(),"Add successfully" ,Toast.LENGTH_SHORT).show();
+            Toast.makeText(v.getContext(), "Add successfully", Toast.LENGTH_SHORT).show();
         });
 
         //Back
@@ -68,23 +66,24 @@ public class AddEnrollmentFragment extends Fragment {
         return view;
     }
 
-    public void fetchData(){
+    public void fetchData() {
         FirebaseDatabase.getInstance().getReference("Class").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    if(dataSnapshot!=null) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    if (dataSnapshot != null) {
                         Enrollment enrollment = dataSnapshot.getValue(Enrollment.class);
                         String temp;
-                        if(enrollment!=null) {
+                        if (enrollment != null) {
                             temp = String.valueOf(enrollment.getClassID());
                             list.add(temp);
                         }
                     }
                 }
                 adapterClassID.notifyDataSetChanged();
-                classID.setText(adapterClassID.getItem(0),false);
+                classID.setText(adapterClassID.getItem(0), false);
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }

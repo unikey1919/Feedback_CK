@@ -110,41 +110,43 @@ public class EnrollmentAdapter extends FirebaseRecyclerAdapter<Enrollment, Enrol
         FirebaseDatabase.getInstance().getReference("Trainee")
                 .orderByChild("UserName").equalTo(model.getTraineeID()).limitToFirst(1)
                 .addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    if (dataSnapshot != null) {
-                        String temp = dataSnapshot.child("Name").getValue(String.class);
-                        if(temp!=null){
-                            temp = "Trainee Name: " + temp;
-                            holder.txtTraineeName.setText(temp);
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            if (dataSnapshot != null) {
+                                String temp = dataSnapshot.child("Name").getValue(String.class);
+                                if (temp != null) {
+                                    temp = "Trainee Name: " + temp;
+                                    holder.txtTraineeName.setText(temp);
+                                }
+                            }
                         }
                     }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
         FirebaseDatabase.getInstance().getReference("Class")
                 .orderByChild("classID").equalTo(model.getClassID()).limitToFirst(1)
                 .addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    if (dataSnapshot != null) {
-                        String temp = dataSnapshot.child("className").getValue(String.class);
-                        if(temp!=null) {
-                            temp = "Trainee Name: " + temp;
-                            holder.txtClassName.setText(temp);
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            if (dataSnapshot != null) {
+                                String temp = dataSnapshot.child("className").getValue(String.class);
+                                if (temp != null) {
+                                    temp = "Class Name: " + temp;
+                                    holder.txtClassName.setText(temp);
+                                }
+                            }
                         }
                     }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
         holder.txtTraineeID.setText("Trainee ID: " + model.getTraineeID());
         holder.txtClassID.setText("Class ID: " + model.getClassID());
 

@@ -12,7 +12,7 @@ import androidx.navigation.Navigation;
 import com.example.feedbackapplication.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class ViewEnrollmentFragment extends Fragment{
+public class ViewEnrollmentFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
