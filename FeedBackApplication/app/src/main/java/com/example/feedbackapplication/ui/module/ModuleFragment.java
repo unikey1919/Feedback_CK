@@ -144,7 +144,7 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
         MainActivity activity = (MainActivity) getActivity();
         Bundle results = activity.getMyData();
         role = results.getString("val1");
-        userName = results.getString("userName");
+        userName = results.getString("username");
     }
 
     public void retrieveTrainer(){
