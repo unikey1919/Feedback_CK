@@ -165,7 +165,7 @@ public class EditEnrollmentFragment extends Fragment {
         Button btnOK = dialog.findViewById(R.id.btnUpdateSuccess);
         btnOK.setOnClickListener(v -> {
             dialog.dismiss();
-            Navigation.findNavController(v).navigate(R.id.action_nav_edit_to_nav_enrollment);
+            Navigation.findNavController(requireView()).navigate(R.id.action_nav_edit_to_nav_enrollment);
         });
         dialog.show();
     }
