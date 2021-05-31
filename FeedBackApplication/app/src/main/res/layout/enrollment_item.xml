@@ -3,94 +3,147 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginBottom="10dp"
-    android:layout_width="350dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginStart="10dp"
-    android:background="@drawable/style_feedback_item"
-    android:orientation="vertical"
-    android:paddingStart="10dp">
+    android:orientation="horizontal">
 
     <RelativeLayout
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_width="320dp"
+        android:layout_height="145dp"
         android:background="@drawable/style_feedback_item"
-        android:orientation="vertical"
-        android:paddingLeft="10dp">
-        <TextView
-            android:textColor="@color/black"
-            android:id="@+id/txtTraineeID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Trainee ID: 1"
-            android:textSize="20sp" />
+        tools:ignore="RtlSymmetry,UselessParent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center_vertical"
+            tools:ignore="RtlSymmetry,UselessParent">
+            <TextView
+                android:textColor="@color/black"
+                android:id="@+id/lblTraineeID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/trainee_id"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+            <TextView
+                android:textColor="@color/black"
+                android:id="@+id/txtTraineeID"
+                android:layout_toEndOf="@id/lblTraineeID"
+                android:layout_marginStart="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tr2"
+                android:textSize="20sp" />
 
-        <TextView
-            android:textColor="@color/black"
-            android:id="@+id/txtTraineeName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Trainee Name: Name 2"
-            android:textSize="20sp"
-            android:layout_below="@id/txtTraineeID"/>
+            <TextView
+                android:textColor="@color/black"
+                android:id="@+id/lblTraineeName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/trainee_name"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_below="@id/txtTraineeID"/>
+            <TextView
+                android:textColor="@color/black"
+                android:id="@+id/txtTraineeName"
+                android:layout_toEndOf="@id/lblTraineeName"
+                android:layout_marginStart="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name_2"
+                android:textSize="20sp"
+                android:layout_alignTop="@id/lblTraineeName"/>
 
-        <TextView
-            android:textColor="@color/black"
-            android:id="@+id/txtClassID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Class ID: 1"
-            android:textSize="20sp"
-            android:layout_below="@id/txtTraineeName"/>
+            <TextView
+                android:textColor="@color/black"
+                android:id="@+id/lblClassID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/class_id"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_below="@id/txtTraineeName"/>
+            <TextView
+                android:textColor="@color/black"
+                android:id="@+id/txtClassID"
+                android:layout_toEndOf="@id/lblClassID"
+                android:layout_marginStart="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_1"
+                android:textSize="20sp"
+                android:layout_alignTop="@id/lblClassID"/>
 
-        <TextView
-            android:textColor="@color/black"
-            android:id="@+id/txtClassName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Class Name: Class 1"
-            android:textSize="20sp"
-            android:layout_below="@id/txtClassID"/>
+            <TextView
+                android:textColor="@color/black"
+                android:id="@+id/lblClassName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/class_name"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_below="@id/txtClassID"/>
+            <TextView
+                android:textColor="@color/black"
+                android:id="@+id/txtClassName"
+                android:layout_toEndOf="@id/lblClassName"
+                android:layout_marginStart="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/class_1"
+                android:textSize="20sp"
+                android:layout_alignTop="@id/lblClassName"/>
 
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="295dp"
+        tools:ignore="RtlSymmetry,UselessParent">
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btnViewEnrollment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
-            android:layout_marginStart="269dp"
-            android:backgroundTint="#293029"
+            android:backgroundTint="@color/purple_700"
             android:src="@drawable/ic_eye_icon"
-            app:tint="#F5F8F7"
-            app:fabSize="mini"/>
+            app:tint="@color/white"
+            app:fabSize="mini"
+            android:contentDescription="@string/view" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btnEditEnrollment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/btnViewEnrollment"
-            android:layout_marginStart="269dp"
             android:backgroundTint="#28EC30"
             android:src="@drawable/ic_pencil"
             app:tint="#F5F8F7"
             app:fabSize="mini"
-            android:adjustViewBounds="true"
-            android:background="#00FFFFFF"
             android:maxWidth="80dp"
             android:maxHeight="80dp"
-            android:scaleType="fitXY"/>
+            android:adjustViewBounds="true"
+            android:background="#00FFFFFF"
+            android:scaleType="fitXY"
+            android:contentDescription="@string/edit" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btnDeleteEnrollment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/btnEditEnrollment"
-            android:layout_marginStart="269dp"
             android:backgroundTint="#EC0923"
             android:src="@drawable/ic_bin"
             app:tint="#F5F8F7"
-            app:fabSize="mini"/>
+            app:fabSize="mini"
+            android:contentDescription="@string/delete" />
 
     </RelativeLayout>
-
 </RelativeLayout>
