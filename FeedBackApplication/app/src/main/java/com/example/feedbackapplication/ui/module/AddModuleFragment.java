@@ -1,6 +1,9 @@
 package com.example.feedbackapplication.ui.module;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -43,7 +47,7 @@ import java.util.Calendar;
 
 
 public class AddModuleFragment extends Fragment {
-    private Button btnBack,btnAdd;
+    private Button btnBack,btnAdd,btnSuccess;
     private DatabaseReference database,reference, databaseFb;
     private ValueEventListener listener, listener1;
     private ArrayList<String> list, listTitle;
@@ -130,9 +134,8 @@ public class AddModuleFragment extends Fragment {
                     String fbEnd = feedbackEndDate.getText().toString().trim();
 
                     Module module = new Module(moduleID,adminId,name,start,end,fTitle,fbStart,fbEnd);
-
                     reference.child(String.valueOf(moduleID)).setValue(module);
-                    Toast.makeText(v.getContext(),"Add successfully" ,Toast.LENGTH_SHORT).show();
+                    SuccessDialog();
                 }
 
             }
@@ -177,6 +180,7 @@ public class AddModuleFragment extends Fragment {
                 }
                 adapterTitle.notifyDataSetChanged();
                 fbTitle.setText(adapterTitle.getItem(0),false);
+
             }
 
             @Override
@@ -290,19 +294,15 @@ public class AddModuleFragment extends Fragment {
     }
 
     static SimpleDateFormat sdf  = new SimpleDateFormat("MM/dd/yyyy");
-    public static boolean CheckDates(String d1, String d2)  {
+
+    public static boolean CheckDates(String d1, String d2) {
         boolean b = false;
         try {
-            if(sdf.parse(d1).before(sdf.parse(d2)))
-            {
+            if (sdf.parse(d1).before(sdf.parse(d2))) {
                 b = true;//If start date is before end date
-            }
-            else if(sdf.parse(d1).equals(sdf.parse(d2)))
-            {
+            } else if (sdf.parse(d1).equals(sdf.parse(d2))) {
                 b = true;//If two dates are equal
-            }
-            else
-            {
+            } else {
                 b = false; //If start date is after the end date
             }
         } catch (ParseException e) {
@@ -312,7 +312,24 @@ public class AddModuleFragment extends Fragment {
         return b;
     }
 
-
-
-
+    private void SuccessDialog() {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.success_dialog);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(getActivity().getDrawable(R.drawable.loginfail_background));
+        dialog.setCancelable(false);
+        btnSuccess = dialog.findViewById(R.id.btnSuccess);
+        btnSuccess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
 }
+
+
+
+
+

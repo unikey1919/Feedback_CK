@@ -3,6 +3,8 @@ package com.example.feedbackapplication.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,8 +24,9 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, AssignmentAdapter.MyViewHolder> {
+public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, AssignmentAdapter.MyViewHolder>  {
     private ClickListener clickListener;
+    private FirebaseRecyclerOptions<Assignment> optionsOld;
 
     /**
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
@@ -34,6 +37,7 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
     public AssignmentAdapter(@NonNull FirebaseRecyclerOptions<Assignment> options, ClickListener clickListener) {
         super(options);
         this.clickListener = clickListener;
+        this.optionsOld = options;
     }
 
     @Override

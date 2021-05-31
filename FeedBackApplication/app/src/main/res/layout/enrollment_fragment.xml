@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.module.ModuleFragment">
+    tools:context=".ui.enrollment.EnrollmentFragment">
 
     <TextView
         android:id="@+id/txt1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enrollment List"
+        android:text="@string/enrollment_list"
         android:textSize="40sp"
         android:textColor="@color/black"
         android:layout_marginTop="20dp"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/txt1"
-        android:text="Class Name:"
+        android:text="@string/class_name"
         android:textColor="@color/black"/>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -35,17 +35,17 @@
         android:layout_height="35dp"
         android:layout_marginTop="7dp"
         android:layout_below="@id/txt1"
-        android:inputType="textPassword"
         android:layout_marginHorizontal="10dp"
         app:errorEnabled="true"
-        android:layout_toRightOf="@+id/txt2">
+        android:layout_toEndOf="@+id/txt2">
 
         <AutoCompleteTextView
             android:id="@+id/actClassName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
-            android:paddingBottom="8dp" />
+            android:paddingBottom="8dp"
+            tools:ignore="LabelFor" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -56,20 +56,20 @@
         android:layout_gravity="center"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
-        android:layout_toRightOf="@+id/txt1"
+        android:layout_toEndOf="@+id/txt1"
         android:backgroundTint="#6666FF"
         android:src="@drawable/ic_baseline_add_24"
-        app:tint="#ffffff" />
+        app:tint="#ffffff"
+        android:contentDescription="@string/add" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvEnrollment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/txt2"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="20dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
-
 
 </RelativeLayout>

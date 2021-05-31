@@ -94,27 +94,23 @@
         android:layout_height="wrap_content">
 
     </LinearLayout>
-    <ImageButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnEditModule"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="-30dp"
         android:layout_marginTop="60dp"
-
-        android:adjustViewBounds="true"
-        android:background="#00FFFFFF"
-
-        android:maxWidth="80dp"
-        android:maxHeight="80dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/ic_feedbackitem_1" />
+        android:backgroundTint="#28EC30"
+        android:src="@drawable/ic_pencil"
+        app:tint="#F5F8F7" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnDeleteModule"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="-60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="-55dp"
         android:layout_marginTop="130dp"
+        android:layout_toRightOf="@id/txtClassName"
         android:backgroundTint="#EC0923"
         android:src="@drawable/ic_bin"
         app:tint="#F5F8F7" />

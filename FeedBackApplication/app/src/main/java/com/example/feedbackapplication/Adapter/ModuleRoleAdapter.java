@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,6 +43,11 @@ public class ModuleRoleAdapter extends RecyclerView.Adapter<ModuleRoleAdapter.My
         holder.txtModuleID.setText("Module ID: " + module.getModuleID());
         holder.txtModuleName.setText("Module Name: " + module.getModuleName());
         holder.txtAdminID.setText("Admin ID: " + module.getAdminID());
+        holder.txtStartDate.setText("Start Date: " + module.getStartDate());
+        holder.txtEndDate.setText("End Date: " + module.getEndDate() );
+        holder.txtFeedBack.setText("Feedback Title: " + module.getFeedbackTitle());
+        holder.txtFbStart.setText("Feedback StartTime: " + module.getFeedbackStartDate() );
+        holder.txtFbEnd.setText("Feedback EndTime: " + module.getFeedbackEndDate() );
     }
 
 
@@ -52,7 +59,7 @@ public class ModuleRoleAdapter extends RecyclerView.Adapter<ModuleRoleAdapter.My
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView txtModuleID, txtModuleName, txtAdminID, txtStartDate, txtEndDate, txtFeedBack, txtFbStart, txtFbEnd;
         ImageView edit;
-        FloatingActionButton btnDelete;
+        FloatingActionButton btnDelete,btnEdit;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -63,11 +70,16 @@ public class ModuleRoleAdapter extends RecyclerView.Adapter<ModuleRoleAdapter.My
             txtEndDate= itemView.findViewById(R.id.txtEndDate);
             txtFeedBack = itemView.findViewById(R.id.txtFeedBack);
             txtFbStart= itemView.findViewById(R.id.txtFbStart);
-            txtEndDate= itemView.findViewById(R.id.txtFbEnd);
+            txtFbEnd= itemView.findViewById(R.id.txtFbEnd);
             edit = itemView.findViewById(R.id.btnEditModule);
             btnDelete = itemView.findViewById(R.id.btnDeleteModule);
+            btnEdit = itemView.findViewById(R.id.btnEditModule);
+            btnDelete.setVisibility(itemView.GONE);
+            btnEdit.setVisibility(itemView.GONE);
         }
     }
+
+
 
 
 

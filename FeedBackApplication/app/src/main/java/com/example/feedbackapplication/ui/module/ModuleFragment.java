@@ -1,6 +1,10 @@
 package com.example.feedbackapplication.ui.module;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.feedbackapplication.Adapter.ModuleAdapter;
@@ -45,6 +53,8 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
     private FloatingActionButton btnInsert;
     private FirebaseRecyclerOptions<Module> options;
     static String role, userName;
+    private Button btnSuccess,btnYes;
+    private TextView txt;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -134,7 +144,7 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(getActivity(),"Update successfully" ,Toast.LENGTH_SHORT).show();
+                        SuccessDialog();
                     }
                 });
 
@@ -183,9 +193,9 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
     }
 
     public void retrieveTrainee(){
-        refEnroll = FirebaseDatabase.getInstance().getReference().child("Enroll");
+        refEnroll = FirebaseDatabase.getInstance().getReference().child("Enrollment");
         refAssignment = FirebaseDatabase.getInstance().getReference().child("Assignment");
-        Query queryEnroll = refEnroll.orderByChild("trainee").equalTo(userName);
+        Query queryEnroll = refEnroll.orderByChild("traineeID").equalTo(userName);
         arrayList = new ArrayList<>();
         roleAdapter = new ModuleRoleAdapter(getContext(),arrayList);
         rcvModule.setAdapter(roleAdapter);
@@ -193,7 +203,7 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    int classID = dataSnapshot.child("classId").getValue(Integer.class);
+                    int classID = dataSnapshot.child("classID").getValue(Integer.class);
                     Query queryAsg = refAssignment.orderByChild("ClassID").equalTo(classID);
                     queryAsg.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -229,7 +239,26 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
 
             }
         });
-
     }
+
+    private void SuccessDialog() {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.success_dialog);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(getActivity().getDrawable(R.drawable.loginfail_background));
+        dialog.setCancelable(false);
+        txt = dialog.findViewById(R.id.txt);
+        txt.setText("Delete Success");
+        btnSuccess = dialog.findViewById(R.id.btnSuccess);
+        btnSuccess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+
 
 }
