@@ -191,7 +191,6 @@ public class EnrollmentFragment extends Fragment implements EnrollmentAdapter.Cl
                                         EnrollmentKey = dataSnapshot.getKey();
                                         if (EnrollmentKey != null && !TraineeName.equals("0") && !ClassName.equals("0")) {
                                             bundle.putString("TraineeID", enrollment.getTraineeID());
-                                            bundle.putInt("ClassID", enrollment.getClassID());
                                             bundle.putString("TraineeName", TraineeName);
                                             bundle.putString("ClassName", ClassName);
                                             bundle.putString("EnrollmentKey", EnrollmentKey);
