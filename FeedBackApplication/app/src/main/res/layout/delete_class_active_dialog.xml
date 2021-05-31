@@ -3,17 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/imageViewSuccess"
         android:layout_width="72dp"
-        android:layout_height="63dp"
+        android:layout_height="67dp"
 
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginBottom="127dp"
         android:background="@drawable/fail_icon"
-        app:layout_constraintBottom_toTopOf="@+id/textViewAUSure"
+        app:layout_constraintBottom_toTopOf="@+id/btnCancelAct"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,6 +22,7 @@
         android:id="@+id/textViewAUSure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
         android:text="Are you sure?"
         android:textColor="@color/black"
         android:textSize="30sp"
@@ -34,6 +35,7 @@
         android:id="@+id/textViewAUSure1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
         android:text="Class is operating. Do you really"
         android:textColor="@color/black"
         android:textSize="20sp"
@@ -47,37 +49,39 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="29dp"
-        android:layout_marginBottom="29dp"
+        android:layout_marginBottom="26dp"
         android:text="want to delete this class?"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnCancelAct"
+        app:layout_constraintBottom_toTopOf="@+id/btnYesAct"
         app:layout_constraintStart_toStartOf="@+id/textViewAUSure1"
         app:layout_constraintTop_toBottomOf="@+id/textViewAUSure1" />
 
     <Button
         android:id="@+id/btnCancelAct"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="80dp"
-        android:layout_marginBottom="447dp"
+        android:layout_width="107dp"
+        android:layout_height="51dp"
+        android:layout_marginEnd="84dp"
         android:backgroundTint="@color/red"
         android:text="Cancel!"
+        android:textAllCaps="false"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnYesAct"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAUSure2" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewSuccess" />
 
     <Button
         android:id="@+id/btnYesAct"
-        android:layout_width="0dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="79dp"
-        android:layout_marginEnd="20dp"
+        android:layout_width="107dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="85dp"
+        android:layout_marginEnd="10dp"
         android:text="Yes!"
+        android:textAllCaps="false"
         android:textSize="18sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/btnCancelAct"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnCancelAct"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAUSure2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,77 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:id="@+id/class_item"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="137dp"
+    android:layout_marginBottom="10dp"
+    android:background="#00C32121">
 
-    <TextView
-        android:textColor="@color/black"
-        android:id="@+id/txtClassID"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:text="Class ID: 11"
-        android:textSize="20sp" />
+        android:layout_marginStart="10dp"
+        android:background="@drawable/style_feedback_item"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnEditClass"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnEditClass">
 
-    <TextView
-        android:textColor="@color/black"
-        android:id="@+id/txtClassName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Class Name: Class 11"
-        android:textSize="20sp"
-        android:layout_below="@id/txtClassID"/>
+        <TextView
+            android:id="@+id/txtClassID"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:textColor="@color/black"
-        android:id="@+id/txtCapacity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Capacity: 50"
-        android:textSize="20sp"
-        android:layout_below="@id/txtClassName"/>
+        <TextView
+            android:id="@+id/txtClassName"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:textColor="@color/black"
-        android:id="@+id/txtStartDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Start Date: 22/09/2020"
-        android:textSize="20sp"
-        android:layout_below="@id/txtCapacity"/>
+        <TextView
+            android:id="@+id/txtCapacity"
+            android:layout_width="match_parent"
+            android:layout_height="22dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:textColor="@color/black"
-        android:id="@+id/txtEndDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="End Date: 22/09/2020"
-        android:textSize="20sp"
-        android:layout_below="@id/txtStartDate"/>
+        <TextView
+            android:id="@+id/txtStartDate"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtEndDate"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnEditClass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txtClassName"
-        android:layout_marginLeft="127dp"
-        android:layout_marginTop="-41dp"
-        android:layout_toRightOf="@id/txtCapacity"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="1dp"
         android:backgroundTint="#28EC30"
         android:src="@drawable/ic_pencil"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toTopOf="@+id/btnDeleteClass"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
         app:tint="#F5F8F7" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnDeleteClass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txtClassName"
-        android:layout_marginLeft="129dp"
-        android:layout_marginTop="21dp"
-        android:layout_toRightOf="@id/txtCapacity"
+        android:layout_marginBottom="6dp"
         android:backgroundTint="#EC0923"
         android:src="@drawable/ic_bin"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/btnEditClass"
+        app:layout_constraintTop_toBottomOf="@+id/btnEditClass"
         app:tint="#F5F8F7" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

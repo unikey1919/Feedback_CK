@@ -5,6 +5,12 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_home">
 
+
+    <fragment
+        android:id="@+id/nav_addclasssuccess"
+        android:name="com.example.feedbackapplication.ui.classjoin.AddClassSuccessDialog"
+        tools:layout="@layout/add_success_dialog" />
+
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.feedbackapplication.ui.home.HomeFragment"
@@ -16,9 +22,25 @@
         tools:layout="@layout/assignment_fragment" />
 
     <fragment
-        android:id="@+id/nav_class"
-        android:name="com.example.feedbackapplication.ui.classjoin.ClassFragment"
-        tools:layout="@layout/class_fragment" />
+        android:id="@+id/nav_add_class"
+        android:name="com.example.feedbackapplication.ui.classjoin.AddClassFragment"
+        tools:layout="@layout/add_class" >
+        <action
+            android:id="@+id/action_nav_add_class_to_nav_class"
+            app:destination="@id/nav_class" />
+        <action
+            android:id="@+id/action_nav_add_class_to_nav_class2"
+            app:destination="@id/nav_class" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_edit_class"
+        android:name="com.example.feedbackapplication.ui.classjoin.EditClassFragment"
+        tools:layout="@layout/edit_class">
+        <action
+            android:id="@+id/action_nav_edit_class_to_nav_class"
+            app:destination="@id/nav_class" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_module"
@@ -30,6 +52,18 @@
         <action
             android:id="@+id/action_nav_module_to_nav_edit"
             app:destination="@id/nav_edit_module" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_class"
+        android:name="com.example.feedbackapplication.ui.classjoin.ClassFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_nav_class_to_nav_add_class"
+            app:destination="@id/nav_add_class" />
+        <action
+            android:id="@+id/action_nav_class_to_nav_edit_class"
+            app:destination="@id/nav_edit_class" />
     </fragment>
 
     <fragment
