@@ -13,14 +13,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.feedbackapplication.Adapter.ClassAdapter;
+import com.example.feedbackapplication.Adapter.ClassRoleTrainerAdapter;
+import com.example.feedbackapplication.Adapter.ModuleRoleAdapter;
 import com.example.feedbackapplication.MainActivity;
 import com.example.feedbackapplication.R;
 import com.example.feedbackapplication.model.Assignment;
 import com.example.feedbackapplication.model.Class;
+import com.example.feedbackapplication.model.Module;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -31,11 +38,12 @@ import java.util.Date;
 
 public class ClassFragment extends Fragment implements ClassAdapter.ClickListener {
 
+    private ClassRoleTrainerAdapter roleAdapter;
     private ClassViewModel myViewModel;
     private ClassAdapter adapter;
     private RecyclerView rcvClass;
-    private DatabaseReference database;
-    private ArrayList<Class> arrayList;
+    private DatabaseReference database, refAssignment;
+    private ArrayList<Assignment> arrayList;
     private FloatingActionButton btnInsert;
     private FirebaseRecyclerOptions<Class> options;
     static String role, userName;
@@ -46,7 +54,7 @@ public class ClassFragment extends Fragment implements ClassAdapter.ClickListene
         View root = inflater.inflate(R.layout.class_fragment, container, false);
         getDataFromDB();
 
-        database = FirebaseDatabase.getInstance().getReference().child("Class");
+        database = FirebaseDatabase.getInstance().getReference().child("Assignment");
         rcvClass = root.findViewById(R.id.rcvClass);
         rcvClass.setHasFixedSize(true);
         rcvClass.setLayoutManager(new LinearLayoutManager(root.getContext()));
@@ -64,13 +72,15 @@ public class ClassFragment extends Fragment implements ClassAdapter.ClickListene
         //Retrieve data when trainer log
         if(role.equals("trainer"))
         {
-            FirebaseRecyclerOptions<Assignment> options =
-                    new FirebaseRecyclerOptions.Builder<Class>()
-                            .setQuery(database, Class.class)
-                            .build();
-            adapter = new ClassAdapter(options,this);
-            rcvClass.setAdapter(adapter);
+            retrieveTrainer();
+            rcvClass.setAdapter(roleAdapter);
         }
+//        //Retrieve data when trainee log
+//        if(role.equals("trainee"))
+//        {
+//            retrieveTrainee();
+//            rcvModule.setAdapter(roleAdapter);
+//        }
 
         //Save data
         btnInsert = root.findViewById(R.id.btnNewClass);
@@ -86,13 +96,18 @@ public class ClassFragment extends Fragment implements ClassAdapter.ClickListene
     @Override
     public void onStart() {
         super.onStart();
-        adapter.startListening();
+        if(role.equals("admin")){
+            adapter.startListening();
+        }
+
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        adapter.startListening();
+        if(role.equals("admin")){
+            adapter.startListening();
+        }
     }
 
     @Override
@@ -146,4 +161,88 @@ public class ClassFragment extends Fragment implements ClassAdapter.ClickListene
         }
         return b;
     }
+
+    public void retrieveTrainer(){
+        refAssignment = FirebaseDatabase.getInstance().getReference().child("Assignment");
+        Query queryAsg = refAssignment.orderByChild("TrainerID").equalTo(userName);
+        arrayList = new ArrayList<>();
+        roleAdapter = new ClassRoleTrainerAdapter(getContext(),arrayList);
+        queryAsg.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
+                    String classID = dataSnapshot.child("ClassID").getValue().toString();
+                    Query queryClass = database.child(classID);
+                    queryClass.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            Assignment assignment = snapshot.getValue(Assignment.class);
+                            arrayList.add(assignment);
+                            roleAdapter.notifyDataSetChanged();
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+//    public void retrieveTrainee(){
+//        refEnroll = FirebaseDatabase.getInstance().getReference().child("Enroll");
+//        refAssignment = FirebaseDatabase.getInstance().getReference().child("Assignment");
+//        Query queryEnroll = refEnroll.orderByChild("trainee").equalTo(userName);
+//        arrayList = new ArrayList<>();
+//        roleAdapter = new ModuleRoleAdapter(getContext(),arrayList);
+//        rcvModule.setAdapter(roleAdapter);
+//        queryEnroll.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+//                    int classID = dataSnapshot.child("classId").getValue(Integer.class);
+//                    Query queryAsg = refAssignment.orderByChild("ClassID").equalTo(classID);
+//                    queryAsg.addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                            for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+//                                String moduleID = dataSnapshot.child("ModuleID").getValue().toString();
+//                                Query queryModule = database.child(moduleID);
+//                                queryModule.addListenerForSingleValueEvent(new ValueEventListener() {
+//                                    @Override
+//                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                        Module module = snapshot.getValue(Module.class);
+//                                        arrayList.add(module);
+//                                        roleAdapter.notifyDataSetChanged();
+//                                    }
+//                                    @Override
+//                                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                                    }
+//                                });
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError error) {
+//
+//                        }
+//                    });
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//
+//    }
 }

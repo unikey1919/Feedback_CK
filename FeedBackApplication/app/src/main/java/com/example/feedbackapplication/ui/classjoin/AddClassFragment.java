@@ -47,7 +47,6 @@ public class AddClassFragment extends Fragment {
     EditText edtClassName, edtCapacity, edtStartDate, edtEndDate;
     TextView tvClassName, tvCapacity, tvStartDate, tvEndDate;
     ImageButton ibtnCalendar1, ibtnCalendar2;
-    private Class class1;
     private int maxID = 0;
 
     @Nullable

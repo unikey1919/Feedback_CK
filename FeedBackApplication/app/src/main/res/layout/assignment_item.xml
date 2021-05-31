@@ -109,15 +109,10 @@
         android:id="@+id/btnEditClass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
         android:layout_below="@id/txtModuleName"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="-54dp"
         android:layout_toRightOf="@id/txtClassName"
-=======
         android:layout_marginLeft="-30dp"
         android:layout_marginTop="60dp"
->>>>>>> main
         android:backgroundTint="#28EC30"
         android:src="@drawable/ic_pencil"
         app:tint="#F5F8F7" />
