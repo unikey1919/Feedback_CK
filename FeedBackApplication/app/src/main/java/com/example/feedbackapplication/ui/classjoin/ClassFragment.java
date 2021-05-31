@@ -11,20 +11,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.feedbackapplication.Adapter.ClassAdapter;
 import com.example.feedbackapplication.MainActivity;
 import com.example.feedbackapplication.R;
+import com.example.feedbackapplication.model.Assignment;
 import com.example.feedbackapplication.model.Class;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ClassFragment extends Fragment implements ClassAdapter.ClickListener {
 
@@ -58,12 +61,16 @@ public class ClassFragment extends Fragment implements ClassAdapter.ClickListene
             rcvClass.setAdapter(adapter);
         }
 
-//        //Retrieve data when trainer log
-//        if(role.equals("trainer"))
-//        {
-//            retrieveTrainer();
-//            rcvModule.setAdapter(roleAdapter);
-//        }
+        //Retrieve data when trainer log
+        if(role.equals("trainer"))
+        {
+            FirebaseRecyclerOptions<Assignment> options =
+                    new FirebaseRecyclerOptions.Builder<Class>()
+                            .setQuery(database, Class.class)
+                            .build();
+            adapter = new ClassAdapter(options,this);
+            rcvClass.setAdapter(adapter);
+        }
 
         //Save data
         btnInsert = root.findViewById(R.id.btnNewClass);
@@ -90,27 +97,24 @@ public class ClassFragment extends Fragment implements ClassAdapter.ClickListene
 
     @Override
     public void updateClicked(Class class1) {
-        Bundle bundle = new Bundle();
-        bundle.putString("classname", class1.getClassName());
-        bundle.putInt("classID", class1.getClassID());
-        bundle.putInt("capacity", class1.getCapacity());
-        Navigation.findNavController(getView()).navigate(R.id.action_nav_class_to_nav_edit_class, bundle);
+        EventBus.getDefault().postSticky(class1);
+        Navigation.findNavController(getView()).navigate(R.id.action_nav_class_to_nav_edit_class);
     }
 
     @Override
     public void deleteClicked(Class class1) {
-        String key = String.valueOf(class1.getClassID());
-        FirebaseDatabase.getInstance().getReference()
-                .child("Class")
-                .child(key)
-                .setValue(null)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(getActivity(),"Update successfully" ,Toast.LENGTH_SHORT).show();
-                    }
-                });
-
+        Date now = new Date();
+        String now1 = sdf.format(now).toString();
+        if (CheckDates(now1, class1.getStartDate())==true | CheckDates(class1.getEndDate(), now1)==true){
+            EventBus.getDefault().postSticky(class1);
+            DeleteClassDialog delClass = new DeleteClassDialog();
+            delClass.show(getActivity().getSupportFragmentManager(),"delete");
+        }
+        else{
+            EventBus.getDefault().postSticky(class1);
+            DeleteClassActiveDialog delClass = new DeleteClassActiveDialog();
+            delClass.show(getActivity().getSupportFragmentManager(),"delete");
+        }
     }
 
     public void getDataFromDB(){
@@ -118,5 +122,28 @@ public class ClassFragment extends Fragment implements ClassAdapter.ClickListene
         Bundle results = activity.getMyData();
         role = results.getString("val1");
         userName = results.getString("userName");
+    }
+
+    static SimpleDateFormat sdf  = new SimpleDateFormat("MM/dd/yyyy");
+    public static boolean CheckDates(String d1, String d2)  {
+        boolean b = false;
+        try {
+            if(sdf.parse(d1).before(sdf.parse(d2)))
+            {
+                b = true;//If start date is before end date
+            }
+            else if(sdf.parse(d1).equals(sdf.parse(d2)))
+            {
+                b = false;//If two dates are equal
+            }
+            else
+            {
+                b = false; //If start date is after the end date
+            }
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return b;
     }
 }

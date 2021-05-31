@@ -28,25 +28,26 @@ public class ClassAdapter extends FirebaseRecyclerAdapter<Class, ClassAdapter.My
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull ClassAdapter.MyViewHolder holder, int position, @NonNull Class model) {
+    protected void onBindViewHolder(@NonNull ClassAdapter.MyViewHolder holder, int position, @NonNull Class cl) {
 
-        holder.txtClassID.setText("Class ID: " + model.getClassID());
-        holder.txtClassName.setText("Class Name: " + model.getClassName());
-        holder.txtCapacity.setText("Capacity: " + model.getCapacity());
-        holder.txtStartDate.setText("Start Date: " + model.getStartDate());
-        holder.txtEndDate.setText("End Date: " + model.getEndDate());
+        holder.txtClassID.setText("Class ID: " + cl.getClassID());
+        holder.txtClassName.setText("Class Name: " + cl.getClassName());
+        holder.txtCapacity.setText("Capacity: " + cl.getCapacity());
+        holder.txtStartDate.setText("Start Date: " + cl.getStartDate());
+        holder.txtEndDate.setText("End Date: " + cl.getEndDate());
 
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickListener.updateClicked(model);
+                clickListener.updateClicked(cl);
+
             }
         });
 
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickListener.deleteClicked(model);
+                clickListener.deleteClicked(cl);
             }
         });
 

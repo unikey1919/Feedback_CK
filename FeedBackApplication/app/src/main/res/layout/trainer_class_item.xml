@@ -1,50 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:id="@+id/trainer_class_item"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="90dp"
+    android:layout_marginBottom="10dp"
+    android:background="#00C32121">
 
-    <TextView
-        android:textColor="@color/black"
-        android:id="@+id/txtClassID"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:text="Class ID: 11"
-        android:textSize="20sp" />
+        android:layout_marginStart="10dp"
+        android:background="@drawable/style_feedback_item"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:textColor="@color/black"
-        android:id="@+id/txtClassName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Class Name: Class"
-        android:textSize="20sp"
-        android:layout_below="@id/txtClassID"/>
+        <TextView
+            android:id="@+id/txtClassID"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:textColor="@color/black"
-        android:id="@+id/txtCapacity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Number of Trainee: 6"
-        android:textSize="20sp"
-        android:layout_below="@id/txtClassName"/>
+        <TextView
+            android:id="@+id/txtClassName"
+            android:layout_width="match_parent"
+            android:layout_height="22dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtNumberofTrainee"
+            android:layout_width="match_parent"
+            android:layout_height="22dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:backgroundTint="#854ED3"
-        android:id="@+id/btnSeeClass_Trainer"
+        android:id="@+id/btnSee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txtClassID"
-        android:layout_marginLeft="39dp"
-        android:layout_marginTop="-15dp"
-        android:layout_toRightOf="@id/txtClassName"
-        android:clickable="true"
+        android:layout_marginEnd="3dp"
+        android:backgroundTint="#8B59E4"
+        android:src="@drawable/ic_eye_icon"
         app:fabSize="mini"
-        app:srcCompat="@drawable/ic_eye_icon"
-        app:tint="#F5F8F7"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#F5F8F7" />
 
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

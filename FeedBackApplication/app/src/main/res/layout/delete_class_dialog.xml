@@ -3,17 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/imageViewSuccess"
         android:layout_width="75dp"
         android:layout_height="67dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="52dp"
 
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="129dp"
         android:background="@drawable/fail_icon"
-        app:layout_constraintBottom_toTopOf="@+id/textViewAUSure1"
+        app:layout_constraintBottom_toTopOf="@+id/btnCancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,63 +22,64 @@
         android:id="@+id/textViewAUSure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="573dp"
+        android:layout_marginStart="16dp"
         android:text="Are you sure?"
         android:textColor="@color/black"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textViewAUSure1"
+        app:layout_constraintStart_toStartOf="@+id/textViewAUSure1"
         app:layout_constraintTop_toBottomOf="@+id/imageViewSuccess" />
 
     <TextView
         android:id="@+id/textViewAUSure1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
+        android:layout_marginStart="10dp"
         android:text="Do you want to delete"
         android:textColor="@color/black"
         android:textSize="22sp"
         app:layout_constraintBottom_toTopOf="@+id/textViewAUSure2"
         app:layout_constraintStart_toStartOf="@+id/btnYes"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewSuccess" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewAUSure" />
 
     <TextView
         android:id="@+id/textViewAUSure2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="23dp"
+        android:layout_marginBottom="29dp"
         android:text="this item?"
         android:textColor="@color/black"
         android:textSize="22sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnCancel"
-        app:layout_constraintEnd_toEndOf="@+id/textViewAUSure1"
-        app:layout_constraintStart_toStartOf="@+id/textViewAUSure1"
+        app:layout_constraintBottom_toTopOf="@+id/btnYes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewAUSure1" />
 
     <Button
         android:id="@+id/btnCancel"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="62dp"
-        android:layout_marginBottom="442dp"
+        android:layout_width="107dp"
+        android:layout_height="51dp"
+        android:layout_marginEnd="78dp"
         android:backgroundTint="@color/red"
         android:text="Cancel!"
+        android:textAllCaps="false"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnYes"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAUSure2" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewSuccess" />
 
     <Button
         android:id="@+id/btnYes"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="63dp"
-        android:layout_marginEnd="30dp"
+        android:layout_width="107dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="21dp"
         android:text="Yes!"
+        android:textAllCaps="false"
         android:textSize="20sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/btnCancel"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnCancel"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAUSure2" />
 </androidx.constraintlayout.widget.ConstraintLayout>
