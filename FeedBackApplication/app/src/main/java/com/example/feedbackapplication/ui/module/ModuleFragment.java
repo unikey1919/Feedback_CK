@@ -30,6 +30,7 @@ import com.example.feedbackapplication.LoginActivity;
 import com.example.feedbackapplication.MainActivity;
 import com.example.feedbackapplication.R;
 import com.example.feedbackapplication.model.Module;
+import com.example.feedbackapplication.ui.logout.LogoutDialog;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -53,8 +54,6 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
     private FloatingActionButton btnInsert;
     private FirebaseRecyclerOptions<Module> options;
     static String role, userName;
-    private Button btnSuccess,btnYes;
-    private TextView txt;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -136,18 +135,8 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
 
     @Override
     public void deleteClicked(Module module) {
-        String key = String.valueOf(module.getModuleID());
-        FirebaseDatabase.getInstance().getReference()
-                .child("Module")
-                .child(key)
-                .setValue(null)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        SuccessDialog();
-                    }
-                });
-
+        DeleteModuleFragmet del = new DeleteModuleFragmet(module);
+        del.show(getActivity().getSupportFragmentManager(),"delete");
     }
 
     public void getDataFromDB(){
@@ -240,25 +229,5 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
             }
         });
     }
-
-    private void SuccessDialog() {
-        Dialog dialog = new Dialog(getContext());
-        dialog.setContentView(R.layout.success_dialog);
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawable(getActivity().getDrawable(R.drawable.loginfail_background));
-        dialog.setCancelable(false);
-        txt = dialog.findViewById(R.id.txt);
-        txt.setText("Delete Success");
-        btnSuccess = dialog.findViewById(R.id.btnSuccess);
-        btnSuccess.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
-    }
-
-
 
 }

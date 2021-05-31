@@ -20,6 +20,7 @@
     <string name="menu_join">JOIN</string>
 
     <string name="login_fail">Login Failed, Check Your Login Detail</string>
+    <string name="delete">This Module has been started. You really want to delete this Module</string>
 
     <string-array name="test">
         <item>Admin</item>
