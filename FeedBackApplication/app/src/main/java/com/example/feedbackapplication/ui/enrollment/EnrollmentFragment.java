@@ -38,9 +38,9 @@ public class EnrollmentFragment extends Fragment implements EnrollmentAdapter.Cl
     private AutoCompleteTextView actClassName; //for ClassName Filter
     //for item info
     private String currentClassName = "All";
-    private String TraineeName = "-1";
-    private String ClassName = "-1";
-    private String EnrollmentKey = "-1";
+    private String TraineeName = "0";
+    private String ClassName = "0";
+    private String EnrollmentKey = "0";
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -189,7 +189,7 @@ public class EnrollmentFragment extends Fragment implements EnrollmentAdapter.Cl
                                 if (temp != null) {
                                     if (temp.getTraineeID().equals(enrollment.getTraineeID())) {
                                         EnrollmentKey = dataSnapshot.getKey();
-                                        if (EnrollmentKey != null && !TraineeName.equals("-1") && !ClassName.equals("-1")) {
+                                        if (EnrollmentKey != null && !TraineeName.equals("0") && !ClassName.equals("0")) {
                                             bundle.putString("TraineeID", enrollment.getTraineeID());
                                             bundle.putInt("ClassID", enrollment.getClassID());
                                             bundle.putString("TraineeName", TraineeName);
