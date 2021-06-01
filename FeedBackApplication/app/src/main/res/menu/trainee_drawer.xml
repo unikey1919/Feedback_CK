@@ -11,28 +11,28 @@
        >
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_house"
             android:title="@string/menu_home" />
         <item
             android:id="@+id/nav_class"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_peoples"
             android:title="@string/menu_class"  />
         <item
             android:id="@+id/nav_module"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_module"
             android:title="@string/menu_module" />
         <item
             android:id="@+id/nav_join"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_join" />
+            android:icon="@drawable/ic_contact"
+            android:title="@string/menu_contact" />
         <item
             android:id="@+id/nav_join2"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Join test" />
+            android:icon="@drawable/ic_join"
+            android:title="@string/menu_join" />
 
         <item
             android:id="@+id/nav_logout"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_logout"
             android:title="@string/menu_logout" />
     </group>
 </menu>
