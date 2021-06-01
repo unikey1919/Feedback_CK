@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginBottom="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="145dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/style_feedback_item"
+        tools:ignore="RtlSymmetry,UselessParent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:gravity="center_vertical"
+            tools:ignore="RtlSymmetry,UselessParent">
+            <TextView
+                android:textColor="@color/black"
+                android:id="@+id/lblNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No. "
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+            <TextView
+                android:textColor="@color/black"
+                android:id="@+id/txtNumber"
+                android:layout_toEndOf="@id/lblNumber"
+                android:layout_marginStart="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:textColor="@color/black"
+                android:id="@+id/lblTraineeID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trainee ID: "
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_below="@id/lblNumber"
+                tools:ignore="HardcodedText" />
+            <TextView
+                android:textColor="@color/black"
+                android:id="@+id/txtTraineeID"
+                android:layout_toEndOf="@id/lblTraineeID"
+                android:layout_marginStart="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="traineeA"
+                android:textSize="20sp"
+                android:layout_alignTop="@id/lblTraineeID"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:textColor="@color/black"
+                android:id="@+id/lblContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Content: "
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_below="@id/lblTraineeID"
+                tools:ignore="HardcodedText" />
+            <TextView
+                android:textColor="@color/black"
+                android:id="@+id/txtContent"
+                android:layout_toEndOf="@id/lblContent"
+                android:layout_marginStart="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="comment dac sac so 1 vu tru"
+                android:textSize="20sp"
+                android:layout_alignTop="@id/lblContent"
+                tools:ignore="HardcodedText" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
