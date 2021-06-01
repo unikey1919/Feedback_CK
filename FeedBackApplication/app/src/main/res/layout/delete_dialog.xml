@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/txt"
         android:layout_marginTop="30dp"
-        android:hint="@string/delete"
+        android:hint="@string/delete1"
         android:textSize="18sp"
         android:textColorHint="@color/black"
         android:layout_centerHorizontal="true"

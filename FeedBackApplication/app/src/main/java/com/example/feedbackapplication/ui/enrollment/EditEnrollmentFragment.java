@@ -46,7 +46,7 @@ public class EditEnrollmentFragment extends Fragment {
     private String class_Name;
     private String enrollment_key;
     private String key_gi_do;
-    private int newClassId=-1;
+    private int newClassId=0;
     private int flag=0;
 
     @Override
