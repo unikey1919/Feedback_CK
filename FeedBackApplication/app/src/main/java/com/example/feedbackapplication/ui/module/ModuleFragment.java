@@ -138,8 +138,8 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
 
     @Override
     public void deleteClicked(Module module) {
-            DeleteModuleFragmet del = new DeleteModuleFragmet(module);
-            del.show(getActivity().getSupportFragmentManager(),"delete");
+        DeleteModuleFragmet del = new DeleteModuleFragmet(module);
+        del.show(getActivity().getSupportFragmentManager(),"delete");
 
     }
 

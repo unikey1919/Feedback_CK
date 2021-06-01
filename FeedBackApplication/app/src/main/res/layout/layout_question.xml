@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20sp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txtview_feedback_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="questioxn"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+
+
+        <com.devprovider.customview.ToggleButtonGroupTableLayout
+            android:id="@+id/radGroup1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TableRow>
+
+                <RadioButton
+                    android:id="@+id/rad1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="Strongly disagree" />
+
+                <RadioButton
+                    android:id="@+id/rad2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:text="disagree" />
+            </TableRow>
+
+            <TableRow>
+
+                <RadioButton
+                    android:id="@+id/rad3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="undecided" />
+
+                <RadioButton
+                    android:id="@+id/rad4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:text="agree" />
+            </TableRow>
+
+            <TableRow>
+
+                <RadioButton
+                    android:id="@+id/rad5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="Strong agree" />
+            </TableRow>
+        </com.devprovider.customview.ToggleButtonGroupTableLayout>
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="300sp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        android:weightSum="2">-->
+
+    <!--        <RadioGroup-->
+    <!--            android:id="@+id/RG1"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_weight="1">-->
+
+    <!--            <RadioButton-->
+    <!--                android:id="@+id/rBtn1"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:text="Strongly Disagree" />-->
+
+    <!--            <RadioButton-->
+    <!--                android:id="@+id/rBtn2"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:text="UnDecided" />-->
+
+    <!--            <RadioButton-->
+    <!--                android:id="@+id/rBtn5"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:text="Strong Agree" />-->
+    <!--        </RadioGroup>-->
+
+
+    <!--        <RadioGroup-->
+    <!--            android:id="@+id/RG2"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_weight="1">-->
+
+    <!--            <RadioButton-->
+    <!--                android:id="@+id/rBtn3"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:text="Disagree" />-->
+
+    <!--            <RadioButton-->
+    <!--                android:id="@+id/rBtn4"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:text="Agree" />-->
+    <!--        </RadioGroup>-->
+
+    <!--    </LinearLayout>-->
+
+
+</LinearLayout>

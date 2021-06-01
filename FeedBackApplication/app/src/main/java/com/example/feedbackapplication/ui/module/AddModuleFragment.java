@@ -154,21 +154,21 @@ public class AddModuleFragment extends Fragment {
     }
 
     public void fetchData(){
-       listener = database.addValueEventListener(new ValueEventListener() {
-           @Override
-           public void onDataChange(@NonNull DataSnapshot snapshot) {
-               for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                   list.add(dataSnapshot.getKey());
-               }
-               adapter.notifyDataSetChanged();
-               adminID.setText(adapter.getItem(0),false);
-           }
+        listener = database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    list.add(dataSnapshot.getKey());
+                }
+                adapter.notifyDataSetChanged();
+                adminID.setText(adapter.getItem(0),false);
+            }
 
-           @Override
-           public void onCancelled(@NonNull DatabaseError error) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-           }
-       });
+            }
+        });
     }
 
     public void fetchDataFbTitle(){
@@ -328,8 +328,3 @@ public class AddModuleFragment extends Fragment {
         dialog.show();
     }
 }
-
-
-
-
-

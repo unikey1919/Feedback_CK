@@ -25,10 +25,10 @@ public class LogoutFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-       View root = inflater.inflate(R.layout.logout_fragment, container, false);
-       LogoutDialog logoutDialog = new LogoutDialog();
-       logoutDialog.show(getActivity().getSupportFragmentManager(),"logout");
-       return root;
+        View root = inflater.inflate(R.layout.logout_fragment, container, false);
+        LogoutDialog logoutDialog = new LogoutDialog();
+        logoutDialog.show(getActivity().getSupportFragmentManager(),"logout");
+        return root;
     }
 
 }

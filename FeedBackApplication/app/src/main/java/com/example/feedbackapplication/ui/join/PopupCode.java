@@ -49,11 +49,11 @@ public class PopupCode extends AppCompatDialogFragment {
             img.setImageResource(R.drawable.ic_deny);
         }
         else if (kq.equals("Null")){
-            txt.setText("Input Null!!!");
+            txt.setText("Invalid Registation code (Null)!!!");
             img.setImageResource(R.drawable.ic_deny);
         }
         else {
-            txt.setText("Dax tham gia!!!");
+            txt.setText("You already join this module,\n     please try another!!!");
             img.setImageResource(R.drawable.ic_deny);
         }
         builder.setView(view);

@@ -118,6 +118,7 @@ public class JoinFragment extends Fragment {
         enr2.put("traineeID", user);
         HashMap<String, Integer> enr3 = new HashMap<String, Integer>();
         enr3.put("classID", classid);
+        enr3.put("status", 0);
 
         enr3.putAll(enr2);
 
@@ -136,7 +137,7 @@ public class JoinFragment extends Fragment {
     public Integer classid = null;
     public boolean classidCompleteD = false;
 /////////////////////////////////////////////
-    //////////////////////
+    //////////////////////eee
     public void checkcode2(String userCode) {
 //        Log.d("TAG22",  "cd "+userCode);
         Bundle bundle = new Bundle();
@@ -145,7 +146,7 @@ public class JoinFragment extends Fragment {
 
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference assignmentRef = rootRef.child("Assignment");
-        Query codeQuery = assignmentRef.orderByChild("Code").equalTo(userCode);
+        Query codeQuery = assignmentRef.orderByChild("code").equalTo(userCode);
         classid = null;
         codeQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -155,7 +156,7 @@ public class JoinFragment extends Fragment {
                     customDialog.show(getActivity().getSupportFragmentManager(), "customDialog");
                 } else {
                     for (DataSnapshot dataSnapshot : ds.getChildren()) {
-                        Integer name = dataSnapshot.child("ClassID").getValue(Integer.class);
+                        Integer name = dataSnapshot.child("classID").getValue(Integer.class);
                         Log.d("TAG22", name.toString());
                         classid = name;
                         if (classid != null) {
