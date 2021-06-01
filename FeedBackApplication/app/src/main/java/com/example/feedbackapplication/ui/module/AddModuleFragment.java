@@ -1,12 +1,9 @@
 package com.example.feedbackapplication.ui.module;
 
-<<<<<<< HEAD
-=======
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
->>>>>>> origin/test
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,12 +16,14 @@ import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.example.feedbackapplication.R;
@@ -33,25 +32,21 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+
+
 
 public class AddModuleFragment extends Fragment {
-<<<<<<< HEAD
-    private Button btnBack,btnAdd;
-    private DatabaseReference database,reference;
-    private ValueEventListener listener;
-    private ArrayList<String> list;
-    private ArrayAdapter<String> adapter;
-    private AutoCompleteTextView adminID;
-    private TextInputEditText moduleName, moduleID;
-    private Module module;
-=======
     private Button btnBack,btnAdd,btnSuccess;
     private DatabaseReference database,reference, databaseFb;
     private ValueEventListener listener, listener1;
@@ -60,13 +55,21 @@ public class AddModuleFragment extends Fragment {
     private AutoCompleteTextView adminID, fbTitle ;
     private TextInputEditText moduleName, startDate, endDate, feedbackStartDate, feedbackEndDate;
     private TextInputLayout tilModuleName, tilStartDate, tilEndDate, tilFbStart, tilFbEnd;
->>>>>>> origin/test
     private int maxID = 0;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_module, container, false);
+        //init
+        startDate = view.findViewById(R.id.txt_ip_edt_startDate);
+        endDate = view.findViewById(R.id.txt_ip_edt_endDate);
+        feedbackEndDate = view.findViewById(R.id.txt_ip_edt_FbEnd);
+        feedbackStartDate = view.findViewById(R.id.txt_ip_edt_FbStart);
+        showStartDate(startDate);
+        showStartDate(endDate);
+        showStartDate(feedbackEndDate);
+        showStartDate(feedbackStartDate);
 
         //Take data to dropdown adminID
         adminID = view.findViewById(R.id.actAdminID);
@@ -74,6 +77,22 @@ public class AddModuleFragment extends Fragment {
         list = new ArrayList<String>();
         adapter = new ArrayAdapter<>(getActivity(),R.layout.option_item,list);
         adminID.setAdapter(adapter);
+        fetchData();
+
+        //Take data to dropdown fbTitle
+        fbTitle = view.findViewById(R.id.actFeedBack);
+        databaseFb = FirebaseDatabase.getInstance().getReference("Feedback");
+        listTitle = new ArrayList<String>();
+        adapterTitle = new ArrayAdapter<>(getActivity(),R.layout.option_item,listTitle);
+        fbTitle.setAdapter(adapterTitle);
+        fetchDataFbTitle();
+
+        //validate
+        tilModuleName = view.findViewById(R.id.txt_ip_ModuleName);
+        tilStartDate = view.findViewById(R.id.txt_ip_Start);
+        tilEndDate = view.findViewById(R.id.txt_ip_End);
+        tilFbStart = view.findViewById(R.id.txt_ip_FbStart);
+        tilFbEnd = view.findViewById(R.id.txt_ip_FbEnd);
 
         //database module
         reference = FirebaseDatabase.getInstance().getReference().child("Module");
@@ -101,12 +120,6 @@ public class AddModuleFragment extends Fragment {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-<<<<<<< HEAD
-                String name = moduleName.getText().toString().trim();
-                String adminId = adminID.getText().toString().trim();
-                int moduleID = maxID + 1;
-                Module module = new Module(moduleID,adminId,name);
-=======
                 if(!validateModuleName() | !validateStartDate() | !validateEndDate() | !validateFbStartDate() | !validateFbEndDate()){
                     return;
                 }
@@ -124,10 +137,7 @@ public class AddModuleFragment extends Fragment {
                     reference.child(String.valueOf(moduleID)).setValue(module);
                     SuccessDialog();
                 }
->>>>>>> origin/test
 
-                reference.child(String.valueOf(moduleID)).setValue(module);
-                Toast.makeText(v.getContext(),"Add successfully" ,Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -140,30 +150,26 @@ public class AddModuleFragment extends Fragment {
             }
         });
 
-        fetchData();
         return view;
     }
 
     public void fetchData(){
-       listener = database.addValueEventListener(new ValueEventListener() {
-           @Override
-           public void onDataChange(@NonNull DataSnapshot snapshot) {
-               for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                   list.add(dataSnapshot.getKey());
-               }
-               adapter.notifyDataSetChanged();
-               adminID.setText(adapter.getItem(0),false);
-           }
+        listener = database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    list.add(dataSnapshot.getKey());
+                }
+                adapter.notifyDataSetChanged();
+                adminID.setText(adapter.getItem(0),false);
+            }
 
-           @Override
-           public void onCancelled(@NonNull DatabaseError error) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-           }
-       });
+            }
+        });
     }
-<<<<<<< HEAD
-}
-=======
 
     public void fetchDataFbTitle(){
         listener1 = databaseFb.addValueEventListener(new ValueEventListener() {
@@ -322,9 +328,3 @@ public class AddModuleFragment extends Fragment {
         dialog.show();
     }
 }
-
-
-
-
-
->>>>>>> origin/test

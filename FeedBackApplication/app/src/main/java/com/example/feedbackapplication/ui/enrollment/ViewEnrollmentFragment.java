@@ -47,9 +47,9 @@ public class ViewEnrollmentFragment extends Fragment {
         TextView txtAddress = root.findViewById(R.id.txtAddress);
         TextView txtEmail = root.findViewById(R.id.txtEmail);
         TextView txtClassID = root.findViewById(R.id.txtClassID);
-        TextView txtStart = root.findViewById(R.id.txtStart);
+        TextView txtStart = root.findViewById(R.id.txtStartTime);
         TextView txtClassName = root.findViewById(R.id.txtClassName);
-        TextView txtEnd = root.findViewById(R.id.txtEnd);
+        TextView txtEnd = root.findViewById(R.id.txtEndTime);
         TextView txtCapacity = root.findViewById(R.id.txtCapacity);
         Button btnBack = root.findViewById(R.id.btnBack);
 

@@ -25,11 +25,8 @@ import com.example.feedbackapplication.R;
 import com.example.feedbackapplication.model.Assignment;
 import com.example.feedbackapplication.model.Item_ListFeedBackTrainee;
 import com.example.feedbackapplication.model.Module;
-<<<<<<< HEAD
-=======
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
->>>>>>> origin/test
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,11 +37,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 //implements ModuleAdapter.ClickListener
-<<<<<<< HEAD
-public class HomeFragment extends Fragment implements ListFeedBackAdapter.ClickListener_doFeedBack {
-=======
-public class HomeFragment extends Fragment implements AssignmentAdapter.ClickListener{
->>>>>>> origin/test
+public class HomeFragment extends Fragment implements AssignmentAdapter.ClickListener, ListFeedBackAdapter.ClickListener_doFeedBack{
 
     private HomeViewModel homeViewModel;
     private Button btnLogin;
@@ -314,11 +307,6 @@ public class HomeFragment extends Fragment implements AssignmentAdapter.ClickLis
 
     }
 
-<<<<<<< HEAD
-    //
-
-    //
-=======
     @Override
     public void updateClicked(Assignment module, String moduleName, String className, String position) {
     }
@@ -344,5 +332,5 @@ public class HomeFragment extends Fragment implements AssignmentAdapter.ClickLis
         }
 
     }
->>>>>>> origin/test
+
 }
