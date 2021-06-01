@@ -4,17 +4,15 @@ public class FeedBack {
     private int FeedbackID;
     private String Title;
     private String AdminID;
-    private String TypeFeedback;
 
     public FeedBack() {
 
     }
 
-    public FeedBack(int feedbackID, String title, String adminID, String typeFeedback) {
+    public FeedBack(int feedbackID, String title, String adminID) {
         FeedbackID = feedbackID;
         Title = title;
         AdminID = adminID;
-        TypeFeedback = typeFeedback;
     }
 
     public int getFeedbackID() {
@@ -41,11 +39,4 @@ public class FeedBack {
         AdminID = adminID;
     }
 
-    public String getTypeFeedback() {
-        return TypeFeedback;
-    }
-
-    public void setTypeFeedback(String typeFeedback) {
-        TypeFeedback = typeFeedback;
-    }
 }

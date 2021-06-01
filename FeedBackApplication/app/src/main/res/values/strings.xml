@@ -20,6 +20,7 @@
     <string name="menu_join">JOIN</string>
 
     <string name="login_fail">Login Failed, Check Your Login Detail</string>
+    <string name="add_success">Add question success</string>
 
     <string-array name="test">
         <item>Admin</item>
@@ -27,7 +28,7 @@
         <item>Trainee</item>
     </string-array>
 
-    <string-array name="test1">
+    <string-array name="types">
         <item>Online</item>
         <item>Offline</item>
     </string-array>

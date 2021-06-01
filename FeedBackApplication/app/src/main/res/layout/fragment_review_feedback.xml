@@ -10,12 +10,12 @@
         android:id="@+id/txtLable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
+        android:layout_marginStart="70dp"
         android:layout_marginTop="30dp"
         android:text="Review New Feedback"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="36dp"
+        android:textSize="25dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -46,8 +46,9 @@
 
             <TextView
                 android:id="@+id/txtTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:text=""
                 android:textColor="@color/black"
                 android:textSize="15dp" />
@@ -68,8 +69,9 @@
 
             <TextView
                 android:id="@+id/txtAdminId"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:text=""
                 android:textColor="@color/black"
                 android:textSize="15dp" />
@@ -87,15 +89,13 @@
             android:id="@+id/txtchk1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="- I am satisfied with the topic/courses's content (Tôi hài lòng với nội dung môn học/ khóa học)"
             android:textColor="@color/black"
             android:textSize="15dp" />
 
         <TextView
             android:id="@+id/txtchk2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="- The course is useful for my work (Khóa học có ích cho công việc của tôi)"
             android:textColor="@color/black"
             android:textSize="15dp" />
 
@@ -109,17 +109,15 @@
 
         <TextView
             android:id="@+id/txtchk3"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="- The training content is fully transferred following the courseware ( nội dung được truyền đạt đầy đủ theo giáo trình)"
             android:textColor="@color/black"
             android:textSize="15dp" />
 
         <TextView
             android:id="@+id/txtchk4"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="- My question were encouraged and answered satisfactorily (tôi được khuyên khích đặt câu hỏi và hài với câu trả lời của giáo viên)"
             android:textColor="@color/black"
             android:textSize="15dp" />
 
@@ -135,7 +133,6 @@
             android:id="@+id/txtchk5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="- The Class Admin was supportive and helpful "
             android:textColor="@color/black"
             android:textSize="15dp" />
 
@@ -151,7 +148,6 @@
             android:id="@+id/txtchk6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="- I am satisfied with the topic/courses's content (Tôi hài lòng với nội dung môn học/ khóa học)"
             android:textColor="@color/black"
             android:textSize="15dp" />
 
