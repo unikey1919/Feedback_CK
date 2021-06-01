@@ -1,6 +1,5 @@
 package com.example.feedbackapplication.ui.module;
 
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,13 +12,11 @@ import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.example.feedbackapplication.R;
@@ -28,44 +25,29 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-
-
 
 public class AddModuleFragment extends Fragment {
     private Button btnBack,btnAdd;
-    private DatabaseReference database,reference, databaseFb;
-    private ValueEventListener listener, listener1;
-    private ArrayList<String> list, listTitle;
-    private ArrayAdapter<String> adapter, adapterTitle;
-    private AutoCompleteTextView adminID, fbTitle ;
-    private TextInputEditText moduleName, startDate, endDate, feedbackStartDate, feedbackEndDate;
-    private TextInputLayout tilModuleName, tilStartDate, tilEndDate, tilFbStart, tilFbEnd;
+    private DatabaseReference database,reference;
+    private ValueEventListener listener;
+    private ArrayList<String> list;
+    private ArrayAdapter<String> adapter;
+    private AutoCompleteTextView adminID;
+    private TextInputEditText moduleName, moduleID;
+    private Module module;
     private int maxID = 0;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_module, container, false);
-        //init
-        startDate = view.findViewById(R.id.txt_ip_edt_startDate);
-        endDate = view.findViewById(R.id.txt_ip_edt_endDate);
-        feedbackEndDate = view.findViewById(R.id.txt_ip_edt_FbEnd);
-        feedbackStartDate = view.findViewById(R.id.txt_ip_edt_FbStart);
-        showStartDate(startDate);
-        showStartDate(endDate);
-        showStartDate(feedbackEndDate);
-        showStartDate(feedbackStartDate);
 
         //Take data to dropdown adminID
         adminID = view.findViewById(R.id.actAdminID);
@@ -73,22 +55,6 @@ public class AddModuleFragment extends Fragment {
         list = new ArrayList<String>();
         adapter = new ArrayAdapter<>(getActivity(),R.layout.option_item,list);
         adminID.setAdapter(adapter);
-        fetchData();
-
-        //Take data to dropdown fbTitle
-        fbTitle = view.findViewById(R.id.actFeedBack);
-        databaseFb = FirebaseDatabase.getInstance().getReference("Feedback");
-        listTitle = new ArrayList<String>();
-        adapterTitle = new ArrayAdapter<>(getActivity(),R.layout.option_item,listTitle);
-        fbTitle.setAdapter(adapterTitle);
-        fetchDataFbTitle();
-
-        //validate
-        tilModuleName = view.findViewById(R.id.txt_ip_ModuleName);
-        tilStartDate = view.findViewById(R.id.txt_ip_Start);
-        tilEndDate = view.findViewById(R.id.txt_ip_End);
-        tilFbStart = view.findViewById(R.id.txt_ip_FbStart);
-        tilFbEnd = view.findViewById(R.id.txt_ip_FbEnd);
 
         //database module
         reference = FirebaseDatabase.getInstance().getReference().child("Module");
@@ -116,25 +82,13 @@ public class AddModuleFragment extends Fragment {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!validateModuleName() | !validateStartDate() | !validateEndDate() | !validateFbStartDate() | !validateFbEndDate()){
-                    return;
-                }
-                else {
-                    String name = moduleName.getText().toString().trim();
-                    String adminId = adminID.getText().toString().trim();
-                    int moduleID = maxID + 1;
-                    String start = startDate.getText().toString().trim();
-                    String end = endDate.getText().toString().trim();
-                    String fTitle = fbTitle.getText().toString().trim();
-                    String fbStart = feedbackStartDate.getText().toString().trim();
-                    String fbEnd = feedbackEndDate.getText().toString().trim();
+                String name = moduleName.getText().toString().trim();
+                String adminId = adminID.getText().toString().trim();
+                int moduleID = maxID + 1;
+                Module module = new Module(moduleID,adminId,name);
 
-                    Module module = new Module(moduleID,adminId,name,start,end,fTitle,fbStart,fbEnd);
-
-                    reference.child(String.valueOf(moduleID)).setValue(module);
-                    Toast.makeText(v.getContext(),"Add successfully" ,Toast.LENGTH_SHORT).show();
-                }
-
+                reference.child(String.valueOf(moduleID)).setValue(module);
+                Toast.makeText(v.getContext(),"Add successfully" ,Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -147,6 +101,7 @@ public class AddModuleFragment extends Fragment {
             }
         });
 
+        fetchData();
         return view;
     }
 
@@ -167,152 +122,4 @@ public class AddModuleFragment extends Fragment {
            }
        });
     }
-
-    public void fetchDataFbTitle(){
-        listener1 = databaseFb.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    listTitle.add(dataSnapshot.child("Title").getValue().toString());
-                }
-                adapterTitle.notifyDataSetChanged();
-                fbTitle.setText(adapterTitle.getItem(0),false);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    public void showStartDate(final TextInputEditText date ){
-
-        date.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                final int DRAWABLE_LEFT = 0;
-                final int DRAWABLE_TOP = 1;
-                final int DRAWABLE_RIGHT = 2;
-                final int DRAWABLE_BOTTOM = 3;
-                if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if(event.getRawX() >= (startDate.getRight() - startDate.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        // your action here
-                        final Calendar calendar = Calendar.getInstance();
-                        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                calendar.set(Calendar.YEAR,year);
-                                calendar.set(Calendar.MONTH,month);
-                                calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
-                                date.setText(simpleDateFormat.format(calendar.getTime()));
-
-                            }
-                        };
-                        new DatePickerDialog(getActivity(),dateSetListener,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show();
-                        return true;
-                    }
-                }
-                return false;
-            }
-        });
-    }
-
-    private boolean validateModuleName(){
-        String name = tilModuleName.getEditText().getText().toString().trim();
-        tilModuleName.setErrorIconDrawable(null);
-        if(name.isEmpty()){
-            tilModuleName.setError("Please enter module name and less than 255");
-            return false;
-        } else {
-            tilModuleName.setError(null);
-            return true;
-        }
-    }
-
-    private boolean validateStartDate(){
-        String start = tilStartDate.getEditText().getText().toString().trim();
-        tilStartDate.setErrorIconDrawable(null);
-        if(start.isEmpty()){
-            tilStartDate.setError("Please choose start date or fill mm/dd/yy");
-            return false;
-        } else {
-            tilStartDate.setError(null);
-            return true;
-        }
-    }
-
-    private boolean validateEndDate(){
-        String start = tilStartDate.getEditText().getText().toString().trim();
-        String end = tilEndDate.getEditText().getText().toString().trim();
-        tilEndDate.setErrorIconDrawable(null);
-        if(end.isEmpty()){
-            tilEndDate.setError("Please choose start date or fill mm/dd/yy");
-            return false;
-        }
-        if (CheckDates(start,end) == false){
-            tilEndDate.setError("Please choose end date after start date");
-            return false;
-        }else {
-            tilEndDate.setError(null);
-            return true;
-        }
-    }
-
-    private boolean validateFbStartDate(){
-        String start = tilFbStart.getEditText().getText().toString().trim();
-        tilFbStart.setErrorIconDrawable(null);
-        if(start.isEmpty()){
-            tilFbStart.setError("Please choose start date or fill mm/dd/yy");
-            return false;
-        } else {
-            tilFbStart.setError(null);
-            return true;
-        }
-    }
-
-    private boolean validateFbEndDate(){
-        String end = tilFbEnd.getEditText().getText().toString().trim();
-        String start = tilFbStart.getEditText().getText().toString().trim();
-        tilFbEnd.setErrorIconDrawable(null);
-        if(end.isEmpty()){
-            tilFbEnd.setError("Please choose start date or fill mm/dd/yy");
-            return false;
-        }
-        if (CheckDates(start,end) == false){
-            tilFbEnd.setError("Please choose end date after start date");
-            return false;
-        }else {
-            tilFbEnd.setError(null);
-            return true;
-        }
-    }
-
-    static SimpleDateFormat sdf  = new SimpleDateFormat("MM/dd/yyyy");
-    public static boolean CheckDates(String d1, String d2)  {
-        boolean b = false;
-        try {
-            if(sdf.parse(d1).before(sdf.parse(d2)))
-            {
-                b = true;//If start date is before end date
-            }
-            else if(sdf.parse(d1).equals(sdf.parse(d2)))
-            {
-                b = true;//If two dates are equal
-            }
-            else
-            {
-                b = false; //If start date is after the end date
-            }
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return b;
-    }
-
-
-
-
 }
