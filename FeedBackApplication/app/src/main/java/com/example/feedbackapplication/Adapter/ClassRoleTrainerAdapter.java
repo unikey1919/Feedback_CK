@@ -45,8 +45,6 @@ public class ClassRoleTrainerAdapter extends RecyclerView.Adapter<ClassRoleTrain
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Assignment assignment = assignments.get(position);
-        holder.txtClassID.setText("Class ID: " + assignment.getClassID());
-
         //get class name
         DatabaseReference refClass = FirebaseDatabase.getInstance().getReference().child("Class");
         Query query1 = refClass.orderByChild("classID").equalTo(assignment.getClassID());
@@ -63,6 +61,7 @@ public class ClassRoleTrainerAdapter extends RecyclerView.Adapter<ClassRoleTrain
 
             }
         });
+        holder.txtClassID.setText("Class ID: " + assignment.getClassID());
         holder.txtNumber.setText("OK");
     }
 

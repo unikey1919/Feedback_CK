@@ -42,6 +42,9 @@ public class DeleteModuleFragmet extends AppCompatDialogFragment {
         btnYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dismiss();
+                SuccessDialog();
+                getActivity();
                 String key = String.valueOf(module.getModuleID());
                 FirebaseDatabase.getInstance().getReference()
                         .child("Module")
@@ -50,7 +53,6 @@ public class DeleteModuleFragmet extends AppCompatDialogFragment {
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                SuccessDialog();
                             }
                         });
             }
@@ -60,7 +62,7 @@ public class DeleteModuleFragmet extends AppCompatDialogFragment {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dismiss();;
+                dismiss();
             }
         });
         builder.setView(view);

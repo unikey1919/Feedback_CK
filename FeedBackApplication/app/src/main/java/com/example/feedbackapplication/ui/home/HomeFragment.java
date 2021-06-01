@@ -11,15 +11,21 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.feedbackapplication.Adapter.AssignmentAdapter;
 import com.example.feedbackapplication.Adapter.ListFeedBackAdapter;
 import com.example.feedbackapplication.Adapter.ModuleAdapter;
 import com.example.feedbackapplication.LoginActivity;
 import com.example.feedbackapplication.MainActivity;
 import com.example.feedbackapplication.R;
+import com.example.feedbackapplication.model.Assignment;
 import com.example.feedbackapplication.model.Item_ListFeedBackTrainee;
+import com.example.feedbackapplication.model.Module;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,19 +36,25 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 //implements ModuleAdapter.ClickListener
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements AssignmentAdapter.ClickListener{
 
     private HomeViewModel homeViewModel;
     private Button btnLogin;
+    private FloatingActionButton btnAdd;
     private RecyclerView rcv_Category;
     static String role;
     static String user;
     private ModuleAdapter adapter;
     public DatabaseReference rootRef;
+    private View root;
+    private AssignmentAdapter adapter1;
+    private RecyclerView rcvAssignment;
+    private DatabaseReference database, refModule;
+    private Query query;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+         root = inflater.inflate(R.layout.fragment_home, container, false);
 
         getDataFromDB();
         if (role.equals("null")) {
@@ -58,10 +70,13 @@ public class HomeFragment extends Fragment {
         }
         if (role.equals("admin")) {
             root = inflater.inflate(R.layout.fragment_dashboard_admin, container, false);
+            getAdminDashboard();
         }
         if (role.equals("trainer")) {
             root = inflater.inflate(R.layout.fragment_dashboard_trainer, container, false);
+            getTrainerDashboard();
         }
+
         if (role.equals("trainee")) {
 //            root = inflater.inflate(R.layout.fragment_dashboard_trainee, container, false);
             root = inflater.inflate(R.layout.fragment_dashboard_trainee, container, false);
@@ -181,7 +196,70 @@ public class HomeFragment extends Fragment {
         user = results.getString("username");
     }
 
+    //get dashboard admin
 
-    //
-    //
+    public void getAdminDashboard(){
+        database = FirebaseDatabase.getInstance().getReference().child("Assignment");
+        rcvAssignment = root.findViewById(R.id.rcv_assignment);
+        rcvAssignment.setHasFixedSize(true);
+        rcvAssignment.setLayoutManager(new LinearLayoutManager(root.getContext()));
+
+        FirebaseRecyclerOptions<Assignment> options =
+                new FirebaseRecyclerOptions.Builder<Assignment>()
+                        .setQuery(database, Assignment.class)
+                        .build();
+        adapter1 = new AssignmentAdapter(options, this,role);
+        rcvAssignment.setAdapter(adapter1);
+
+        //insert
+        btnAdd = root.findViewById(R.id.btnNew);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_nav_add_admin_to_nav_add);
+            }
+        });
+    }
+
+    public void getTrainerDashboard(){
+        database = FirebaseDatabase.getInstance().getReference().child("Assignment");
+        query = database.orderByChild("trainerID").equalTo(user);
+        rcvAssignment = root.findViewById(R.id.rcv_assignment);
+        rcvAssignment.setHasFixedSize(true);
+        rcvAssignment.setLayoutManager(new LinearLayoutManager(root.getContext()));
+
+        FirebaseRecyclerOptions<Assignment> options =
+                new FirebaseRecyclerOptions.Builder<Assignment>()
+                        .setQuery(query, Assignment.class)
+                        .build();
+        adapter1 = new AssignmentAdapter(options, this,role);
+        rcvAssignment.setAdapter(adapter1);
+
+    }
+
+    @Override
+    public void updateClicked(Module module) {
+    }
+
+    @Override
+    public void deleteClicked(Module module) {
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(role.equals("admin") | role.equals("trainer")){
+            adapter1.startListening();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(role.equals("admin") | role.equals("trainer")){
+            adapter1.startListening();
+        }
+
+    }
 }

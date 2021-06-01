@@ -1,51 +1,51 @@
 package com.example.feedbackapplication.model;
 
 public class Assignment {
-    private int ModuleID;
-    private int ClassID;
-    private String TrainerID;
-    private String Code;
+    private int moduleID;
+    private int classID;
+    private String trainerID;
+    private String code;
 
     public Assignment(){
 
     }
 
     public Assignment(int moduleID, int classID, String trainerID, String code) {
-        ModuleID = moduleID;
-        ClassID = classID;
-        TrainerID = trainerID;
-        Code = code;
+        this.moduleID = moduleID;
+        this.classID = classID;
+        this.trainerID = trainerID;
+        this.code = code;
     }
 
     public int getModuleID() {
-        return ModuleID;
+        return moduleID;
     }
 
     public void setModuleID(int moduleID) {
-        ModuleID = moduleID;
+        this.moduleID = moduleID;
     }
 
     public int getClassID() {
-        return ClassID;
+        return classID;
     }
 
     public void setClassID(int classID) {
-        ClassID = classID;
+        this.classID = classID;
     }
 
     public String getTrainerID() {
-        return TrainerID;
+        return trainerID;
     }
 
     public void setTrainerID(String trainerID) {
-        TrainerID = trainerID;
+        this.trainerID = trainerID;
     }
 
     public String getCode() {
-        return Code;
+        return code;
     }
 
     public void setCode(String code) {
-        Code = code;
+        this.code = code;
     }
 }

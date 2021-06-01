@@ -136,7 +136,7 @@ public class ClassFragment extends Fragment implements ClassAdapter.ClickListene
         MainActivity activity = (MainActivity) getActivity();
         Bundle results = activity.getMyData();
         role = results.getString("val1");
-        userName = results.getString("userName");
+        userName = results.getString("username");
     }
 
     static SimpleDateFormat sdf  = new SimpleDateFormat("MM/dd/yyyy");

@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.feedbackapplication.Adapter.AssignmentAdapter;
 import com.example.feedbackapplication.Adapter.ModuleAdapter;
 import com.example.feedbackapplication.Adapter.ModuleRoleAdapter;
 import com.example.feedbackapplication.LoginActivity;
@@ -60,13 +61,13 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.module_fragment, container, false);
 
+        btnInsert = root.findViewById(R.id.btnNew);
         getDataFromDB();
 
         database = FirebaseDatabase.getInstance().getReference().child("Module");
         rcvModule = root.findViewById(R.id.rcvModule);
         rcvModule.setHasFixedSize(true);
         rcvModule.setLayoutManager(new LinearLayoutManager(root.getContext()));
-
         //Retrieve data
         if(role.equals("admin"))
         {
@@ -80,19 +81,21 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
         //Retrieve data when trainer log
         if(role.equals("trainer"))
         {
+            btnInsert.setVisibility(root.GONE);
             retrieveTrainer();
             rcvModule.setAdapter(roleAdapter);
         }
         //Retrieve data when trainee log
         if(role.equals("trainee"))
         {
+            btnInsert.setVisibility(root.GONE);
             retrieveTrainee();
             rcvModule.setAdapter(roleAdapter);
         }
 
 
         //Save data
-        btnInsert = root.findViewById(R.id.btnNew);
+
         btnInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,8 +138,9 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
 
     @Override
     public void deleteClicked(Module module) {
-        DeleteModuleFragmet del = new DeleteModuleFragmet(module);
-        del.show(getActivity().getSupportFragmentManager(),"delete");
+            DeleteModuleFragmet del = new DeleteModuleFragmet(module);
+            del.show(getActivity().getSupportFragmentManager(),"delete");
+
     }
 
     public void getDataFromDB(){
@@ -148,7 +152,7 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
 
     public void retrieveTrainer(){
         refAssignment = FirebaseDatabase.getInstance().getReference().child("Assignment");
-        Query queryAsg = refAssignment.orderByChild("TrainerID").equalTo(userName);
+        Query queryAsg = refAssignment.orderByChild("trainerID").equalTo(userName);
         arrayList = new ArrayList<>();
         roleAdapter = new ModuleRoleAdapter(getContext(),arrayList);
         rcvModule.setAdapter(roleAdapter);
@@ -157,7 +161,7 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
-                    String moduleID = dataSnapshot.child("ModuleID").getValue().toString();
+                    String moduleID = dataSnapshot.child("moduleID").getValue().toString();
                     Query queryModule = database.child(moduleID);
                     queryModule.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -193,12 +197,12 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     int classID = dataSnapshot.child("classID").getValue(Integer.class);
-                    Query queryAsg = refAssignment.orderByChild("ClassID").equalTo(classID);
+                    Query queryAsg = refAssignment.orderByChild("classID").equalTo(classID);
                     queryAsg.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                                String moduleID = dataSnapshot.child("ModuleID").getValue().toString();
+                                String moduleID = dataSnapshot.child("moduleID").getValue().toString();
                                 Query queryModule = database.child(moduleID);
                                 queryModule.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override

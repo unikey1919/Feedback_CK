@@ -39,6 +39,7 @@
         android:layout_toRightOf="@+id/edtSearch"
         android:layout_marginStart="10dp"
         android:text="Search"
+        android:backgroundTint="@color/main"
         android:layout_marginTop="5dp"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

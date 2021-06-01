@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.module.AddModuleFragment">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="Add Assignment"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtModuleName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:text="Module Name:"
+        android:textColor="@color/black" />
+
+
+    <Spinner
+        android:background="@drawable/style_spinner"
+        android:id="@+id/spnModule"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtModuleName"
+        android:layout_marginStart="40dp"
+        />
+
+    <TextView
+        android:id="@+id/txtClassName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spnModule"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:text="Class Name:"
+        android:textColor="@color/black" />
+
+   <Spinner
+        android:background="@drawable/style_spinner"
+        android:id="@+id/spnClassName"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtClassName"
+        android:layout_marginStart="40dp"
+        />
+
+    <TextView
+        android:id="@+id/txtTrainerID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spnClassName"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:text="Trainer ID:"
+        android:textColor="@color/black" />
+
+    <Spinner
+        android:background="@drawable/style_spinner"
+        android:id="@+id/spnTrainer"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtTrainerID"
+        android:layout_marginStart="40dp"
+        />
+
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spnTrainer"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="50dp"
+        android:backgroundTint="@color/black"
+        android:text="Back" />
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spnTrainer"
+        android:layout_marginTop="30dp"
+
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/btnBack"
+        android:backgroundTint="@color/black"
+        android:text="Add" />
+
+
+
+</RelativeLayout>

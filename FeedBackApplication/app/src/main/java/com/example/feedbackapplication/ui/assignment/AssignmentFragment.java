@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,6 +26,7 @@ import com.example.feedbackapplication.model.Assignment;
 import com.example.feedbackapplication.model.Module;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,7 +42,9 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.Cl
     static String role, userName;
     private FirebaseRecyclerOptions<Assignment> options;
     private Button btnSearch;
+    private FloatingActionButton btnAdd;
     private EditText edtSearch;
+    private Query query;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -63,13 +67,27 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.Cl
         rcvAssignment.setHasFixedSize(true);
         rcvAssignment.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
+        if(role.equals("admin")){
+            query =database;
+        }
+        if(role.equals("trainer")){
+            query = database.orderByChild("trainerID").equalTo(userName);
+        }
         FirebaseRecyclerOptions<Assignment> options =
                 new FirebaseRecyclerOptions.Builder<Assignment>()
-                        .setQuery(database, Assignment.class)
+                        .setQuery(query, Assignment.class)
                         .build();
-        adapter = new AssignmentAdapter(options,this);
+        adapter = new AssignmentAdapter(options,this,role);
         rcvAssignment.setAdapter(adapter);
 
+        //insert
+        btnAdd = root.findViewById(R.id.btnNew);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_nav_add_assignment_to_nav_add);
+            }
+        });
         return root;
     }
 
@@ -79,26 +97,22 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.Cl
             query = database;
         }
         else {
-            query = database.orderByChild("Code").startAt(s).endAt(s+"\uf8ff");
+            query = database.orderByChild("code").startAt(s).endAt(s+"\uf8ff");
         }
         FirebaseRecyclerOptions<Assignment> options =
                 new FirebaseRecyclerOptions.Builder<Assignment>()
                         .setQuery(query, Assignment.class)
                         .build();
-        adapter = new AssignmentAdapter(options,this);
+        adapter = new AssignmentAdapter(options,this,role);
         adapter.startListening();
         rcvAssignment.setAdapter(adapter);
-
-
-
-
     }
 
     public void getDataFromDB(){
         MainActivity activity = (MainActivity) getActivity();
         Bundle results = activity.getMyData();
         role = results.getString("val1");
-        userName = results.getString("userName");
+        userName = results.getString("username");
     }
 
     @Override
