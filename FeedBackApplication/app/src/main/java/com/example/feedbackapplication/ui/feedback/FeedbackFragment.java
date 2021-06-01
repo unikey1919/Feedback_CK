@@ -3,6 +3,7 @@ package com.example.feedbackapplication.ui.feedback;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -16,8 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.feedbackapplication.Adapter.FeedbackAdapter;
@@ -46,6 +50,7 @@ public class FeedbackFragment extends Fragment implements FeedbackAdapter.ClickL
     private DatabaseReference database;
     private ArrayList<FeedBack> arrayList;
     private FloatingActionButton btnInsert;
+    private Button btnCancelAct, btnYesAct;
 
     public static FeedbackFragment newInstance() {
         return new FeedbackFragment();
@@ -113,16 +118,40 @@ public class FeedbackFragment extends Fragment implements FeedbackAdapter.ClickL
 
     @Override
     public void deleteClicked(FeedBack feedBack) {
-        String key = String.valueOf(feedBack.getFeedbackID());
-        FirebaseDatabase.getInstance().getReference()
-                .child("Feedback")
-                .child(key)
-                .setValue(null)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(getActivity(),"Update successfully" ,Toast.LENGTH_SHORT).show();
-                    }
-                });
+        final Dialog dialog = new Dialog(getContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.delete_question_active_dialog);
+        TextView textView = dialog.findViewById(R.id.textViewAUSure1);
+        textView.setText("Do you want to delete this item?");
+
+        Window window = dialog.getWindow();
+        window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT);
+
+        dialog.setCancelable(false);
+        btnCancelAct = dialog.findViewById(R.id.btnCancelAct);
+        btnYesAct = dialog.findViewById(R.id.btnYesAct);
+        btnCancelAct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        btnYesAct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String key = String.valueOf(feedBack.getFeedbackID());
+                FirebaseDatabase.getInstance().getReference()
+                        .child("Feedback")
+                        .child(key)
+                        .setValue(null)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(getActivity(),"Update successfully" ,Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        });
+        dialog.show();
     }
 }

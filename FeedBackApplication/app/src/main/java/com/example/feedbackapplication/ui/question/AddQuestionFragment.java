@@ -1,5 +1,11 @@
 package com.example.feedbackapplication.ui.question;
 
+import android.app.Dialog;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,19 +13,20 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.feedbackapplication.R;
-import com.example.feedbackapplication.model.Module;
 import com.example.feedbackapplication.model.Question;
-import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,12 +36,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class AddQuestionFragment extends Fragment {
+
     private Button btnBack,btnSave;
     private DatabaseReference database,reference;
     private ValueEventListener listener;
     private ArrayList<String> list;
     private ArrayAdapter<String> adapter;
     private AutoCompleteTextView topicName, questionContent;
+    private TextInputLayout inputQuestion;
     private Question question;
     private int maxID = 0;
 
@@ -73,14 +82,14 @@ public class AddQuestionFragment extends Fragment {
         });
 
         //Insert Data
+        inputQuestion = view.findViewById(R.id.edtContent);
         questionContent = view.findViewById(R.id.edtQuestion);
-        TextView txtValidate = view.findViewById(R.id.txtValidate);
         btnSave = view.findViewById(R.id.btnSave);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(questionContent == null){
-                    txtValidate.setText("Please enter the question");
+                if(! validate()){
+                    return;
                 } else {
                     int topicId = maxID + 1;
                     String topicN = topicName.getText().toString().trim();
@@ -91,6 +100,8 @@ public class AddQuestionFragment extends Fragment {
 
                     reference.child(String.valueOf(questionId)).setValue(question);
                     Toast.makeText(v.getContext(), "Add successfully", Toast.LENGTH_SHORT).show();
+                    SuccessDialog(Gravity.CENTER);
+                    Navigation.findNavController(v).navigate(R.id.action_nav_add_question_to_nav_question);
                 }
             }
         });
@@ -124,5 +135,39 @@ public class AddQuestionFragment extends Fragment {
 
             }
         });
+    }
+
+    private void SuccessDialog(int gravity){
+
+        final Dialog dialog = new Dialog(getContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.add_question_success);
+
+        Window window = dialog.getWindow();
+        window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT);
+
+        WindowManager.LayoutParams windowAttributes = window.getAttributes();
+        windowAttributes.gravity = gravity;
+        window.setAttributes(windowAttributes);
+        dialog.setCancelable(false);
+        Button btnAddSuccess = dialog.findViewById(R.id.btnAddSuccess);
+        btnAddSuccess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    private boolean validate(){
+        String question = inputQuestion.getEditText().getText().toString().trim();
+        if(question.isEmpty()){
+            inputQuestion.setError("Please enter the question");
+            return false;
+        } else {
+            inputQuestion.setError(null);
+            return true;
+        }
     }
 }

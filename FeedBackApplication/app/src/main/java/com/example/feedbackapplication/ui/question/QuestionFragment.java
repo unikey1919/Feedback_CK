@@ -2,6 +2,7 @@ package com.example.feedbackapplication.ui.question;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,11 +12,15 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.feedbackapplication.Adapter.ModuleAdapter;
@@ -46,6 +51,7 @@ public class QuestionFragment extends Fragment implements QuestionAdapter.ClickL
     private ArrayAdapter<String> adapter1;
     private AutoCompleteTextView topicN;
     private FloatingActionButton btnNew;
+    private Button btnCancelAct, btnYesAct;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -106,20 +112,42 @@ public class QuestionFragment extends Fragment implements QuestionAdapter.ClickL
     }
 
     public void deleteClicked(Question question) {
-        String key = String.valueOf(question.getQuestionID());
-        FirebaseDatabase.getInstance().getReference()
-                .child("Question")
-                .child(key)
-                .setValue(null)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(getActivity(),"Update successfully" ,Toast.LENGTH_SHORT).show();
-                    }
-                });
+        final Dialog dialog = new Dialog(getContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.delete_question_active_dialog);
 
+        Window window = dialog.getWindow();
+        window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT);
+
+        dialog.setCancelable(false);
+        btnCancelAct = dialog.findViewById(R.id.btnCancelAct);
+        btnYesAct = dialog.findViewById(R.id.btnYesAct);
+        btnCancelAct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        btnYesAct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String key = String.valueOf(question.getQuestionID());
+                FirebaseDatabase.getInstance().getReference()
+                        .child("Question")
+                        .child(key)
+                        .setValue(null)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                dialog.dismiss();
+                                Toast.makeText(getActivity(),"Update successfully" ,Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        });
+        dialog.show();
     }
-// ram het nen debug hoi lau nha
+
     public void fetchData(){
         listener = database.addValueEventListener(new ValueEventListener() {
             @Override
@@ -128,7 +156,6 @@ public class QuestionFragment extends Fragment implements QuestionAdapter.ClickL
                     list.add(dataSnapshot.getKey());
                 }
                 adapter1.notifyDataSetChanged();
-//                topicN.setText(adapter1.getItem(0),false);
             }
 
             @Override

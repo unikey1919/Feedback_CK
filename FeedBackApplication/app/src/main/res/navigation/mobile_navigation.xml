@@ -122,6 +122,7 @@
     <fragment
         android:id="@+id/nav_feedback"
         android:name="com.example.feedbackapplication.ui.feedback.FeedbackFragment"
+        android:label="Feedback"
         tools:layout="@layout/feedback_fragment" >
         <action
             android:id="@+id/action_nav_feedback_to_nav_detail_feedback"
@@ -142,6 +143,7 @@
     <fragment
         android:id="@+id/nav_question"
         android:name="com.example.feedbackapplication.ui.question.QuestionFragment"
+        android:label="Question"
         tools:layout="@layout/question_fragment" >
         <action
             android:id="@+id/action_nav_question_to_nav_add_question"
@@ -168,6 +170,7 @@
     <fragment
         android:id="@+id/nav_add_question"
         android:name="com.example.feedbackapplication.ui.question.AddQuestionFragment"
+        android:label="Add Question"
         tools:layout="@layout/fragment_add_question" >
         <action
             android:id="@+id/action_nav_add_question_to_nav_question"
@@ -176,7 +179,7 @@
     <fragment
         android:id="@+id/nav_edit_question"
         android:name="com.example.feedbackapplication.ui.question.EditQuestionFragment"
-        android:label="fragment_edit_question"
+        android:label="Edit Question"
         tools:layout="@layout/fragment_edit_question" >
         <action
             android:id="@+id/action_nav_edit_question_to_nav_question"
@@ -185,12 +188,12 @@
     <fragment
         android:id="@+id/nav_detail_feedback"
         android:name="com.example.feedbackapplication.ui.feedback.DetailFeedbackFragment"
-        android:label="fragment_detail_feedback"
+        android:label="Detail Feedback"
         tools:layout="@layout/fragment_detail_feedback" />
     <fragment
         android:id="@+id/nav_add_feedback"
         android:name="com.example.feedbackapplication.ui.feedback.AddFeedbackFragment"
-        android:label="fragment_add_feedback"
+        android:label="Create New Feedback"
         tools:layout="@layout/fragment_add_feedback" >
         <action
             android:id="@+id/action_add_feedback_to_nav_feedback"
@@ -202,16 +205,19 @@
     <fragment
         android:id="@+id/nav_review_feedback"
         android:name="com.example.feedbackapplication.ui.feedback.ReviewFeedbackFragment"
-        android:label="fragment_review_feedback"
+        android:label="Review new Feedback"
         tools:layout="@layout/fragment_review_feedback" >
         <action
             android:id="@+id/action_nav_review_feedback_to_nav_add_feedback"
             app:destination="@id/nav_add_feedback" />
+        <action
+            android:id="@+id/action_nav_review_feedback_to_nav_feedback"
+            app:destination="@id/nav_feedback" />
     </fragment>
     <fragment
         android:id="@+id/nav_edit_feedback"
         android:name="com.example.feedbackapplication.ui.feedback.EditFeedbackFragment"
-        android:label="fragment_edit_feedback"
+        android:label="Edit New Feedback"
         tools:layout="@layout/fragment_edit_feedback" >
         <action
             android:id="@+id/action_nav_edit_feedback_to_nav_feedback"
@@ -223,7 +229,7 @@
     <fragment
         android:id="@+id/nav_review_edit"
         android:name="com.example.feedbackapplication.ui.feedback.ReviewEditFragment"
-        android:label="fragment_review_edit"
+        android:label="Review Edit Feedback"
         tools:layout="@layout/fragment_review_edit" >
         <action
             android:id="@+id/action_nav_review_edit_to_nav_edit_feedback"
