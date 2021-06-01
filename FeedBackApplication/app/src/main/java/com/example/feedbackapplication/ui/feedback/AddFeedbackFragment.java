@@ -33,7 +33,6 @@ import java.util.ArrayList;
 public class AddFeedbackFragment extends Fragment {
 
     private Button btnBack,btnReview;
-    private ISenDataListener mISenDataListener;
     private DatabaseReference database,reference;
     private ValueEventListener listener;
     private ArrayList<String> list;
@@ -62,10 +61,6 @@ public class AddFeedbackFragment extends Fragment {
         btnReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                senDataReview();
-//                Bundle bundle = new Bundle();
-//                bundle.putString("title",title);
-//                bundle.putString("type",type);
 
                 Navigation.findNavController(v).navigate(R.id.action_nav_add_feedback_to_nav_review_feedback);
             }
@@ -81,18 +76,6 @@ public class AddFeedbackFragment extends Fragment {
 
         return root;
 
-    }
-
-    public interface ISenDataListener {
-        void senData(String title);
-    }
-
-
-    private void senDataReview(){
-        String title = edtTitle.getText().toString().trim();
-        String type = edtType.getText().toString().trim();
-        mISenDataListener.senData(title);
-        mISenDataListener.senData(type);
     }
 
 }
