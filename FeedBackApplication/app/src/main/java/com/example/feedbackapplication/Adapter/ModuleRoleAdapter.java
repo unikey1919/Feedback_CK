@@ -40,14 +40,20 @@ public class ModuleRoleAdapter extends RecyclerView.Adapter<ModuleRoleAdapter.My
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Module module = modules.get(position);
-        holder.txtModuleID.setText("Module ID: " + module.getModuleID());
-        holder.txtModuleName.setText("Module Name: " + module.getModuleName());
-        holder.txtAdminID.setText("Admin ID: " + module.getAdminID());
-        holder.txtStartDate.setText("Start Date: " + module.getStartDate());
-        holder.txtEndDate.setText("End Date: " + module.getEndDate() );
-        holder.txtFeedBack.setText("Feedback Title: " + module.getFeedbackTitle());
-        holder.txtFbStart.setText("Feedback StartTime: " + module.getFeedbackStartDate() );
-        holder.txtFbEnd.setText("Feedback EndTime: " + module.getFeedbackEndDate() );
+        if(module == null){
+            holder.txtModuleID.setText("not found");
+        }
+        else {
+            holder.txtModuleID.setText("Module ID: " + module.getModuleID());
+            holder.txtModuleName.setText("Module Name: " + module.getModuleName());
+            holder.txtAdminID.setText("Admin ID: " + module.getAdminID());
+            holder.txtStartDate.setText("Start Date: " + module.getStartDate());
+            holder.txtEndDate.setText("End Date: " + module.getEndDate() );
+            holder.txtFeedBack.setText("Feedback Title: " + module.getFeedbackTitle());
+            holder.txtFbStart.setText("Feedback StartTime: " + module.getFeedbackStartDate() );
+            holder.txtFbEnd.setText("Feedback EndTime: " + module.getFeedbackEndDate() );
+        }
+
     }
 
 

@@ -92,10 +92,7 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
             retrieveTrainee();
             rcvModule.setAdapter(roleAdapter);
         }
-
-
         //Save data
-
         btnInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
