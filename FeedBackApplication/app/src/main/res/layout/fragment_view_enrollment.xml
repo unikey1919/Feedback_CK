@@ -10,14 +10,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/enrollment_view_trainee_item"
         android:layout_width="350dp"
-        android:layout_height="200dp"
+        android:layout_height="250dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="25dp"
-            android:background="#F7A3A9B5">
+            android:background="@drawable/bg_view_enrollment">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -155,15 +155,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/enrollment_view_class_item"
         android:layout_width="350dp"
-        android:layout_height="200dp"
+        android:layout_height="250dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="330dp"
         android:layout_marginBottom="20dp">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="25dp"
-            android:background="#F7A3A9B5">
+            android:background="@drawable/bg_view_enrollment">
 
             <RelativeLayout
                 android:layout_width="match_parent"

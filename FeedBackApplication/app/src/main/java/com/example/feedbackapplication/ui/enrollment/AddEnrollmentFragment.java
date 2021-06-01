@@ -74,17 +74,16 @@ public class AddEnrollmentFragment extends Fragment {
         return view;
     }
 
+    //for classID dropdown
     public void fetchData() {
         databaseReference.getReference("Class").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     if (dataSnapshot != null) {
-                        Enrollment enrollment = dataSnapshot.getValue(Enrollment.class);
-                        String temp;
-                        if (enrollment != null) {
-                            temp = String.valueOf(enrollment.getClassID());
-                            list.add(temp);
+                        com.example.feedbackapplication.model.Class temp = dataSnapshot.getValue(com.example.feedbackapplication.model.Class.class);
+                        if (temp != null) {
+                            list.add(String.valueOf(temp.getClassID()));
                         }
                     }
                 }

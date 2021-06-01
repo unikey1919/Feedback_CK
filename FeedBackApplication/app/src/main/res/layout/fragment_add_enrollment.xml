@@ -15,7 +15,8 @@
         android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/txtTraineeID"
@@ -23,7 +24,8 @@
         android:layout_height="wrap_content"
         android:text="Trainee ID"
         android:textColor="@color/black"
-        android:layout_below="@+id/title"/>
+        android:layout_below="@+id/title"
+        tools:ignore="HardcodedText" />
 
     <com.google.android.material.textfield.TextInputLayout
         app:hintEnabled="false"
@@ -47,7 +49,8 @@
         android:layout_height="wrap_content"
         android:text="Class ID"
         android:textColor="@color/black"
-        android:layout_below="@+id/txt_ip_TraineeID"/>
+        android:layout_below="@+id/txt_ip_TraineeID"
+        tools:ignore="HardcodedText" />
     <com.google.android.material.textfield.TextInputLayout
         app:hintEnabled="false"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
@@ -63,7 +66,8 @@
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="Hello" />
+            android:text="Hello"
+            tools:ignore="HardcodedText" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -74,16 +78,18 @@
         android:layout_height="wrap_content"
         android:text="Back"
         android:layout_below="@id/txt_ip_ClassID"
-        android:layout_alignParentRight="true"
-        android:backgroundTint="@color/red"/>
+        android:layout_alignParentEnd="true"
+        android:backgroundTint="@color/red"
+        tools:ignore="HardcodedText" />
     <Button
         android:id="@+id/btnAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add"
-        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_below="@id/txt_ip_ClassID"
-        android:layout_toLeftOf="@+id/btnBack"
-        android:backgroundTint="@color/black"/>
+        android:layout_toStartOf="@+id/btnBack"
+        android:backgroundTint="@color/black"
+        tools:ignore="HardcodedText" />
 
 </RelativeLayout>
