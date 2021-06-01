@@ -36,6 +36,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/txtClassID"
+        app:boxBackgroundColor="#EDEDED"
         android:layout_marginHorizontal="10dp">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txt_ip_edt_ClassID"
@@ -61,6 +62,7 @@
         app:hintEnabled="false"
         style="@style/MyDenseOutlined"
         android:id="@+id/txt_ip_ClassName"
+        app:boxBackgroundColor="#EDEDED"
         android:layout_marginStart="40dp"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
@@ -88,6 +90,7 @@
     <com.google.android.material.textfield.TextInputLayout
         app:hintEnabled="false"
         style="@style/MyDenseOutlined"
+        app:boxBackgroundColor="#EDEDED"
         android:id="@+id/txt_ip_ModuleID"
         android:layout_marginStart="40dp"
         android:layout_width="300dp"
@@ -116,6 +119,7 @@
     <com.google.android.material.textfield.TextInputLayout
         app:hintEnabled="false"
         style="@style/MyDenseOutlined"
+        app:boxBackgroundColor="#EDEDED"
         android:id="@+id/txt_ip_ModuleName"
         android:layout_marginStart="40dp"
         android:layout_width="300dp"
@@ -147,7 +151,7 @@
         android:id="@+id/txt_ip_TrainerID"
         android:layout_marginStart="40dp"
         android:layout_width="300dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/txtTrainerID"
         android:layout_marginHorizontal="10dp">
         <AutoCompleteTextView
@@ -169,7 +173,7 @@
         android:text="Back" />
 
     <Button
-        android:id="@+id/btnAdd"
+        android:id="@+id/btnEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/txt_ip_TrainerID"
@@ -178,11 +182,6 @@
         android:layout_marginRight="10dp"
         android:layout_toLeftOf="@+id/btnBack"
         android:backgroundTint="@color/black"
-        android:text="Add" />
-
-
-
-
-
+        android:text="Edit" />
 
 </RelativeLayout>

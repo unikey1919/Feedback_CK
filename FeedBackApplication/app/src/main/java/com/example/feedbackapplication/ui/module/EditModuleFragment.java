@@ -123,7 +123,7 @@ public class EditModuleFragment extends Fragment {
                             .child("Module")
                             .child(key)
                             .updateChildren(map);
-                    SuccessDialog();
+                    SuccessDialog(v);
                 }
             }
         });
@@ -294,7 +294,7 @@ public class EditModuleFragment extends Fragment {
         return b;
     }
 
-    private void SuccessDialog() {
+    private void SuccessDialog(View view) {
         Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.success_dialog);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -307,6 +307,7 @@ public class EditModuleFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                Navigation.findNavController(view).navigate(R.id.action_nav_edit_to_nav_module);
             }
         });
         dialog.show();

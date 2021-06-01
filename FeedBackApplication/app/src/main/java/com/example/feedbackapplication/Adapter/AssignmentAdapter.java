@@ -28,7 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, AssignmentAdapter.MyViewHolder>  {
     private ClickListener clickListener;
     private String role;
-    private String className, moduleName;
+    private String className, moduleName, key;
 
     /**
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
@@ -44,52 +44,53 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
 
     @Override
     protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull Assignment model) {
-            //get module name
-            DatabaseReference refModule = FirebaseDatabase.getInstance().getReference().child("Module");
-            Query query = refModule.orderByChild("moduleID").equalTo(model.getModuleID());
-            query.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                        holder.txtModuleName.setText("Module Name: " + dataSnapshot.child("moduleName").getValue().toString());
-                        moduleName = dataSnapshot.child("moduleName").getValue().toString();
-                    }
+        //get module name
+        DatabaseReference refModule = FirebaseDatabase.getInstance().getReference().child("Module");
+        Query query = refModule.orderByChild("moduleID").equalTo(model.getModuleID());
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    holder.txtModuleName.setText("Module Name: " + dataSnapshot.child("moduleName").getValue().toString());
+                    moduleName = dataSnapshot.child("moduleName").getValue().toString();
                 }
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        //get class name
+        DatabaseReference refClass = FirebaseDatabase.getInstance().getReference().child("Class");
+        Query query1 = refClass.orderByChild("classID").equalTo(model.getClassID());
+        query1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    holder.txtClassName.setText("Class Name: " + dataSnapshot.child("className").getValue().toString());
+                    className = dataSnapshot.child("className").getValue().toString();
                 }
-            });
+            }
 
-            //get class name
-            DatabaseReference refClass = FirebaseDatabase.getInstance().getReference().child("Class");
-            Query query1 = refClass.orderByChild("classID").equalTo(model.getClassID());
-            query1.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                        holder.txtClassName.setText("Class Name: " + dataSnapshot.child("className").getValue().toString());
-                        className = dataSnapshot.child("className").getValue().toString();
-                    }
-                }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+        holder.txtNo.setText("No:" + position);
+        holder.txtTrainerName.setText("Trainer Name: " + model.getTrainerID());
+        holder.txtCode.setText( model.getCode());
 
-                }
-            });
-            holder.txtNo.setText("No:" + position);
-            holder.txtTrainerName.setText("Trainer Name: " + model.getTrainerID());
-            holder.txtCode.setText( model.getCode());
-
-            holder.btnEdit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    clickListener.updateClicked(model,moduleName
-                            ,className);
-                }
-            });
+        holder.btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                key =getRef(position).getKey();
+                clickListener.updateClicked(model,moduleName
+                        ,className,key);
+            }
+        });
     }
 
     @NonNull
@@ -122,7 +123,7 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
     }
 
     public interface ClickListener{
-        void updateClicked(Assignment model,String moduleName,String className);
+        void updateClicked(Assignment model,String moduleName,String className,String position);
         void deleteClicked(Assignment model);
     }
 

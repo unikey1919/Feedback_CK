@@ -129,9 +129,10 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.Cl
 
 
     @Override
-    public void updateClicked(Assignment model,String moduleName, String className) {
+    public void updateClicked(Assignment model,String moduleName, String className, String position) {
         Bundle bundle = new Bundle();
         bundle.putInt("classID",model.getClassID());
+        bundle.putString("position",position);
         bundle.putInt("moduleID",model.getModuleID());
         bundle.putString("moduleName",moduleName);
         bundle.putString("className",className);

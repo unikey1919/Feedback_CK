@@ -72,10 +72,15 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
-        ((TextView) parent.getChildAt(0)).setTypeface(Typeface.DEFAULT_BOLD);
-        ((TextView) parent.getChildAt(0)).setTextSize(20);
-        role = parent.getItemAtPosition(position).toString();
+        try {
+            ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
+            ((TextView) parent.getChildAt(0)).setTypeface(Typeface.DEFAULT_BOLD);
+            ((TextView) parent.getChildAt(0)).setTextSize(20);
+            role = parent.getItemAtPosition(position).toString();
+        }
+        catch (Exception e){
+
+        }
     }
 
     @Override

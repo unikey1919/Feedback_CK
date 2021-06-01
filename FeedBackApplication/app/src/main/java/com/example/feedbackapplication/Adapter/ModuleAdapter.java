@@ -37,7 +37,6 @@ public class ModuleAdapter extends FirebaseRecyclerAdapter<Module, ModuleAdapter
 
     @Override
     protected void onBindViewHolder(@NonNull ModuleAdapter.MyViewHolder holder, int position, @NonNull Module model) {
-
         holder.txtModuleID.setText("Module ID: " + model.getModuleID());
         holder.txtModuleName.setText("Module Name: " + model.getModuleName());
         holder.txtAdminID.setText("Admin ID: " + model.getAdminID());
