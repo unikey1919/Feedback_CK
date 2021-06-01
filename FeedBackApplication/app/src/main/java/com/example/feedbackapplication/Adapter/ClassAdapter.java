@@ -64,14 +64,14 @@ public class ClassAdapter extends FirebaseRecyclerAdapter<Class, ClassAdapter.My
         sb3.append(cl.getStartDate());
         sb3.setSpan(fcs, 0, 11, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         sb3.setSpan(bss, 0, 11, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        holder.txtClassID.setText(sb3);
+        holder.txtStartDate.setText(sb3);
 
         //dinh dang End Date
         final SpannableStringBuilder sb4 = new SpannableStringBuilder("End Date: ");
         sb4.append(cl.getEndDate());
         sb4.setSpan(fcs, 0, 9, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         sb4.setSpan(bss, 0, 9, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        holder.txtClassID.setText(sb4);
+        holder.txtEndDate.setText(sb4);
 
         //xu ly su kien click button Edit
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {

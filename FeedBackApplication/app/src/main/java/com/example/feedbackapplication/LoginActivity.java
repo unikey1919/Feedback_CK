@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -15,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -33,7 +36,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
     private static String role;
     private TextInputLayout textInputUsername, textInputPassword;
     private static String nameFromDB,usernameFromDB,emailFromDB;
-
+    private AdapterView.OnItemSelectedListener OnCatSpinnerCL;
     public LoginActivity loginActivity;
 
 
@@ -46,6 +49,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         spRole =findViewById(R.id.spRole);
         ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(this,R.array.test, android.R.layout.simple_spinner_item);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
 
         //Init
         textInputUsername = findViewById(R.id.txt_ip_username);
@@ -68,7 +72,10 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-       role = parent.getItemAtPosition(position).toString();
+        ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
+        ((TextView) parent.getChildAt(0)).setTypeface(Typeface.DEFAULT_BOLD);
+        ((TextView) parent.getChildAt(0)).setTextSize(20);
+        role = parent.getItemAtPosition(position).toString();
     }
 
     @Override
@@ -167,7 +174,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         textInputPassword.setErrorIconDrawable(null);
 
         if(password.isEmpty()){
-            textInputPassword.setError("Password mas have at least 1 character?");
+            textInputPassword.setError("Password mas have at least 1 character!");
             return false;
         }else if(!password.matches(passwordPattern)){
             textInputPassword.setError("Username only character");
