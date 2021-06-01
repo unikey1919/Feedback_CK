@@ -21,11 +21,16 @@
 
     <string name="login_fail">Login Failed, Check Your Login Detail</string>
     <string name="delete1">This Module has been started. You really want to delete this Module</string>
+    <string name="add_success">Add question success</string>
 
     <string-array name="test">
         <item>Admin</item>
         <item>Trainer</item>
         <item>Trainee</item>
+    </string-array>
+    <string-array name="types">
+        <item>Online</item>
+        <item>Offline</item>
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

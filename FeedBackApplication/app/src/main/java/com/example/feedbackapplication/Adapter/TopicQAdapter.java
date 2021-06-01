@@ -49,11 +49,11 @@ public class TopicQAdapter extends RecyclerView.Adapter<TopicQAdapter.ItemViewHo
         layoutManager.setInitialPrefetchItemCount(item.getQuestion().size());
 
         // Create sub item view adapter
-        QuestionAdapter subItemAdapter = new QuestionAdapter(item.getQuestion());
-
-        itemViewHolder.rvSubItem.setLayoutManager(layoutManager);
-        itemViewHolder.rvSubItem.setAdapter(subItemAdapter);
-        itemViewHolder.rvSubItem.setRecycledViewPool(viewPool);
+//        QuestionAdapter subItemAdapter = new QuestionAdapter(item.getQuestion());
+//
+//        itemViewHolder.rvSubItem.setLayoutManager(layoutManager);
+//        itemViewHolder.rvSubItem.setAdapter(subItemAdapter);
+//        itemViewHolder.rvSubItem.setRecycledViewPool(viewPool);
 
 //        itemViewHolder.tvItemTitle.setOnClickListener(new View.OnClickListener() {
 //            @Override

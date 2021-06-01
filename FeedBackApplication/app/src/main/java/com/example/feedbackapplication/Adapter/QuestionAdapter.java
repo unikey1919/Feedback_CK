@@ -1,93 +1,78 @@
 package com.example.feedbackapplication.Adapter;
 
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioButton;
+import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.util.List;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import com.example.feedbackapplication.R;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.feedbackapplication.model.QuestionContent;
+import com.example.feedbackapplication.R;
+import com.example.feedbackapplication.model.Module;
+import com.example.feedbackapplication.model.Question;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.List;
+public class QuestionAdapter extends FirebaseRecyclerAdapter<Question, QuestionAdapter.MyViewHolder> {
+    private QuestionAdapter.ClickListener clickListener;
 
-public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.SubItemViewHolder> {
+    public QuestionAdapter(@NonNull FirebaseRecyclerOptions<Question> options, QuestionAdapter.ClickListener clickListener) {
+        super(options);
+        this.clickListener = clickListener;
+    }
 
-    private List<QuestionContent> subItemList;
+    @Override
+    protected void onBindViewHolder(@NonNull QuestionAdapter.MyViewHolder holder, int position, @NonNull Question model) {
 
-    QuestionAdapter(List<QuestionContent> subItemList) {
-        this.subItemList = subItemList;
+        holder.txtTopicID.setText("Topic ID: " + model.getTopicID());
+        holder.txtTopicName.setText("Topic Name: " + model.getTopicName());
+        holder.txtQuestionID.setText("Question ID: " + model.getQuestionID());
+        holder.txtQuestionContent.setText("Question Content: " + model.getQuestionContent());
+        holder.flt_Delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.deleteClicked(model);
+            }
+        });
+
+        holder.flt_Edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.updateClicked(model);
+            }
+        });
+
     }
 
     @NonNull
     @Override
-    public SubItemViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_question, viewGroup, false);
-        return new SubItemViewHolder(view);
+    public QuestionAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.question_item, parent, false);
+
+        return new MyViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull SubItemViewHolder subItemViewHolder, int i) {
-        QuestionContent subItem = subItemList.get(i);
-        subItemViewHolder.tvSubItemTitle.setText(subItem.getQuestion());
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView txtTopicID, txtTopicName, txtQuestionID, txtQuestionContent;
+        FloatingActionButton flt_Delete, flt_Edit;
 
-//        subItemViewHolder.radioButton1.setId(Integer.parseInt(subItem.getQuestionID()));
-//        subItemViewHolder.radioButton2.setId(Integer.parseInt(subItem.getQuestionID()));
-//        subItemViewHolder.radioButton3.setId(Integer.parseInt(subItem.getQuestionID()));
-//        subItemViewHolder.radioButton4.setId(Integer.parseInt(subItem.getQuestionID()));
-//        subItemViewHolder.radioButton5.setId(Integer.parseInt(subItem.getQuestionID()));
-
-
-        Handler timerHandler = new Handler();
-        Runnable timerRunnable = new Runnable() {
-            @Override
-            public void run() {
-                subItemViewHolder.tvSubItemTitle.performClick();
-                notifyDataSetChanged();
-            }
-        };
-
-        timerHandler.postDelayed(timerRunnable, 1000);  // hold 0.5s to load firebase (load < 0.2s)
-
-        subItemViewHolder.tvSubItemTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                notifyDataSetChanged();
-            }
-        });
-    }
-
-    @Override
-    public int getItemCount() {
-        return subItemList.size();
-    }
-
-    class SubItemViewHolder extends RecyclerView.ViewHolder {
-        TextView tvSubItemTitle;
-        RadioButton radioButton1;
-        RadioButton radioButton2;
-        RadioButton radioButton3;
-        RadioButton radioButton4;
-        RadioButton radioButton5;
-        SubItemViewHolder(View itemView) {
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            radioButton1 = itemView.findViewById(R.id.rad1);
-            radioButton2 = itemView.findViewById(R.id.rad2);
-            radioButton3 = itemView.findViewById(R.id.rad3);
-            radioButton4 = itemView.findViewById(R.id.rad4);
-            radioButton5 = itemView.findViewById(R.id.rad5);
-
-            tvSubItemTitle = itemView.findViewById(R.id.txtview_feedback_question);
+            txtTopicID = itemView.findViewById(R.id.txtTopicID);
+            txtTopicName = itemView.findViewById(R.id.txtTopicName);
+            txtQuestionID = itemView.findViewById(R.id.txtQuestionID);
+            txtQuestionContent = itemView.findViewById(R.id.txtQuestionContent);
+            flt_Delete = itemView.findViewById(R.id.flt_Delete);
+            flt_Edit = itemView.findViewById(R.id.flt_Edit);
         }
+    }
+
+    public interface ClickListener {
+        void updateClicked(Question question);
+        void deleteClicked(Question question);
     }
 }
