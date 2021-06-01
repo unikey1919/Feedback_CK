@@ -39,7 +39,7 @@ public class TopicQAdapter extends RecyclerView.Adapter<TopicQAdapter.ItemViewHo
     public void onBindViewHolder(@NonNull ItemViewHolder itemViewHolder, int i) {
         QuestionTopic item = itemList.get(i);
         itemViewHolder.tvItemTitle.setText(item.getTopic());
-
+        Log.d("waiting", "I got: "+item.getTopic());
         // Create layout manager with initial prefetch item count
         LinearLayoutManager layoutManager = new LinearLayoutManager(
                 itemViewHolder.rvSubItem.getContext(),
@@ -55,25 +55,13 @@ public class TopicQAdapter extends RecyclerView.Adapter<TopicQAdapter.ItemViewHo
         itemViewHolder.rvSubItem.setAdapter(subItemAdapter);
         itemViewHolder.rvSubItem.setRecycledViewPool(viewPool);
 
-
-        Handler timerHandler = new Handler();
-        Runnable timerRunnable = new Runnable() {
-            @Override
-            public void run() {
-                    itemViewHolder.tvItemTitle.performClick();
-                notifyDataSetChanged();
-            }
-        };
-
-        timerHandler.postDelayed(timerRunnable, 1000);  // hold 0.5s to load firebase (load < 0.2s)
-
-        itemViewHolder.tvItemTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                notifyDataSetChanged();
-            }
-        });
-
+//        itemViewHolder.tvItemTitle.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                notifyDataSetChanged();
+//                Log.d("waiting", "run: waiting data");
+//            }
+//        });
 
     }
 
