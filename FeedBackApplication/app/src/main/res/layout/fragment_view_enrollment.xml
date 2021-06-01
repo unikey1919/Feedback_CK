@@ -1,143 +1,312 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.enrollment.ViewEnrollmentFragment">
 
-    <RelativeLayout
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/enrollment_view_trainee_item"
+        android:layout_width="350dp"
+        android:layout_height="200dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:id="@+id/enrollment_view_trainee_item">
+        android:layout_marginTop="50dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="25dp"
+            android:background="#F7A3A9B5">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/lblTraineeID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/trainee_id"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/txtTraineeID"
+                    android:layout_toEndOf="@id/lblTraineeID"
+                    android:layout_marginStart="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tr2"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/lblTraineePhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phone:"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_below="@id/txtTraineeID"
+                    tools:ignore="HardcodedText" />
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/txtTraineePhone"
+                    android:layout_toEndOf="@id/lblTraineePhone"
+                    android:layout_marginStart="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phone 2"
+                    android:textSize="20sp"
+                    android:layout_below="@id/txtTraineeID"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/lblTraineeName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name:"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_below="@id/txtTraineePhone"
+                    tools:ignore="HardcodedText" />
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/txtTraineeName"
+                    android:layout_toEndOf="@id/lblTraineePhone"
+                    android:layout_marginStart="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name2"
+                    android:textSize="20sp"
+                    android:layout_below="@id/txtTraineePhone"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/lblAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address:"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_below="@id/txtTraineeName"
+                    tools:ignore="HardcodedText" />
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/txtAddress"
+                    android:layout_toEndOf="@id/lblAddress"
+                    android:layout_marginStart="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="address2"
+                    android:textSize="20sp"
+                    android:layout_below="@id/txtTraineeName"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/lblEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email:"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_below="@id/txtAddress"
+                    tools:ignore="HardcodedText" />
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/txtEmail"
+                    android:layout_toEndOf="@id/lblEmail"
+                    android:layout_marginStart="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="email2"
+                    android:textSize="20sp"
+                    android:layout_below="@id/txtAddress"
+                    tools:ignore="HardcodedText" />
+
+            </RelativeLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:textColor="@color/black"
             android:id="@+id/titleTraineeInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Trainee's Info"
-            android:textSize="30sp"/>
-
-        <TextView
+            android:background="@drawable/border"
+            android:text=" Trainee's Info "
             android:textColor="@color/black"
-            android:id="@+id/txtTraineeID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Trainee ID: tr2"
-            android:textSize="20sp"
-            android:layout_below="@id/titleTraineeInfo"/>
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="HardcodedText,MissingConstraints" />
 
-        <TextView
-            android:textColor="@color/black"
-            android:id="@+id/txtTraineePhone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Phone: Phone 2"
-            android:textSize="20sp"
-            android:layout_below="@id/txtTraineeID"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:textColor="@color/black"
-            android:id="@+id/txtTraineeName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Trainee Name: Name 2"
-            android:textSize="20sp"
-            android:layout_below="@id/txtTraineePhone"/>
-
-        <TextView
-            android:textColor="@color/black"
-            android:id="@+id/txtAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Address: Address2"
-            android:textSize="20sp"
-            android:layout_below="@id/txtTraineeName"/>
-
-        <TextView
-            android:textColor="@color/black"
-            android:id="@+id/txtEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Email: Email 2"
-            android:textSize="20sp"
-            android:layout_below="@id/txtAddress"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_centerHorizontal="true"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/enrollment_view_class_item"
-        android:layout_below="@+id/enrollment_view_trainee_item"
-        android:layout_marginTop="50dp">
+        android:layout_width="350dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="300dp"
+        android:layout_marginBottom="20dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="25dp"
+            android:background="#F7A3A9B5">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp">
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/lblClassID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Class ID:"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/txtClassID"
+                    android:layout_toEndOf="@id/lblClassID"
+                    android:layout_marginStart="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="class_id1"
+                    android:textSize="20sp"
+                    tools:ignore="HardcodedText" />
+
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/lvlStartTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="StartTime:"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_below="@id/txtClassID"
+                    tools:ignore="HardcodedText" />
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/txtStartTime"
+                    android:layout_toEndOf="@id/lvlStartTime"
+                    android:layout_marginStart="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1/1/21"
+                    android:textSize="20sp"
+                    android:layout_below="@id/txtClassID"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/lblClassName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Class Name:"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_below="@id/txtStartTime"
+                    tools:ignore="HardcodedText" />
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/txtClassName"
+                    android:layout_toEndOf="@id/lblClassName"
+                    android:layout_marginStart="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="cname1"
+                    android:textSize="20sp"
+                    android:layout_below="@id/txtStartTime"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/lblEndTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="EndTme:"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_below="@id/txtClassName"
+                    tools:ignore="HardcodedText" />
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/txtEndTime"
+                    android:layout_toEndOf="@id/lblEndTime"
+                    android:layout_marginStart="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1/1/22"
+                    android:textSize="20sp"
+                    android:layout_below="@id/txtClassName"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/lblCapacity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Capacity:"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_below="@id/txtEndTime"
+                    tools:ignore="HardcodedText" />
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/txtCapacity"
+                    android:layout_toEndOf="@id/lblCapacity"
+                    android:layout_marginStart="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="50"
+                    android:textSize="20sp"
+                    android:layout_below="@id/txtEndTime"
+                    tools:ignore="HardcodedText" />
+
+            </RelativeLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:textColor="@color/black"
             android:id="@+id/titleClassInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Class's Info"
-            android:textSize="30sp"/>
-
-
-        <TextView
+            android:background="@drawable/border"
+            android:text=" Class's Information "
             android:textColor="@color/black"
-            android:id="@+id/txtClassID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Class ID: 1"
-            android:textSize="20sp"
-            android:layout_below="@id/titleClassInfo"/>
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="DuplicateIds,HardcodedText,MissingConstraints" />
 
-        <TextView
-            android:textColor="@color/black"
-            android:id="@+id/txtStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="StartTime: 2/2/20"
-            android:textSize="20sp"
-            android:layout_below="@id/txtClassID"/>
-
-        <TextView
-            android:textColor="@color/black"
-            android:id="@+id/txtClassName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Class Name: 1"
-            android:textSize="20sp"
-            android:layout_below="@id/txtStart"/>
-
-        <TextView
-            android:textColor="@color/black"
-            android:id="@+id/txtEnd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="End Time: 20/9/20"
-            android:textSize="20sp"
-            android:layout_below="@id/txtClassName"/>
-
-        <TextView
-            android:textColor="@color/black"
-            android:id="@+id/txtCapacity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Capacity: 50"
-            android:textSize="20sp"
-            android:layout_below="@id/txtEnd"/>
-
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Back"
         android:layout_below="@id/enrollment_view_class_item"
-        android:layout_alignParentRight="true"
-        android:backgroundTint="@color/red"/>
+        android:backgroundTint="@color/red"
+        android:text="@string/back"
+        android:layout_alignEnd="@id/enrollment_view_class_item"/>
 
 </RelativeLayout>

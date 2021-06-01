@@ -25,6 +25,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class AddEnrollmentFragment extends Fragment {
@@ -186,9 +188,13 @@ public class AddEnrollmentFragment extends Fragment {
                             int class_ID = Integer.parseInt(classID.getText().toString().trim());
                             Enrollment enrollment = new Enrollment(class_ID, trainee_ID);
                             inspirationalKey = FirebaseDatabase.getInstance().getReference("Enrollment").push().getKey();
+                            Map<String, Object> map = new HashMap<>();
+                            map.put("status", 0);
+                            map.put("classID", enrollment.getClassID());
+                            map.put("traineeID", enrollment.getTraineeID());
                             FirebaseDatabase.getInstance().getReference("Enrollment")
                                     .child(inspirationalKey)
-                                    .setValue(enrollment, (error, ref) -> {
+                                    .setValue(map, (error, ref) -> {
                                         if (error != null) {
                                             //System.out.println("Data could not be saved. " + error.getMessage());
                                             Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_LONG).show();

@@ -1,7 +1,10 @@
 package com.example.feedbackapplication.ui.enrollment;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,23 +21,32 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.feedbackapplication.Adapter.EnrollmentAdapter;
+import com.example.feedbackapplication.Adapter.BetterEnrollmentAdapter;
+import com.example.feedbackapplication.Adapter.BetterEnrollmentAdapter.ClickListener;
 import com.example.feedbackapplication.R;
 import com.example.feedbackapplication.model.Class;
 import com.example.feedbackapplication.model.Enrollment;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 
 
-public class EnrollmentFragment extends Fragment implements EnrollmentAdapter.ClickListener, AdapterView.OnItemSelectedListener {
-    private final ArrayList<String> list = new ArrayList<>(); //for ClassName List
-    private EnrollmentAdapter adapter; //for Enrollment List
+public class EnrollmentFragment extends Fragment implements ClickListener, AdapterView.OnItemSelectedListener {
+    private final ArrayList<String> arrayListClassName = new ArrayList<>(); //for ClassName List
+    //private EnrollmentAdapter adapter; //for Enrollment List
+
+    private RecyclerView rcvEnrollment;
+    private BetterEnrollmentAdapter betterEnrollmentAdapter;
+    private ArrayList<Enrollment> enrollmentArrayList; // for BetterEnrollmentAdapter
+
     private ArrayAdapter<String> adapterClassName; //for ClassName List
     private AutoCompleteTextView actClassName; //for ClassName Filter
     //for item info
@@ -41,6 +54,13 @@ public class EnrollmentFragment extends Fragment implements EnrollmentAdapter.Cl
     private String TraineeName = "0";
     private String ClassName = "0";
     private String EnrollmentKey = "0";
+    //private String just_a_string = "0";
+
+    private ValueEventListener fetchDataForRCVEnrollment1;
+    private ValueEventListener fetchDataForRCVEnrollment2;
+    private ValueEventListener fetchDataForRCVEnrollment3;
+    private ValueEventListener fetchInDeleteClicked;
+    private ValueEventListener fetchInDeleteClicked2;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -51,30 +71,44 @@ public class EnrollmentFragment extends Fragment implements EnrollmentAdapter.Cl
 
         //getting views
         FloatingActionButton btnInsert = root.findViewById(R.id.btnNew);
-        RecyclerView rcvEnrollment = root.findViewById(R.id.rcvEnrollment);
+        rcvEnrollment = root.findViewById(R.id.rcvEnrollment);
         rcvEnrollment.setHasFixedSize(true);
         rcvEnrollment.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
-        //Take data to Spinner dropdown classID
+        enrollmentArrayList = new ArrayList<>();
+        betterEnrollmentAdapter = new BetterEnrollmentAdapter(
+                (ClickListener) this,
+                getContext(),
+                enrollmentArrayList
+        );
+
+        //Take data to dropdown classID
         actClassName = root.findViewById(R.id.actClassName);
-        //ArrayAdapter<CharSequence> adapterClassName = ArrayAdapter.createFromResource(getContext(),R.array.test, android.R.layout.simple_spinner_item);
-        //adapterClassName.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapterClassName = new ArrayAdapter<>(getActivity(), R.layout.option_item, list);
+        adapterClassName = new ArrayAdapter<>(getActivity(), R.layout.option_item, arrayListClassName);
+        fetchDataForACTVClassName();
         actClassName.setAdapter(adapterClassName);
-        actClassName.setOnItemSelectedListener(this);
+        actClassName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //Toast.makeText(getContext(), "test_result", Toast.LENGTH_LONG).show();
+            }
 
-        //Retrieve data
-        FirebaseRecyclerOptions<Enrollment> options =
-                new FirebaseRecyclerOptions.Builder<Enrollment>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference("Enrollment"), Enrollment.class)
-                        .build();
-        adapter = new EnrollmentAdapter(options, this);
-        rcvEnrollment.setAdapter(adapter);
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //Toast.makeText(getContext(), "test_results", Toast.LENGTH_LONG).show();
+            }
 
+            @Override
+            public void afterTextChanged(Editable s) {
+                //Retrieve data
+                fetchDataForRCVEnrollment(s.toString());
+            }
+        });
+
+        rcvEnrollment.setAdapter(betterEnrollmentAdapter);
         //add
         btnInsert.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_nav_enrollment_to_nav_add));
 
-        fetchData();
         return root;
     }
 
@@ -91,18 +125,92 @@ public class EnrollmentFragment extends Fragment implements EnrollmentAdapter.Cl
         Toast.makeText(getActivity(), currentClassName, Toast.LENGTH_LONG).show(); //ko lay dc currentClassName o day
     }
 
-    public void fetchData() {
+    public void fetchDataForRCVEnrollment(String a_string) {
+        if (!a_string.equals("All")) {
+            //get class IDs of classes which contain string s
+            killFetch("Enrollment",fetchDataForRCVEnrollment3);
+            fetchDataForRCVEnrollment1 = FirebaseDatabase.getInstance().getReference("Class")
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                Class temp = dataSnapshot.getValue(Class.class);
+                                if (temp != null)
+                                    if (temp.getClassName().contains(a_string)) {
+                                        //get enrollments with class IDs
+                                        fetchDataForRCVEnrollment2 = FirebaseDatabase.getInstance().getReference().child("Enrollment")
+                                                .orderByChild("classID").equalTo(temp.getClassID())
+                                                .addValueEventListener(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                        //killFetchDataForRCVEnrollment2();
+                                                        enrollmentArrayList = new ArrayList<>();
+                                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                                            Enrollment enrollment = dataSnapshot.getValue(Enrollment.class);
+                                                            if (enrollment != null)
+                                                                enrollmentArrayList.add(enrollment);
+                                                        }
+                                                        betterEnrollmentAdapter = new BetterEnrollmentAdapter(
+                                                                EnrollmentFragment.this,
+                                                                getContext(),
+                                                                enrollmentArrayList);
+                                                        rcvEnrollment.setAdapter(betterEnrollmentAdapter);
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                                    }
+                                                });
+                                    }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
+        } else {
+            killFetch("Class",fetchDataForRCVEnrollment1);
+            killFetch("Enrollment",fetchDataForRCVEnrollment2);
+            //get All Enrollments
+            fetchDataForRCVEnrollment3 = FirebaseDatabase.getInstance().getReference("Enrollment")
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            enrollmentArrayList = new ArrayList<>();
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                Enrollment temp = dataSnapshot.getValue(Enrollment.class);
+                                if (temp != null) {
+                                    enrollmentArrayList.add(temp);
+                                }
+                            }
+                            betterEnrollmentAdapter = new BetterEnrollmentAdapter(
+                                    EnrollmentFragment.this,
+                                    getContext(),
+                                    enrollmentArrayList);
+                            rcvEnrollment.setAdapter(betterEnrollmentAdapter);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
+        }
+    }
+
+    public void fetchDataForACTVClassName() {
         FirebaseDatabase.getInstance().getReference("Class").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                list.add("All");
+                arrayListClassName.add("All");
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     String temp = dataSnapshot.child("className").getValue(String.class);
                     if (temp != null)
-                        list.add(temp);
+                        arrayListClassName.add(temp);
                 }
                 //adapter.notifyDataSetChanged();
-                adapterClassName.notifyDataSetChanged();
+                //adapterClassName.notifyDataSetChanged();
                 Toast.makeText(getActivity(), "currentClassName", Toast.LENGTH_LONG).show(); // 1 lan khi frag create
                 actClassName.setText(adapterClassName.getItem(0), false);
             }
@@ -116,13 +224,13 @@ public class EnrollmentFragment extends Fragment implements EnrollmentAdapter.Cl
     @Override
     public void onStart() {
         super.onStart();
-        adapter.startListening();
+        //betterEnrollmentAdapter.startListening();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        adapter.startListening();
+        //adapter.startListening();
     }
 
     @Override
@@ -210,20 +318,21 @@ public class EnrollmentFragment extends Fragment implements EnrollmentAdapter.Cl
 
     @Override
     public void deleteClicked(Enrollment enrollment) {
-        FirebaseDatabase.getInstance().getReference("Enrollment")
-                .orderByChild("classID").equalTo(enrollment.getClassID())
+        fetchInDeleteClicked = FirebaseDatabase.getInstance().getReference("Class")
+                .orderByChild("classID").equalTo(enrollment.getClassID()).limitToFirst(1)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
                             for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                Enrollment temp = dataSnapshot.getValue(Enrollment.class);
-                                //String temp = dataSnapshot.child("className").getValue(String.class);
+                                Class temp = dataSnapshot.getValue(Class.class);
                                 if (temp != null) {
-                                    if (temp.getTraineeID().equals(enrollment.getTraineeID())) {
-                                        String key = dataSnapshot.getKey();
-                                        deleteConfirmDialog(key);
-                                        break;
+                                    //String temp_key = dataSnapshot.getKey();
+                                    if (isOverDated(temp.getEndDate())) {
+                                        //class ended
+                                        deleteClicked2(enrollment,2);
+                                    }else {
+                                        deleteClicked2(enrollment,4);
                                     }
                                 }
                             }
@@ -236,13 +345,60 @@ public class EnrollmentFragment extends Fragment implements EnrollmentAdapter.Cl
                 });
     }
 
-    private void deleteConfirmDialog(String key) {
+    public void deleteClicked2(Enrollment enrollment, int number) {
+        killFetch("Class",fetchInDeleteClicked);
+        fetchInDeleteClicked2 = FirebaseDatabase.getInstance().getReference("Enrollment")
+                .orderByChild("classID").equalTo(enrollment.getClassID())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                Enrollment temp = dataSnapshot.getValue(Enrollment.class);
+                                if (temp != null) {
+                                    if(temp.getTraineeID().equals(enrollment.getTraineeID())){
+                                        String enrollment_key = dataSnapshot.getKey();
+                                        deleteConfirmDialog(enrollment_key,number);
+                                        killFetch("Enrollment",fetchInDeleteClicked2);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void deleteConfirmDialog(String key, int number) {
         Dialog dialog = new Dialog(getContext());
-        dialog.setContentView(R.layout.delete_class_not_over_dialog);
+        dialog.setContentView(R.layout.dialog_red_4_blue_red);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setCancelable(false);
-        Button btnYes = dialog.findViewById(R.id.btnYesAct);
-        Button btnCancel = dialog.findViewById(R.id.btnCancelAct);
+        if(number==4) {
+            TextView text1 = dialog.findViewById(R.id.text1);
+            text1.setText("Are you sure?");
+            TextView text2 = dialog.findViewById(R.id.text2);
+            text2.setText("Class is not over. Do you want to");
+            TextView text3 = dialog.findViewById(R.id.text3);
+            text3.setText("remove the trainee from the");
+            TextView text4 = dialog.findViewById(R.id.text4);
+            text4.setText("classroom?");
+        }else if(number==2){
+            TextView text1 = dialog.findViewById(R.id.text1);
+            text1.setText("Are you sure?");
+            TextView text2 = dialog.findViewById(R.id.text2);
+            text2.setText("Do you want to delete this item?");
+            TextView text3 = dialog.findViewById(R.id.text3);
+            text3.setText("");
+            TextView text4 = dialog.findViewById(R.id.text4);
+            text4.setText("");
+        }
+        Button btnYes = dialog.findViewById(R.id.btnYes);
+        Button btnCancel = dialog.findViewById(R.id.btnCancel);
         btnCancel.setOnClickListener(v -> dialog.dismiss());
         btnYes.setOnClickListener(v -> {
             if (key != null) {
@@ -250,7 +406,7 @@ public class EnrollmentFragment extends Fragment implements EnrollmentAdapter.Cl
                         .child("Enrollment")
                         .child(key)
                         .setValue(null)
-                        .addOnCompleteListener(task -> Toast.makeText(getActivity(), "Update successfully", Toast.LENGTH_SHORT).show());
+                        .addOnCompleteListener(task -> Toast.makeText(getContext(), "Update successfully", Toast.LENGTH_SHORT).show());
                 dialog.dismiss();
                 deleteSuccessDialog();
             }
@@ -258,13 +414,39 @@ public class EnrollmentFragment extends Fragment implements EnrollmentAdapter.Cl
         dialog.show();
     }
 
+    @SuppressLint("SetTextI18n")
     private void deleteSuccessDialog() {
         Dialog dialog = new Dialog(getContext());
-        dialog.setContentView(R.layout.delete_success_dialog);
+        dialog.setContentView(R.layout.dialog_green_1_blue);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setCancelable(false);
-        Button btnOK = dialog.findViewById(R.id.btnDeleteSuccess);
+        TextView text1 = dialog.findViewById(R.id.text1);
+        text1.setText("Delete success!");
+        Button btnOK = dialog.findViewById(R.id.btnOK);
         btnOK.setOnClickListener(v -> dialog.dismiss());
         dialog.show();
     }
+
+    private void killFetch(String path, ValueEventListener valueEventListener) {
+        if(valueEventListener!=null)
+            FirebaseDatabase.getInstance().getReference(path).removeEventListener(valueEventListener);
+    }
+
+    private boolean isOverDated(String date)  {
+        try {
+            @SuppressLint("SimpleDateFormat")
+            SimpleDateFormat simpleDateFormat  = new SimpleDateFormat("MM/dd/yyyy");
+            Date temp = simpleDateFormat.parse(date);
+            if(temp!=null && temp.after(Date.from(Instant.now())))
+            {
+                return false;
+            }
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            //e.printStackTrace();
+            return true;
+        }
+        return true;
+    }
+
 }

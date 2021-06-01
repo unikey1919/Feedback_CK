@@ -53,4 +53,9 @@
     <string name="update_success">Update success!</string>
     <string name="ok">OK</string>
     <string name="something_changed">Something changed!</string>
+    <string name="confirm">Confirm</string>
+    <string name="yes">Yes!</string>
+    <string name="cancel">Cancel!</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="back">Back</string>
 </resources>
