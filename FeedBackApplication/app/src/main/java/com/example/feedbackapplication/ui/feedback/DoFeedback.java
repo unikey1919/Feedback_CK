@@ -25,7 +25,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.core.operation.ListenComplete;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,29 +49,6 @@ public class DoFeedback extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    private List<QuestionTopic> gettopic(int ModuleID) {
-        List<QuestionTopic> itemList = new ArrayList<>();
-        rootRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference FeedQuesRef = rootRef.child("Feedback_Question");
-        Query codeQuery = FeedQuesRef.orderByChild("ModuleID").equalTo(ModuleID);      //
-        codeQuery.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot ds) {
-
-                if (ds.getValue() != null) {
-                    for (DataSnapshot dataSnapshot : ds.getChildren()) {
-                        Integer QuestionID = dataSnapshot.child("QuestionID").getValue(Integer.class); // da co question id
-                        getEverythingElse(QuestionID,itemList);
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-        return itemList;
     }
 
     private List<QuestionContent> getquesExample() {
@@ -112,18 +91,47 @@ public class DoFeedback extends Fragment {
         RecyclerView rvItem = root.findViewById(R.id.rv_item);
         LinearLayoutManager layoutManager = new LinearLayoutManager(root.getContext());//Integer.parseInt(ModuleID)
         TopicQAdapter itemAdapter =new TopicQAdapter(getTopicExample());
-
+//        TopicQAdapter itemAdapter =new TopicQAdapter(gettopic(Integer.parseInt(ModuleID)));
+        gettopic((Integer.parseInt(ModuleID)));
         rvItem.setAdapter(itemAdapter);
         rvItem.setLayoutManager(layoutManager);
 
         return root;
     }
 
-    public List<QuestionTopic> getEverythingElse(Integer quesID,List<QuestionTopic> itemList)
+    private List<QuestionTopic> gettopic(int ModuleID) {
+        List<QuestionTopic> itemList = new ArrayList<>();
+
+        rootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference FeedQuesRef = rootRef.child("Feedback_Question");
+        Query codeQuery = FeedQuesRef.orderByChild("ModuleID").equalTo(ModuleID);      //
+        codeQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot ds) {
+
+                if (ds.getValue() != null) {
+                    for (DataSnapshot dataSnapshot : ds.getChildren()) {
+                        Integer QuestionID = dataSnapshot.child("QuestionID").getValue(Integer.class); // da co question id
+                        getEverythingElse(QuestionID);
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+       return itemList;
+    }
+
+    public List<QuestionTopic> getEverythingElse(Integer quesID )    //, List<QuestionTopic> itemList)
     {
+        List<QuestionTopic> itemList = new ArrayList<>();
+
         rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference FeedQuesRef = rootRef.child("Question");
         Query codeQuery = FeedQuesRef.orderByChild("questionID").equalTo(quesID);
+        ArrayList<String> ques = new ArrayList<>();
+        ArrayList<String> topi = new ArrayList<>();
         codeQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot ds) {
@@ -132,10 +140,20 @@ public class DoFeedback extends Fragment {
                         String questionContent = dataSnapshot.child("questionContent").getValue(String.class); // co question content
                         Integer topicID = dataSnapshot.child("topicID").getValue(Integer.class); // co topic id
                         String topicName = dataSnapshot.child("topicName").getValue(String.class); // co  topic content
+                        ques.add(questionContent);
+                        Log.d("fsdfsdf","ques content d:--------222: "+ques);
+                        for(String f : ques)
+                            Log.d("fsdfsdf","ques content d:--------222: "+f);
 
-                        QuestionTopic item = new QuestionTopic(topicName, getquesExample());
-                        itemList.add(item);
+                        for(String d : topi) {
+                           if(topi.contains(topicName) == false)
+                               Log.d("fsdfsdf", "ques content d:--------333: " + d);
+                        }
 
+                        topi.add(topicName);
+
+
+//                        itemList.add(topicID, )
                         Log.d("lamon", "ques content d:----------- " +questionContent+ " " +topicID+ " "+topicName);
                     }
                 }
@@ -146,6 +164,13 @@ public class DoFeedback extends Fragment {
         });
         return itemList;
     }
+
+    public List<QuestionTopic> getRealQus(Integer quesID )    //, List<QuestionTopic> itemList)
+    {
+    return null;
+    }
+
+
 
     @Override
     public void onResume() {
