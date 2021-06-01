@@ -1,7 +1,10 @@
 package com.example.feedbackapplication.ui.module;
 
+<<<<<<< HEAD
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+=======
+>>>>>>> Ghi-danh
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,14 +12,16 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+<<<<<<< HEAD
 import android.widget.DatePicker;
 import android.widget.TextView;
+=======
+>>>>>>> Ghi-danh
 import android.widget.Toast;
 
 import com.example.feedbackapplication.R;
@@ -31,15 +36,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+<<<<<<< HEAD
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+=======
+>>>>>>> Ghi-danh
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 public class EditModuleFragment extends Fragment {
 
+<<<<<<< HEAD
     private Button btnBack,btnSave, btnSuccess;
     private DatabaseReference database,reference, databaseFb;
     private ValueEventListener listener, listener1;
@@ -48,6 +56,15 @@ public class EditModuleFragment extends Fragment {
     private AutoCompleteTextView adminID, fbTitle ;
     private TextInputEditText moduleName, startDate, endDate, feedbackStartDate, feedbackEndDate;
     private TextInputLayout tilModuleName, tilStartDate, tilEndDate, tilFbStart, tilFbEnd;
+=======
+    private Button btnBack,btnSave;
+    private DatabaseReference database,reference;
+    private ValueEventListener listener;
+    private ArrayList<String> list;
+    private ArrayAdapter<String> adapter;
+    private AutoCompleteTextView adminID;
+    private TextInputEditText moduleName;
+>>>>>>> Ghi-danh
     private int moduleID = 0;
     private Module module;
     private TextView txt;
@@ -57,18 +74,13 @@ public class EditModuleFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edit_module, container, false);
 
-        //init
         moduleName = view.findViewById(R.id.txt_ip_edt_ModuleName);
         adminID = view.findViewById(R.id.actAdminID);
-        startDate = view.findViewById(R.id.txt_ip_edt_startDate);
-        endDate = view.findViewById(R.id.txt_ip_edt_endDate);
-        feedbackEndDate = view.findViewById(R.id.txt_ip_edt_FbEnd);
-        feedbackStartDate = view.findViewById(R.id.txt_ip_edt_FbStart);
-        fbTitle = view.findViewById(R.id.actFeedBack);
 
         moduleName.setText(getArguments().getString("name"));
         adminID.setText(getArguments().getString("adminID"));
         moduleID = getArguments().getInt("id");
+<<<<<<< HEAD
         startDate.setText(getArguments().getString("startDate"));
         endDate.setText(getArguments().getString("endDate"));
         fbTitle.setText(getArguments().getString("feedbackTitle"));
@@ -87,6 +99,8 @@ public class EditModuleFragment extends Fragment {
         tilFbStart = view.findViewById(R.id.txt_ip_FbStart);
         tilFbEnd = view.findViewById(R.id.txt_ip_FbEnd);
 
+=======
+>>>>>>> Ghi-danh
 
         //Take data to dropdown adminID
         database = FirebaseDatabase.getInstance().getReference("Admin");
@@ -95,18 +109,12 @@ public class EditModuleFragment extends Fragment {
         adminID.setAdapter(adapter);
         fetchData();
 
-        //Take data to dropdown fbTitle
-        databaseFb = FirebaseDatabase.getInstance().getReference("Feedback");
-        listTitle = new ArrayList<String>();
-        adapterTitle = new ArrayAdapter<>(getActivity(),R.layout.option_item,listTitle);
-        fbTitle.setAdapter(adapterTitle);
-        fetchDataFbTitle();
-
         //update
         btnSave = view.findViewById(R.id.btnSave);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+<<<<<<< HEAD
                 if(!validateModuleName() | !validateStartDate() | !validateEndDate() | !validateFbStartDate() | !validateFbEndDate()){
                     return;
                 }
@@ -140,6 +148,18 @@ public class EditModuleFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.action_nav_edit_to_nav_module);
+=======
+                String key = String.valueOf(moduleID);
+                Map<String,Object> map = new HashMap<>();
+                map.put("moduleName",moduleName.getText().toString().trim());
+                map.put("adminID",adminID.getText().toString().trim());
+
+                FirebaseDatabase.getInstance().getReference()
+                        .child("Module")
+                        .child(key)
+                        .updateChildren(map);
+                Toast.makeText(v.getContext(),"Update successfully" ,Toast.LENGTH_SHORT).show();
+>>>>>>> Ghi-danh
             }
         });
         return view;
@@ -161,6 +181,7 @@ public class EditModuleFragment extends Fragment {
             }
         });
     }
+<<<<<<< HEAD
 
     public void fetchDataFbTitle(){
         listener1 = databaseFb.addValueEventListener(new ValueEventListener() {
@@ -319,4 +340,6 @@ public class EditModuleFragment extends Fragment {
         });
         dialog.show();
     }
+=======
+>>>>>>> Ghi-danh
 }

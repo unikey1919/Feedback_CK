@@ -8,41 +8,27 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+<<<<<<< HEAD
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Toast;
+=======
+>>>>>>> Ghi-danh
 
-import com.example.feedbackapplication.Adapter.ModuleAdapter;
-import com.example.feedbackapplication.Adapter.QuestionAdapter;
 import com.example.feedbackapplication.R;
-import com.example.feedbackapplication.model.Module;
-import com.example.feedbackapplication.model.Question;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-
-public class QuestionFragment extends Fragment implements QuestionAdapter.ClickListener {
+public class QuestionFragment extends Fragment {
 
     private QuestionViewModel mViewModel;
+<<<<<<< HEAD
     private QuestionAdapter adapter;
     private RecyclerView rcvQuestion;
     private DatabaseReference database;
@@ -88,20 +74,21 @@ public class QuestionFragment extends Fragment implements QuestionAdapter.ClickL
         fetchData();
         return root;
     }
+=======
+>>>>>>> Ghi-danh
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        adapter.startListening();
+    public static QuestionFragment newInstance() {
+        return new QuestionFragment();
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        adapter.startListening();
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.question_fragment, container, false);
     }
 
     @Override
+<<<<<<< HEAD
     public void updateClicked(Question question) {
         Bundle bundle = new Bundle();
         bundle.putInt("topicId",question.getTopicID());
@@ -163,6 +150,12 @@ public class QuestionFragment extends Fragment implements QuestionAdapter.ClickL
 
             }
         });
+=======
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mViewModel = new ViewModelProvider(this).get(QuestionViewModel.class);
+        // TODO: Use the ViewModel
+>>>>>>> Ghi-danh
     }
 
 }

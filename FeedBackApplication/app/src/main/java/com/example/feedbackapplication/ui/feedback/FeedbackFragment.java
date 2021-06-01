@@ -10,7 +10,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,27 +20,20 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+<<<<<<< HEAD
 import android.widget.TextView;
 import android.widget.Toast;
+=======
+>>>>>>> Ghi-danh
 
-import com.example.feedbackapplication.Adapter.FeedbackAdapter;
-import com.example.feedbackapplication.Adapter.ModuleAdapter;
 import com.example.feedbackapplication.LoginActivity;
 import com.example.feedbackapplication.R;
-import com.example.feedbackapplication.model.FeedBack;
-import com.example.feedbackapplication.model.Module;
 import com.example.feedbackapplication.ui.home.HomeViewModel;
-import com.example.feedbackapplication.ui.module.ModuleViewModel;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
+<<<<<<< HEAD
 public class FeedbackFragment extends Fragment implements FeedbackAdapter.ClickListener {
 
     private FeedbackViewModel myViewModel;
@@ -51,7 +43,14 @@ public class FeedbackFragment extends Fragment implements FeedbackAdapter.ClickL
     private ArrayList<FeedBack> arrayList;
     private FloatingActionButton btnInsert;
     private Button btnCancelAct, btnYesAct;
+=======
+public class FeedbackFragment extends Fragment {
+>>>>>>> Ghi-danh
 
+    private FeedbackViewModel mViewModel;
+    private RecyclerView rcv_feedback;
+    private HomeViewModel homeViewModel;
+    private Button btnLogin;
     public static FeedbackFragment newInstance() {
         return new FeedbackFragment();
     }
@@ -59,33 +58,11 @@ public class FeedbackFragment extends Fragment implements FeedbackAdapter.ClickL
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-
         View root = inflater.inflate(R.layout.feedback_fragment, container, false);
-
-        database = FirebaseDatabase.getInstance().getReference().child("Feedback");
-        rcvFeedback = root.findViewById(R.id.rcvFeedback);
-        rcvFeedback.setHasFixedSize(true);
-        rcvFeedback.setLayoutManager(new LinearLayoutManager(root.getContext()));
-        //Retrieve data
-        FirebaseRecyclerOptions<FeedBack> options =
-                new FirebaseRecyclerOptions.Builder<FeedBack>()
-                        .setQuery(database, FeedBack.class)
-                        .build();
-        adapter = new FeedbackAdapter(options,this);
-        rcvFeedback.setAdapter(adapter);
-
-        //Save data
-        btnInsert = root.findViewById(R.id.btnNew);
-        btnInsert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_nav_feedback_to_nav_add_feedback);
-            }
-        });
         return root;
-
     }
 
+<<<<<<< HEAD
     @Override
     public void onStart() {
         super.onStart();
@@ -154,4 +131,6 @@ public class FeedbackFragment extends Fragment implements FeedbackAdapter.ClickL
         });
         dialog.show();
     }
+=======
+>>>>>>> Ghi-danh
 }

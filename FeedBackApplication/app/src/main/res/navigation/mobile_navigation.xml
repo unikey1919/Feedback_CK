@@ -19,8 +19,14 @@
         android:name="com.example.feedbackapplication.ui.home.HomeFragment"
         tools:layout="@layout/fragment_home" >
         <action
+<<<<<<< HEAD
             android:id="@+id/action_nav_add_admin_to_nav_add"
             app:destination="@id/nav_add_assignment" />
+=======
+            android:id="@+id/action_nav_home_to_nav_do_fb"
+            app:destination="@id/nav_do_fb" />
+
+>>>>>>> Ghi-danh
     </fragment>
 
     <fragment
@@ -122,6 +128,7 @@
     <fragment
         android:id="@+id/nav_feedback"
         android:name="com.example.feedbackapplication.ui.feedback.FeedbackFragment"
+<<<<<<< HEAD
         android:label="Feedback"
         tools:layout="@layout/feedback_fragment" >
         <action
@@ -134,6 +141,9 @@
             android:id="@+id/action_nav_feedback_to_nav_edit_feedback"
             app:destination="@id/nav_edit_feedback" />
     </fragment>
+=======
+        tools:layout="@layout/feedback_fragment" />
+>>>>>>> Ghi-danh
 
     <fragment
         android:id="@+id/nav_result"
@@ -143,6 +153,7 @@
     <fragment
         android:id="@+id/nav_question"
         android:name="com.example.feedbackapplication.ui.question.QuestionFragment"
+<<<<<<< HEAD
         android:label="Question"
         tools:layout="@layout/question_fragment" >
         <action
@@ -152,6 +163,9 @@
             android:id="@+id/action_nav_question_to_nav_edit_question"
             app:destination="@id/nav_edit_question" />
     </fragment>
+=======
+        tools:layout="@layout/question_fragment" />
+>>>>>>> Ghi-danh
 
     <fragment
         android:id="@+id/nav_contact"
@@ -167,6 +181,7 @@
         android:id="@+id/nav_join"
         android:name="com.example.feedbackapplication.ui.join.JoinFragment"
         tools:layout="@layout/join_fragment" />
+<<<<<<< HEAD
     <fragment
         android:id="@+id/nav_add_question"
         android:name="com.example.feedbackapplication.ui.question.AddQuestionFragment"
@@ -281,5 +296,12 @@
             app:destination="@id/nav_enrollment" />
     </fragment>
 
+=======
+
+    <fragment
+        android:id="@+id/nav_do_fb"
+        android:name="com.example.feedbackapplication.ui.feedback.DoFeedback"
+        tools:layout="@layout/trainee_do_feedback" />
+>>>>>>> Ghi-danh
 
 </navigation>

@@ -7,10 +7,13 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+<<<<<<< HEAD
     <color name="blue">#3f78ea</color>
     <color name="unable">#c7c7c7</color>
     <color name="background_item">#f0d1b5</color>
     <color name="purple">#902af5</color>
+=======
+>>>>>>> Ghi-danh
     <color name="red">#f00</color>
     <color name="main">#fc3d01</color>
     <color name="green">#4afe5c</color>
