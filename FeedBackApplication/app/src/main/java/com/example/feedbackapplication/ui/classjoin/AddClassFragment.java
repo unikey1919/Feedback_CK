@@ -54,13 +54,6 @@ public class AddClassFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.add_class, container, false);
 
-        //Take data to dropdown adminID
-//        adminID = view.findViewById(R.id.actAdminID);
-//        database = FirebaseDatabase.getInstance().getReference("Admin");
-//        list = new ArrayList<String>();
-//        adapter = new ArrayAdapter<>(getActivity(),R.layout.option_item,list);
-//        adminID.setAdapter(adapter);
-
         //database module
         reference = FirebaseDatabase.getInstance().getReference().child("Class");
         reference.addValueEventListener(new ValueEventListener() {

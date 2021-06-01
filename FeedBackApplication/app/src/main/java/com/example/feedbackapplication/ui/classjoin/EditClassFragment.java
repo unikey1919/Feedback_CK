@@ -47,14 +47,9 @@ import java.util.Map;
 
 public class EditClassFragment extends Fragment {
     private Button btnBack,btnAdd;
-    private DatabaseReference database,reference;
-    private ValueEventListener listener;
-    private ArrayList<String> list;
-    private ArrayAdapter<String> adapter;
     EditText edtClassName, edtCapacity, edtEndDate;
-    TextView tvClassName, tvCapacity, tvStartDate, tvEndDate, tv1StartDate;
-    ImageButton ibtnCalendar1, ibtnCalendar2;
-    private Class class1;
+    TextView tvClassName, tvCapacity, tvEndDate, tv1StartDate;
+    ImageButton ibtnCalendar2;
     private int classID = 0;
 
     @Nullable
@@ -115,7 +110,6 @@ public class EditClassFragment extends Fragment {
         });
         return view;
     }
-
 
     //Gui du lieu qua tu EventBus
     @Override

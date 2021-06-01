@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,12 +14,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.feedbackapplication.Adapter.ClassAdapter;
+import com.example.feedbackapplication.Adapter.ClassRoleTraineeAdapter;
 import com.example.feedbackapplication.Adapter.ClassRoleTrainerAdapter;
 import com.example.feedbackapplication.Adapter.ModuleRoleAdapter;
 import com.example.feedbackapplication.MainActivity;
 import com.example.feedbackapplication.R;
 import com.example.feedbackapplication.model.Assignment;
 import com.example.feedbackapplication.model.Class;
+import com.example.feedbackapplication.model.Enrollment;
 import com.example.feedbackapplication.model.Module;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -36,16 +39,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class ClassFragment extends Fragment implements ClassAdapter.ClickListener {
-
+public class ClassFragment extends Fragment implements ClassAdapter.ClickListener, ClassRoleTrainerAdapter.ClickListener, ClassRoleTraineeAdapter.ClickListener{
     private ClassRoleTrainerAdapter roleAdapter;
-    private ClassViewModel myViewModel;
+    private ClassRoleTraineeAdapter roleAdapter1;
     private ClassAdapter adapter;
     private RecyclerView rcvClass;
-    private DatabaseReference database, refAssignment;
+    private DatabaseReference database, refAssignment,refEnroll;
     private ArrayList<Assignment> arrayList;
+    private ArrayList<Enrollment> arrayList1;
     private FloatingActionButton btnInsert;
-    private FirebaseRecyclerOptions<Class> options;
     static String role, userName;
 
     @Override
@@ -54,10 +56,11 @@ public class ClassFragment extends Fragment implements ClassAdapter.ClickListene
         View root = inflater.inflate(R.layout.class_fragment, container, false);
         getDataFromDB();
 
-        database = FirebaseDatabase.getInstance().getReference().child("Assignment");
+        database = FirebaseDatabase.getInstance().getReference().child("Class");
         rcvClass = root.findViewById(R.id.rcvClass);
         rcvClass.setHasFixedSize(true);
         rcvClass.setLayoutManager(new LinearLayoutManager(root.getContext()));
+        btnInsert = root.findViewById(R.id.btnNewClass);
 
         //Retrieve data
         if (role.equals("admin")){
@@ -72,18 +75,20 @@ public class ClassFragment extends Fragment implements ClassAdapter.ClickListene
         //Retrieve data when trainer log
         if(role.equals("trainer"))
         {
+            btnInsert.setVisibility(root.GONE);
             retrieveTrainer();
             rcvClass.setAdapter(roleAdapter);
         }
-//        //Retrieve data when trainee log
-//        if(role.equals("trainee"))
-//        {
-//            retrieveTrainee();
-//            rcvModule.setAdapter(roleAdapter);
-//        }
+
+        //Retrieve data when trainee log
+        if(role.equals("trainee"))
+        {
+            btnInsert.setVisibility(root.GONE);
+            retrieveTrainee();
+            rcvClass.setAdapter(roleAdapter1);
+        }
 
         //Save data
-        btnInsert = root.findViewById(R.id.btnNewClass);
         btnInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,7 +141,7 @@ public class ClassFragment extends Fragment implements ClassAdapter.ClickListene
         MainActivity activity = (MainActivity) getActivity();
         Bundle results = activity.getMyData();
         role = results.getString("val1");
-        userName = results.getString("userName");
+        userName = results.getString("username");
     }
 
     static SimpleDateFormat sdf  = new SimpleDateFormat("MM/dd/yyyy");
@@ -164,28 +169,17 @@ public class ClassFragment extends Fragment implements ClassAdapter.ClickListene
 
     public void retrieveTrainer(){
         refAssignment = FirebaseDatabase.getInstance().getReference().child("Assignment");
-        Query queryAsg = refAssignment.orderByChild("TrainerID").equalTo(userName);
+        Query queryAsg = refAssignment.orderByChild("trainerID").equalTo(userName);
         arrayList = new ArrayList<>();
-        roleAdapter = new ClassRoleTrainerAdapter(getContext(),arrayList);
+        roleAdapter = new ClassRoleTrainerAdapter(getContext(),arrayList, this::seeClicked);
         queryAsg.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
-                    String classID = dataSnapshot.child("ClassID").getValue().toString();
-                    Query queryClass = database.child(classID);
-                    queryClass.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            Assignment assignment = snapshot.getValue(Assignment.class);
-                            arrayList.add(assignment);
-                            roleAdapter.notifyDataSetChanged();
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
+                    Assignment assignment = dataSnapshot.getValue(Assignment.class);
+                    arrayList.add(assignment);
+                    roleAdapter.notifyDataSetChanged();
                 }
             }
             @Override
@@ -196,53 +190,40 @@ public class ClassFragment extends Fragment implements ClassAdapter.ClickListene
 
     }
 
-//    public void retrieveTrainee(){
-//        refEnroll = FirebaseDatabase.getInstance().getReference().child("Enroll");
-//        refAssignment = FirebaseDatabase.getInstance().getReference().child("Assignment");
-//        Query queryEnroll = refEnroll.orderByChild("trainee").equalTo(userName);
-//        arrayList = new ArrayList<>();
-//        roleAdapter = new ModuleRoleAdapter(getContext(),arrayList);
-//        rcvModule.setAdapter(roleAdapter);
-//        queryEnroll.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-//                    int classID = dataSnapshot.child("classId").getValue(Integer.class);
-//                    Query queryAsg = refAssignment.orderByChild("ClassID").equalTo(classID);
-//                    queryAsg.addListenerForSingleValueEvent(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                            for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-//                                String moduleID = dataSnapshot.child("ModuleID").getValue().toString();
-//                                Query queryModule = database.child(moduleID);
-//                                queryModule.addListenerForSingleValueEvent(new ValueEventListener() {
-//                                    @Override
-//                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                                        Module module = snapshot.getValue(Module.class);
-//                                        arrayList.add(module);
-//                                        roleAdapter.notifyDataSetChanged();
-//                                    }
-//                                    @Override
-//                                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                                    }
-//                                });
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError error) {
-//
-//                        }
-//                    });
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//    }
+    @Override
+    public void seeClicked(Assignment assignment) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("classid", assignment.getClassID());
+        Navigation.findNavController(getView()).navigate(R.id.action_nav_class_to_nav_classtrainer_listtrainee, bundle);
+    }
+
+    public void retrieveTrainee(){
+        refEnroll = FirebaseDatabase.getInstance().getReference().child("Enrollment");
+        Query queryAsg = refEnroll.orderByChild("traineeID").equalTo(userName);
+        arrayList1 = new ArrayList<>();
+        roleAdapter1 = new ClassRoleTraineeAdapter(getContext(),arrayList1, this::see1Clicked);
+        queryAsg.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
+                    Enrollment enrollment = dataSnapshot.getValue(Enrollment.class);
+                    arrayList1.add(enrollment);
+                    roleAdapter1.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    @Override
+    public void see1Clicked(Enrollment enrollment) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("classid", enrollment.getClassID());
+        Navigation.findNavController(getView()).navigate(R.id.action_nav_class_to_nav_classtrainer_listtrainee, bundle);
+    }
 }

@@ -14,16 +14,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.feedbackapplication.R;
-import com.example.feedbackapplication.model.Assignment;
 import com.example.feedbackapplication.model.Enrollment;
-import com.example.feedbackapplication.model.Module;
-import com.example.feedbackapplication.ui.classjoin.ClassRoleTrainerListTraineeFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,39 +26,35 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
-import java.util.List;
 
-public class ClassRoleTrainerAdapter extends RecyclerView.Adapter<ClassRoleTrainerAdapter.MyViewHolder> {
+public class ClassRoleTraineeAdapter extends RecyclerView.Adapter<ClassRoleTraineeAdapter.MyViewHolder> {
     Context context;
-    ArrayList<Assignment> assignments;
+    ArrayList<Enrollment> enrollments;
     private ClassRoleTrainerListTraineeAdapter roleAdapter;
     private ClickListener clickListener;
 
-    public ClassRoleTrainerAdapter(Context context, ArrayList<Assignment> assignments, ClickListener clickListener) {
+    public ClassRoleTraineeAdapter(Context context, ArrayList<Enrollment> enrollments, ClickListener clickListener) {
         this.context = context;
-        this.assignments = assignments;
+        this.enrollments = enrollments;
         this.clickListener = clickListener;
     }
 
     @NonNull
     @Override
-    public ClassRoleTrainerAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ClassRoleTraineeAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.trainer_class_item, parent, false);
 
-        return new ClassRoleTrainerAdapter.MyViewHolder(view);
+        return new ClassRoleTraineeAdapter.MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Assignment assignment = assignments.get(position);
-
+        Enrollment enrollment = enrollments.get(position);
         //dinh dang tvClassID
         final SpannableStringBuilder sb = new SpannableStringBuilder("Class ID: ");
-        sb.append(String.valueOf(assignment.getClassID()));
+        sb.append(String.valueOf(enrollment.getClassID()));
         final ForegroundColorSpan fcs = new ForegroundColorSpan(Color.rgb(0, 0, 0));
         final StyleSpan bss = new StyleSpan(android.graphics.Typeface.BOLD);
         sb.setSpan(fcs, 0, 9, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
@@ -73,7 +63,7 @@ public class ClassRoleTrainerAdapter extends RecyclerView.Adapter<ClassRoleTrain
 
         //get class name
         DatabaseReference refClass = FirebaseDatabase.getInstance().getReference().child("Class");
-        Query query1 = refClass.orderByChild("classID").equalTo(assignment.getClassID());
+        Query query1 = refClass.orderByChild("classID").equalTo(enrollment.getClassID());
         query1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -92,9 +82,10 @@ public class ClassRoleTrainerAdapter extends RecyclerView.Adapter<ClassRoleTrain
 
             }
         });
+
         //get number of trainee
         DatabaseReference refEnroll = FirebaseDatabase.getInstance().getReference().child("Enrollment");
-        Query query = refEnroll.orderByChild("classID").equalTo(assignment.getClassID());
+        Query query = refEnroll.orderByChild("classID").equalTo(enrollment.getClassID());
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -118,7 +109,7 @@ public class ClassRoleTrainerAdapter extends RecyclerView.Adapter<ClassRoleTrain
         holder.btnSee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickListener.seeClicked(assignment);
+                clickListener.see1Clicked(enrollment);
             }
         });
 
@@ -127,7 +118,7 @@ public class ClassRoleTrainerAdapter extends RecyclerView.Adapter<ClassRoleTrain
 
     @Override
     public int getItemCount() {
-        return assignments.size();
+        return enrollments.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
@@ -144,7 +135,7 @@ public class ClassRoleTrainerAdapter extends RecyclerView.Adapter<ClassRoleTrain
     }
 
     public interface ClickListener{
-        void seeClicked(Assignment assignment);
+        void see1Clicked(Enrollment enrollment);
     }
 }
 

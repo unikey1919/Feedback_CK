@@ -5,11 +5,14 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_home">
 
-
     <fragment
-        android:id="@+id/nav_addclasssuccess"
-        android:name="com.example.feedbackapplication.ui.classjoin.AddClassSuccessDialog"
-        tools:layout="@layout/add_success_dialog" />
+        android:id="@+id/nav_classtrainer_listtrainee"
+        android:name="com.example.feedbackapplication.ui.classjoin.ClassRoleTrainerListTraineeFragment"
+        tools:layout="@layout/trainer_trainee_list_fragment">
+        <action
+            android:id="@+id/action_nav_classtrainer_listtrainee_to_nav_class"
+            app:destination="@id/nav_class" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_home"
@@ -64,6 +67,9 @@
         <action
             android:id="@+id/action_nav_class_to_nav_edit_class"
             app:destination="@id/nav_edit_class" />
+        <action
+            android:id="@+id/action_nav_class_to_nav_classtrainer_listtrainee"
+            app:destination="@id/nav_classtrainer_listtrainee" />
     </fragment>
 
     <fragment
