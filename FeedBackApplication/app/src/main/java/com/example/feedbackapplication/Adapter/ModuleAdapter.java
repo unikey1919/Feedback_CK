@@ -14,13 +14,19 @@ import com.example.feedbackapplication.model.Module;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class ModuleAdapter extends FirebaseRecyclerAdapter<Module, ModuleAdapter.MyViewHolder> {
     private ClickListener clickListener;
+    private static String moduleName;
     /**
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
      * {@link FirebaseRecyclerOptions} for configuration options.
-     *
      * @param options
      */
     public ModuleAdapter(@NonNull FirebaseRecyclerOptions<Module> options,ClickListener clickListener) {
@@ -30,22 +36,15 @@ public class ModuleAdapter extends FirebaseRecyclerAdapter<Module, ModuleAdapter
 
     @Override
     protected void onBindViewHolder(@NonNull ModuleAdapter.MyViewHolder holder, int position, @NonNull Module model) {
-
         holder.txtModuleID.setText("Module ID: " + model.getModuleID());
         holder.txtModuleName.setText("Module Name: " + model.getModuleName());
         holder.txtAdminID.setText("Admin ID: " + model.getAdminID());
-//        holder.txtStartDate.setText("Start Date: " );
-//        holder.txtEndDate.setText("End Date: " );
-//        holder.txtFeedBack.setText("Feedback Title: " );
-//        holder.txtFbStart.setText("Feedback StartTime: " );
-//        holder.txtFbEnd.setText("Feedback EndTime: " );
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickListener.updateClicked(model);
             }
         });
-
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,9 +59,10 @@ public class ModuleAdapter extends FirebaseRecyclerAdapter<Module, ModuleAdapter
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_module, parent, false);
-
         return new MyViewHolder(view);
     }
+
+  ////////////////////  //
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView txtModuleID, txtModuleName, txtAdminID, txtStartDate, txtEndDate, txtFeedBack, txtFbStart, txtFbEnd;

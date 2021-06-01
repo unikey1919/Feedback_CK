@@ -15,59 +15,57 @@
         android:textColor="@color/black"
         android:textSize="47sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tvClassID_trainer"
+        app:layout_constraintBottom_toTopOf="@+id/tvClassID_trainee"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvClassID_trainer"
+        android:id="@+id/tvClassID_trainee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="27dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginBottom="2dp"
         android:text="Class ID: 1"
-        android:textColor="@color/black"
+        android:textColor="@color/red"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/tvClassName_trainer"
+        app:layout_constraintBottom_toTopOf="@+id/tvClassName_trainee"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_traineelist" />
 
     <TextView
-        android:id="@+id/tvClassName_trainer"
+        android:id="@+id/tvClassName_trainee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="9dp"
+        android:layout_marginBottom="13dp"
         android:text="Class Name: Class"
-        android:textColor="@color/black"
+        android:textColor="@color/red"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/rcv_trainer_traineelist"
-        app:layout_constraintStart_toStartOf="@+id/tvClassID_trainer"
-        app:layout_constraintTop_toBottomOf="@+id/tvClassID_trainer" />
+        app:layout_constraintBottom_toTopOf="@+id/rcv_trainee_traineelist"
+        app:layout_constraintStart_toStartOf="@+id/tvClassID_trainee"
+        app:layout_constraintTop_toBottomOf="@+id/tvClassID_trainee" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_trainer_traineelist"
+        android:id="@+id/rcv_trainee_traineelist"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="27dp"
-        android:layout_marginEnd="27dp"
-        android:layout_marginBottom="14dp"
+        android:layout_marginBottom="6dp"
         app:layout_constraintBottom_toTopOf="@+id/btnBack_trainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvClassName_trainer" />
+        app:layout_constraintTop_toBottomOf="@+id/tvClassName_trainee" />
 
     <Button
         android:id="@+id/btnBack_trainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="33dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginBottom="66dp"
         android:backgroundTint="@color/red"
         android:text="Back"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/rcv_trainer_traineelist"
-        app:layout_constraintTop_toBottomOf="@+id/rcv_trainer_traineelist" />
+        app:layout_constraintEnd_toEndOf="@+id/rcv_trainee_traineelist"
+        app:layout_constraintTop_toBottomOf="@+id/rcv_trainee_traineelist" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

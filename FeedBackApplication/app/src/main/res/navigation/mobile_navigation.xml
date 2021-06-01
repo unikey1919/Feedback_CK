@@ -6,19 +6,79 @@
     app:startDestination="@+id/nav_home">
 
     <fragment
+        android:id="@+id/nav_classtrainer_listtrainee"
+        android:name="com.example.feedbackapplication.ui.classjoin.ClassRoleTrainerListTraineeFragment"
+        tools:layout="@layout/trainer_trainee_list_fragment">
+        <action
+            android:id="@+id/action_nav_classtrainer_listtrainee_to_nav_class"
+            app:destination="@id/nav_class" />
+    </fragment>
+
+    <fragment
         android:id="@+id/nav_home"
         android:name="com.example.feedbackapplication.ui.home.HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+
+            android:id="@+id/action_nav_add_admin_to_nav_add"
+            app:destination="@id/nav_add_assignment" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_do_fb"
+            app:destination="@id/nav_do_fb" />
+
+
+    </fragment>
 
     <fragment
         android:id="@+id/nav_assignment"
         android:name="com.example.feedbackapplication.ui.assignment.AssignmentFragment"
-        tools:layout="@layout/assignment_fragment" />
+        tools:layout="@layout/assignment_fragment" >
+        <action
+            android:id="@+id/action_nav_add_assignment_to_nav_add"
+            app:destination="@id/nav_add_assignment" />
+        <action
+            android:id="@+id/action_nav_assignment_to_nav_edit"
+            app:destination="@id/nav_edit_assignment" />
+    </fragment>
 
     <fragment
-        android:id="@+id/nav_class"
-        android:name="com.example.feedbackapplication.ui.classjoin.ClassFragment"
-        tools:layout="@layout/class_fragment" />
+        android:id="@+id/nav_add_assignment"
+        android:name="com.example.feedbackapplication.ui.assignment.AddAssignmentFragment"
+        tools:layout="@layout/fragment_add_assignment">
+        <action
+            android:id="@+id/action_nav_add_to_nav_assignment"
+            app:destination="@id/nav_assignment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_edit_assignment"
+        android:name="com.example.feedbackapplication.ui.assignment.EditAssignmentFragment"
+        tools:layout="@layout/fragment_edit_assignment">
+        <action
+            android:id="@+id/action_nav_edit_to_nav_assignment"
+            app:destination="@id/nav_assignment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_add_class"
+        android:name="com.example.feedbackapplication.ui.classjoin.AddClassFragment"
+        tools:layout="@layout/add_class" >
+        <action
+            android:id="@+id/action_nav_add_class_to_nav_class"
+            app:destination="@id/nav_class" />
+        <action
+            android:id="@+id/action_nav_add_class_to_nav_class2"
+            app:destination="@id/nav_class" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_edit_class"
+        android:name="com.example.feedbackapplication.ui.classjoin.EditClassFragment"
+        tools:layout="@layout/edit_class">
+        <action
+            android:id="@+id/action_nav_edit_class_to_nav_class"
+            app:destination="@id/nav_class" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_module"
@@ -30,6 +90,21 @@
         <action
             android:id="@+id/action_nav_module_to_nav_edit"
             app:destination="@id/nav_edit_module" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_class"
+        android:name="com.example.feedbackapplication.ui.classjoin.ClassFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_nav_class_to_nav_add_class"
+            app:destination="@id/nav_add_class" />
+        <action
+            android:id="@+id/action_nav_class_to_nav_edit_class"
+            app:destination="@id/nav_edit_class" />
+        <action
+            android:id="@+id/action_nav_class_to_nav_classtrainer_listtrainee"
+            app:destination="@id/nav_classtrainer_listtrainee" />
     </fragment>
 
     <fragment
@@ -49,11 +124,6 @@
             android:id="@+id/action_nav_edit_to_nav_module"
             app:destination="@id/nav_module" />
     </fragment>
-
-    <fragment
-        android:id="@+id/nav_enrollment"
-        android:name="com.example.feedbackapplication.ui.enrollment.EnrollmentFragment"
-        tools:layout="@layout/enrollment_fragment" />
 
     <fragment
         android:id="@+id/nav_feedback"
@@ -103,6 +173,63 @@
         android:id="@+id/nav_join"
         android:name="com.example.feedbackapplication.ui.join.JoinFragment"
         tools:layout="@layout/join_fragment" />
+
+    <fragment
+        android:id="@+id/nav_enrollment"
+        android:name="com.example.feedbackapplication.ui.enrollment.EnrollmentFragment"
+        tools:layout="@layout/enrollment_fragment">
+        <action
+            android:id="@+id/action_nav_enrollment_to_nav_add"
+            app:destination="@id/nav_add_enrollment" />
+        <action
+            android:id="@+id/action_nav_enrollment_to_nav_edit"
+            app:destination="@id/nav_edit_enrollment" />
+        <action
+            android:id="@+id/action_nav_enrollment_to_nav_view"
+            app:destination="@id/nav_view_enrollment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_add_enrollment"
+        android:name="com.example.feedbackapplication.ui.enrollment.AddEnrollmentFragment"
+        tools:layout="@layout/fragment_add_enrollment">
+        <action
+            android:id="@+id/action_nav_add_to_nav_enrollment"
+            app:destination="@id/nav_enrollment" />
+        <action
+            android:id="@+id/action_nav_review_feedback_to_nav_add_feedback"
+            app:destination="@id/nav_add_feedback" />
+        <action
+            android:id="@+id/action_nav_review_feedback_to_nav_feedback"
+            app:destination="@id/nav_feedback" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_edit_enrollment"
+        android:name="com.example.feedbackapplication.ui.enrollment.EditEnrollmentFragment"
+        tools:layout="@layout/fragment_edit_enrollment">
+        <action
+            android:id="@+id/action_nav_edit_to_nav_enrollment"
+            app:destination="@id/nav_enrollment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/nav_view_enrollment"
+        android:name="com.example.feedbackapplication.ui.enrollment.ViewEnrollmentFragment"
+        tools:layout="@layout/fragment_view_enrollment">
+
+
+        <action
+            android:id="@+id/action_nav_view_to_nav_enrollment"
+            app:destination="@id/nav_enrollment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_do_fb"
+        android:name="com.example.feedbackapplication.ui.feedback.DoFeedback"
+        tools:layout="@layout/trainee_do_feedback" />
+
     <fragment
         android:id="@+id/nav_add_question"
         android:name="com.example.feedbackapplication.ui.question.AddQuestionFragment"
@@ -127,11 +254,11 @@
         android:label="Detail Feedback"
         tools:layout="@layout/fragment_detail_feedback" >
         <action
-            android:id="@+id/action_nav_detail_feedback_to_nav_edit_feedback"
-            app:destination="@id/nav_edit_feedback" />
-        <action
             android:id="@+id/action_nav_detail_feedback_to_nav_feedback"
             app:destination="@id/nav_feedback" />
+        <action
+            android:id="@+id/action_nav_detail_feedback_to_nav_edit_feedback"
+            app:destination="@id/nav_edit_feedback" />
     </fragment>
     <fragment
         android:id="@+id/nav_add_feedback"
@@ -181,6 +308,5 @@
             android:id="@+id/action_nav_review_edit_to_nav_feedback"
             app:destination="@id/nav_feedback" />
     </fragment>
-
 
 </navigation>

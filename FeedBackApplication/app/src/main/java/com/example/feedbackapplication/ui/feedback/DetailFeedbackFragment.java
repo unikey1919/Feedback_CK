@@ -35,7 +35,7 @@ public class DetailFeedbackFragment extends Fragment {
     private ValueEventListener listener;
     private ArrayList<String> list;
     private ArrayAdapter<String> adapter;
-    private FeedBack feedBack;
+private FeedBack feedBack;
     private int feedbackId;
 
     @Override
