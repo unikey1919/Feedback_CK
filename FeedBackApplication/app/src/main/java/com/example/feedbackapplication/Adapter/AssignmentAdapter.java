@@ -28,7 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, AssignmentAdapter.MyViewHolder>  {
     private ClickListener clickListener;
     private String role;
-    private String className, moduleName;
+    private String className, moduleName, key;
 
     /**
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
@@ -83,11 +83,12 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
             holder.txtTrainerName.setText("Trainer Name: " + model.getTrainerID());
             holder.txtCode.setText( model.getCode());
 
+            key = getRef(position).getKey();
             holder.btnEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     clickListener.updateClicked(model,moduleName
-                            ,className);
+                            ,className,key);
                 }
             });
     }
@@ -122,7 +123,7 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
     }
 
     public interface ClickListener{
-        void updateClicked(Assignment model,String moduleName,String className);
+        void updateClicked(Assignment model,String moduleName,String className,String position);
         void deleteClicked(Assignment model);
     }
 
