@@ -28,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, AssignmentAdapter.MyViewHolder>  {
     private ClickListener clickListener;
     private String role;
+    private String className, moduleName;
 
     /**
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
@@ -51,6 +52,7 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                         holder.txtModuleName.setText("Module Name: " + dataSnapshot.child("moduleName").getValue().toString());
+                        moduleName = dataSnapshot.child("moduleName").getValue().toString();
                     }
                 }
 
@@ -68,6 +70,7 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                         holder.txtClassName.setText("Class Name: " + dataSnapshot.child("className").getValue().toString());
+                        className = dataSnapshot.child("className").getValue().toString();
                     }
                 }
 
@@ -79,6 +82,14 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
             holder.txtNo.setText("No:" + position);
             holder.txtTrainerName.setText("Trainer Name: " + model.getTrainerID());
             holder.txtCode.setText( model.getCode());
+
+            holder.btnEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickListener.updateClicked(model,moduleName
+                            ,className);
+                }
+            });
     }
 
     @NonNull
@@ -111,8 +122,8 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
     }
 
     public interface ClickListener{
-        void updateClicked(Module module);
-        void deleteClicked(Module module);
+        void updateClicked(Assignment model,String moduleName,String className);
+        void deleteClicked(Assignment model);
     }
 
 

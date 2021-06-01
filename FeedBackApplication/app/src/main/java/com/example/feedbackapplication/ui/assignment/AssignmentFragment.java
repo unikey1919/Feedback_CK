@@ -119,8 +119,6 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.Cl
     public void onStart() {
         super.onStart();
         adapter.startListening();
-
-
     }
 
     @Override
@@ -129,13 +127,19 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.Cl
         adapter.startListening();
     }
 
-    @Override
-    public void updateClicked(Module module) {
 
+    @Override
+    public void updateClicked(Assignment model,String moduleName, String className) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("classID",model.getClassID());
+        bundle.putInt("moduleID",model.getModuleID());
+        bundle.putString("moduleName",moduleName);
+        bundle.putString("className",className);
+        Navigation.findNavController(getView()).navigate(R.id.action_nav_assignment_to_nav_edit,bundle);
     }
 
     @Override
-    public void deleteClicked(Module module) {
+    public void deleteClicked(Assignment model) {
 
     }
 }

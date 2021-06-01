@@ -238,11 +238,11 @@ public class HomeFragment extends Fragment implements AssignmentAdapter.ClickLis
     }
 
     @Override
-    public void updateClicked(Module module) {
+    public void updateClicked(Assignment module, String moduleName, String className) {
     }
 
     @Override
-    public void deleteClicked(Module module) {
+    public void deleteClicked(Assignment module) {
 
     }
 

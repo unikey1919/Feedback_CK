@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_nav_add_assignment_to_nav_add"
             app:destination="@id/nav_add_assignment" />
+        <action
+            android:id="@+id/action_nav_assignment_to_nav_edit"
+            app:destination="@id/nav_edit_assignment" />
     </fragment>
 
     <fragment
@@ -38,6 +41,15 @@
         tools:layout="@layout/fragment_add_assignment">
         <action
             android:id="@+id/action_nav_add_to_nav_assignment"
+            app:destination="@id/nav_assignment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_edit_assignment"
+        android:name="com.example.feedbackapplication.ui.assignment.EditAssignmentFragment"
+        tools:layout="@layout/fragment_edit_assignment">
+        <action
+            android:id="@+id/action_nav_edit_to_nav_assignment"
             app:destination="@id/nav_assignment" />
     </fragment>
 

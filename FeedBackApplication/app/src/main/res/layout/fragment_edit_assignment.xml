@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.module.AddModuleFragment">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="Edit Assignment"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtClassID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:text="Class ID"
+        android:textColor="@color/black" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        app:hintEnabled="false"
+        style="@style/MyDenseOutlined"
+        android:id="@+id/txt_ip_ClassID"
+        android:layout_marginStart="40dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtClassID"
+        android:layout_marginHorizontal="10dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_ip_edt_ClassID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:enabled="false"
+            android:maxLength="255"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/txtClassName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_ip_ClassID"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:text="Class Name"
+        android:textColor="@color/black" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        app:hintEnabled="false"
+        style="@style/MyDenseOutlined"
+        android:id="@+id/txt_ip_ClassName"
+        android:layout_marginStart="40dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtClassName"
+        android:layout_marginHorizontal="10dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_ip_edt_ClassName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:enabled="false"
+            android:maxLength="255"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/txtModuleID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_ip_ClassName"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:text="Module ID"
+        android:textColor="@color/black" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        app:hintEnabled="false"
+        style="@style/MyDenseOutlined"
+        android:id="@+id/txt_ip_ModuleID"
+        android:layout_marginStart="40dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtModuleID"
+        android:layout_marginHorizontal="10dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_ip_edt_ModuleID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:enabled="false"
+            android:maxLength="255"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/txtModuleName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_ip_ModuleID"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:text="Module Name"
+        android:textColor="@color/black" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        app:hintEnabled="false"
+        style="@style/MyDenseOutlined"
+        android:id="@+id/txt_ip_ModuleName"
+        android:layout_marginStart="40dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtModuleName"
+        android:layout_marginHorizontal="10dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_ip_edt_ModuleName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:enabled="false"
+            android:maxLength="255"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/txtTrainerID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_ip_ModuleName"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:text="Trainer ID"
+        android:textColor="@color/black" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        app:hintEnabled="false"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:id="@+id/txt_ip_TrainerID"
+        android:layout_marginStart="40dp"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/txtTrainerID"
+        android:layout_marginHorizontal="10dp">
+        <AutoCompleteTextView
+            android:id="@+id/actTrainerID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLength="255"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_ip_TrainerID"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="70dp"
+        android:backgroundTint="@color/black"
+        android:text="Back" />
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_ip_TrainerID"
+        android:layout_marginTop="30dp"
+
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/btnBack"
+        android:backgroundTint="@color/black"
+        android:text="Add" />
+
+
+
+
+
+
+</RelativeLayout>
