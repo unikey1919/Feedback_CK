@@ -42,10 +42,6 @@ public class AddFeedbackFragment extends Fragment {
     private TextInputEditText edtTitle;
     private FeedBack feedBack;
     private int maxID = 0;
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private String mParam1;
-    private String mParam2;
 
     @Nullable
     @Override
@@ -91,14 +87,6 @@ public class AddFeedbackFragment extends Fragment {
         void senData(String title);
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     private void senDataReview(){
         String title = edtTitle.getText().toString().trim();
