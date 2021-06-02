@@ -1,4 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#ffffffff"/>
 
-</selector>
+    <stroke android:width="3dp"
+        android:color="#f6e28b" />
+
+    <padding android:left="10dp"
+        android:top="5dp"
+        android:right="10dp"
+        android:bottom="5dp" />
+
+    <corners android:radius="15dp" />
+    <solid android:color="#f6e28b"/>
+</shape>

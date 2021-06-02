@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.feedbackapplication.MainActivity;
 import com.example.feedbackapplication.R;
 import com.example.feedbackapplication.model.FeedBack;
 import com.example.feedbackapplication.model.Question;
@@ -34,9 +35,10 @@ import java.util.ArrayList;
 
 public class ReviewFeedbackFragment extends Fragment {
 
-    private TextView txtTitle;
+    private TextView txtTitle, txtAdminId;
     private Button btnSave, btnBack;
     private DatabaseReference database,reference;
+    static String role, userName;
     private ValueEventListener listener;
     private ArrayList<String> list;
     private ArrayAdapter<String> adapter;
@@ -50,9 +52,13 @@ public class ReviewFeedbackFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_review_feedback, container, false);
 
+        getDataFromDB();
         txtTitle = view.findViewById(R.id.txtTitle);
+        txtAdminId = view.findViewById(R.id.txtAdminId);
+        //txtTitle.setText(getArguments().getString("titles"));
+        //txtAdminId.setText(getArguments().getString("username"));
 
-        //database question
+        //database feedback
         reference = FirebaseDatabase.getInstance().getReference().child("Feedback");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -73,14 +79,13 @@ public class ReviewFeedbackFragment extends Fragment {
         });
 
         //Insert Data
-        txtTitle = view.findViewById(R.id.edtContent);
         btnSave = view.findViewById(R.id.btnSave);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int feedbackId = maxID + 1;
                 String title = txtTitle.getText().toString().trim();
-                String adminId = "";
+                String adminId = txtAdminId.getText().toString().trim();
 
                 FeedBack feedBack = new FeedBack(feedbackId, title, adminId);
 
@@ -124,5 +129,12 @@ public class ReviewFeedbackFragment extends Fragment {
             }
         });
         dialog.show();
+    }
+
+    public void getDataFromDB(){
+        MainActivity activity = (MainActivity) getActivity();
+        Bundle results = activity.getMyData();
+        role = results.getString("val1");
+        userName = results.getString("username");
     }
 }

@@ -42,7 +42,7 @@ public class EditQuestionFragment extends Fragment {
     private ArrayList<String> list;
     private ArrayAdapter<String> adapter;
     private AutoCompleteTextView topicN;
-    private TextInputEditText questionContent;
+    private AutoCompleteTextView questionContent;
     private TextInputLayout inputQuestion;
     private int questionID, topicId;
     private Question question;
@@ -57,12 +57,12 @@ public class EditQuestionFragment extends Fragment {
 
         questionContent.setText(getArguments().getString("questionContent"));
         topicN.setText(getArguments().getString("topicName"));
-        questionID = getArguments().getInt("id");
+        questionID = getArguments().getInt("questionId");
         topicId = getArguments().getInt("topicId");
 
         //update
         inputQuestion = view.findViewById(R.id.edtContent);
-        btnSave = view.findViewById(R.id.btnSave1);
+        btnSave = view.findViewById(R.id.btnSave);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +86,7 @@ public class EditQuestionFragment extends Fragment {
 
             }
         });
-        btnBack = view.findViewById(R.id.btnBack1);
+        btnBack = view.findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -33,6 +33,7 @@ import java.util.ArrayList;
 public class AddFeedbackFragment extends Fragment {
 
     private Button btnBack,btnReview;
+    private CheckBox chk1, chk2, chk3, chk4, chk5, chk6, chk7, chk8;
     private DatabaseReference database,reference;
     private ValueEventListener listener;
     private ArrayList<String> list;
@@ -40,7 +41,7 @@ public class AddFeedbackFragment extends Fragment {
     private AutoCompleteTextView edtType;
     private TextInputEditText edtTitle;
     private FeedBack feedBack;
-    private int maxID = 0;
+    private int feedbackId;
 
     @Nullable
     @Override
@@ -52,6 +53,15 @@ public class AddFeedbackFragment extends Fragment {
         edtTitle = root.findViewById(R.id.edtTitle);
         edtType = root.findViewById(R.id.edtType);
 
+        chk1 = root.findViewById(R.id.chk1);
+        chk2 = root.findViewById(R.id.chk2);
+        chk3 = root.findViewById(R.id.chk3);
+        chk4 = root.findViewById(R.id.chk4);
+        chk5 = root.findViewById(R.id.chk5);
+        chk6 = root.findViewById(R.id.chk6);
+        chk7 = root.findViewById(R.id.chk7);
+        chk8 = root.findViewById(R.id.chk8);
+
         //Take data to dropdown edtType
         String[] types = getResources().getStringArray(R.array.types);
         adapter = new ArrayAdapter<>(getActivity(),R.layout.item_type,types);
@@ -61,6 +71,11 @@ public class AddFeedbackFragment extends Fragment {
         btnReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String titles = edtTitle.getText().toString().trim();
+                String types = edtType.getText().toString().trim();
+                Bundle bundle = new Bundle();
+                bundle.putString("titles", titles);
+                bundle.putString("types", types);
 
                 Navigation.findNavController(v).navigate(R.id.action_nav_add_feedback_to_nav_review_feedback);
             }
