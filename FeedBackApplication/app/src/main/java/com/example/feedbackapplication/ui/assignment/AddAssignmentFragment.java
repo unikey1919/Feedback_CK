@@ -149,7 +149,7 @@ public class AddAssignmentFragment extends Fragment {
                         Assignment assignment = new Assignment(ModuleID, ClassID, TrainerID, Code);
                         inspirationalKey = FirebaseDatabase.getInstance().getReference("Assignment").push().getKey();
                         FirebaseDatabase.getInstance().getReference("Assignment").child(inspirationalKey).setValue(assignment);
-                        SuccessDialog();
+                        SuccessDialog(v);
                         refTrainer.removeEventListener(this);
                     }
 
@@ -223,7 +223,7 @@ public class AddAssignmentFragment extends Fragment {
         });
     }
 
-    private void SuccessDialog() {
+    private void SuccessDialog(View view) {
         Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.success_dialog);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -234,6 +234,7 @@ public class AddAssignmentFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                Navigation.findNavController(view).navigate(R.id.action_nav_add_to_nav_assignment);
             }
         });
         dialog.show();

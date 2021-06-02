@@ -1,6 +1,8 @@
 package com.example.feedbackapplication.ui.assignment;
 
+import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,8 @@ import com.example.feedbackapplication.model.Assignment;
 import com.example.feedbackapplication.model.Module;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,6 +49,8 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.Cl
     private FloatingActionButton btnAdd;
     private EditText edtSearch;
     private Query query;
+    private Button btnSuccess,btnCancel;
+    private TextView txt,txtExist;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -140,7 +146,93 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.Cl
     }
 
     @Override
-    public void deleteClicked(Assignment model) {
+    public void deleteClicked(Assignment model,String moduleName, String className, String key) {
+        if(moduleName.length() == 0 | className.length() == 0){
+            WarningDialog(key);
+        }
+        else {
+            WarningDialogExist(key);
+        }
 
     }
+
+    private void WarningDialog(String key) {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.sure_dialog);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(getActivity().getDrawable(R.drawable.loginfail_background));
+        dialog.setCancelable(false);
+        btnSuccess = dialog.findViewById(R.id.btnSuccess);
+        btnSuccess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseDatabase.getInstance().getReference()
+                        .child("Assignment")
+                        .child(key)
+                        .setValue(null)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                SuccessDialog();
+                            }
+                        });
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    private void WarningDialogExist(String key) {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.sure_dialog);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(getActivity().getDrawable(R.drawable.loginfail_background));
+        dialog.setCancelable(false);
+        txtExist= dialog.findViewById(R.id.txt2);
+        txtExist.setText(getActivity().getString(R.string.sure2));
+        btnSuccess = dialog.findViewById(R.id.btnSuccess);
+        btnSuccess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseDatabase.getInstance().getReference()
+                        .child("Assignment")
+                        .child(key)
+                        .setValue(null)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                SuccessDialog();
+                            }
+                        });
+                dialog.dismiss();
+            }
+        });
+        btnCancel = dialog.findViewById(R.id.btnCancel);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    private void SuccessDialog() {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.success_dialog);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(getActivity().getDrawable(R.drawable.loginfail_background));
+        dialog.setCancelable(false);
+        txt = dialog.findViewById(R.id.txt);
+        txt.setText("Delete Success!");
+        btnSuccess = dialog.findViewById(R.id.btnSuccess);
+        btnSuccess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
 }

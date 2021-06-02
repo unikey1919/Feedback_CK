@@ -24,11 +24,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 
 public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, AssignmentAdapter.MyViewHolder>  {
     private ClickListener clickListener;
     private String role;
-    private String className, moduleName, key;
+    private String className, moduleName, key, key1;
 
     /**
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
@@ -52,7 +54,6 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     holder.txtModuleName.setText("Module Name: " + dataSnapshot.child("moduleName").getValue().toString());
-                    moduleName = dataSnapshot.child("moduleName").getValue().toString();
                 }
             }
 
@@ -70,7 +71,6 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     holder.txtClassName.setText("Class Name: " + dataSnapshot.child("className").getValue().toString());
-                    className = dataSnapshot.child("className").getValue().toString();
                 }
             }
 
@@ -87,8 +87,18 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
             @Override
             public void onClick(View v) {
                 key =getRef(position).getKey();
-                clickListener.updateClicked(model,moduleName
-                        ,className,key);
+
+                clickListener.updateClicked(model,holder.txtModuleName.getText().toString().trim(),
+                        holder.txtClassName.getText().toString().trim() ,key);
+            }
+        });
+        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                key1 =getRef(position).getKey();
+                clickListener.deleteClicked(model,holder.txtModuleName.getText().toString().trim(),
+                        holder.txtClassName.getText().toString().trim(),key1);
+
             }
         });
     }
@@ -124,7 +134,7 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
 
     public interface ClickListener{
         void updateClicked(Assignment model,String moduleName,String className,String position);
-        void deleteClicked(Assignment model);
+        void deleteClicked(Assignment model,String moduleName,String className, String key);
     }
 
 
