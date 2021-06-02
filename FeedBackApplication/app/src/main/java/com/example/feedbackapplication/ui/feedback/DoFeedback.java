@@ -17,8 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.feedbackapplication.Adapter.QuestionAdapter;
 import com.example.feedbackapplication.Adapter.TopicQAdapter;
 import com.example.feedbackapplication.R;
+import com.example.feedbackapplication.model.Item_ListFeedBackTrainee;
 import com.example.feedbackapplication.model.QuestionContent;
 import com.example.feedbackapplication.model.QuestionTopic;
+import com.example.feedbackapplication.ui.join.PopupCode;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,10 +53,10 @@ public class DoFeedback extends Fragment {
 
     private List<QuestionContent> getquesExample() {
         List<QuestionContent> subItemList = new ArrayList<>();
-        for (int i=0; i<2; i++) {
-            QuestionContent subItem = new QuestionContent("Câu hỏi "+i, String.valueOf(i) );
+       // for (int i=0; i<2; i++) {
+            QuestionContent subItem = new QuestionContent("Câu hỏi ", "-1" );
             subItemList.add(subItem);
-        }
+       // }
         return subItemList;
     }
 
@@ -89,26 +91,39 @@ public class DoFeedback extends Fragment {
         RecyclerView rvItem = root.findViewById(R.id.rv_item);
         LinearLayoutManager layoutManager = new LinearLayoutManager(root.getContext());//Integer.parseInt(ModuleID)
 
+       // TopicQAdapter itemAdapter =new TopicQAdapter(gettopic(Integer.parseInt(ModuleID), rvItem, layoutManager));
         gettopic(Integer.parseInt(ModuleID), rvItem, layoutManager);
 
-        TopicQAdapter itemAdapter =new TopicQAdapter(getTopicExample());
-        rvItem.setAdapter(itemAdapter);
-        rvItem.setLayoutManager(layoutManager);
+        //example
+//        TopicQAdapter itemAdapter =new TopicQAdapter(getTopicExample()); // khổ quá. trời ơi cứu con.
+  //      rvItem.setAdapter(itemAdapter);
+  //      rvItem.setLayoutManager(layoutManager);
 
+        TextView btfb = root.findViewById(R.id.button_dofb);
+        btfb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupCode popup = new PopupCode();
+                Bundle bundle = new Bundle();
+                popup.setArguments(bundle);
+                bundle.putString("kq", "PleaseComplete");
+                popup.show(getActivity().getSupportFragmentManager(), "customDialog");
+            }
+        });
 
         return root;
     }
     static ArrayList<String> ques;
     static ArrayList<String> topi;
 
-    public List<QuestionTopic> getEverythingElse(Integer quesID,List<QuestionTopic> itemList)
+    public void getEverythingElse(Integer quesID,List<QuestionTopic> TopicList,RecyclerView rvItem, LinearLayoutManager layoutManager)
     {
         rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference FeedQuesRef = rootRef.child("Question");
         Query codeQuery = FeedQuesRef.orderByChild("questionID").equalTo(quesID);
-        ques = new ArrayList<>();
-        topi = new ArrayList<>();
-
+ //       ques = new ArrayList<>();
+//        topi = new ArrayList<>();
+        List<QuestionContent> questionLisst = new ArrayList<>();
         codeQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot ds) {
@@ -117,57 +132,65 @@ public class DoFeedback extends Fragment {
                         String questionContent = dataSnapshot.child("questionContent").getValue(String.class); // co question content
                         Integer topicID = dataSnapshot.child("topicID").getValue(Integer.class); // co topic id
                         String topicName = dataSnapshot.child("topicName").getValue(String.class); // co  topic content
-                        ques.add(questionContent);
-                        topi.add(topicName);
-                        Log.d("TAG", "onDataChange: ques "+ques);
+//                        ques.add(questionContent);
+//                        topi.add(topicName);
+                        questionLisst.add(new QuestionContent(questionContent, quesID.toString()));
+                        TopicList.add( new QuestionTopic(topicName, questionLisst));
+                        TopicQAdapter topicQAdapter =new TopicQAdapter(TopicList);
+                        rvItem.setAdapter(topicQAdapter);
+                        rvItem.setLayoutManager(layoutManager);
+//                        rvItem.setLayoutManager(layoutManager);
+                        Log.d("TAG", "onDataChange:  id: "+quesID+ "  "+ques );
                         Log.d("TAG", "onDataChange: topi"+topi);
-
                         Log.d("lamon", "ques content d:----------- " +questionContent+ " " +topicID+ " "+topicName);
                     }
-                    // tien hanh add:
-                    List<QuestionTopic> itemList = new ArrayList<>();
-                    for(int i=0; i<ques.size(); i++)
-                    {
-                        ArrayList<String> X = new ArrayList<>();
-                        List<QuestionContent> itemListc = new ArrayList<>();
-                        for(int j=0; j<ques.size(); j++)
-                        {
-                           if(topi.get(i)==topi.get(j)) {
-                               X.add(ques.get(j));
-                               QuestionContent subItem = new QuestionContent(ques.get(j), String.valueOf(i) );
-                               itemListc.add(subItem);
-                           }
-                            QuestionTopic Item = new QuestionTopic(topi.get(i), itemListc);
-                            itemList.add(Item);
-//                           itemList.add(topi.get(i),)
-                        }
-                    }
 
+                    // tien hanh add:
+//                    for(int i=0; i<ques.size(); i++)
+//                    {
+//                        ArrayList<String> X = new ArrayList<>();
+//                        List<QuestionContent> itemListc = new ArrayList<>();
+//                        for(int j=0; j<ques.size(); j++)
+//                        {
+//                           if(topi.get(i)==topi.get(j)) {
+//                               X.add(ques.get(j));
+//                               QuestionContent subItem = new QuestionContent(ques.get(j), String.valueOf(i) );
+//                               Log.d("TAG", "co "+quesID+" -- > add list ques");
+//                               itemListc.add(subItem);
+//                           }
+//                            QuestionTopic Item = new QuestionTopic(topi.get(i), itemListc);
+//                            itemList.add(Item);
+////                           itemList.add(topi.get(i),)
+//                        }
+//                    }
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-        return itemList;
+     //   return itemList;
     }
 
     private List<QuestionTopic> gettopic(int ModuleID, RecyclerView rvItem, LinearLayoutManager layoutManager) {
-        List<QuestionTopic> itemList = new ArrayList<>();
+        ArrayList<QuestionTopic> itemList = new ArrayList<>();
+        itemList.add(new QuestionTopic("...",getquesExample()));  // add example
+
+        TopicQAdapter itemAdapter;
         rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference FeedQuesRef = rootRef.child("Feedback_Question");
-        Query codeQuery = FeedQuesRef.orderByChild("ModuleID").equalTo(ModuleID);      //
+        Query codeQuery = FeedQuesRef.orderByChild("ModuleID").equalTo(ModuleID);      // lay Ques ID của module
         codeQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot ds) {
 
                 if (ds.getValue() != null) {
                     for (DataSnapshot dataSnapshot : ds.getChildren()) {
-                        Integer QuestionID = dataSnapshot.child("QuestionID").getValue(Integer.class); // da co question id
-                        TopicQAdapter itemAdapter =new TopicQAdapter(getEverythingElse(QuestionID,itemList));
-                        Log.d("fdf", "onDataChange: -------"+ itemAdapter);
-                        rvItem.setAdapter(itemAdapter);
-                        rvItem.setLayoutManager(layoutManager);
+                        Integer QuestionID = dataSnapshot.child("QuestionID").getValue(Integer.class); // da co cac question id
+                        Log.d("fdf", "send ques"+ QuestionID);
+                        getEverythingElse(QuestionID,itemList,rvItem, layoutManager);  // list topic
+//                        rvItem.setAdapter(itemAdapter);
+//                        rvItem.setLayoutManager(layoutManager);
                     }
                 }
             }
@@ -178,6 +201,26 @@ public class DoFeedback extends Fragment {
         return itemList;
     }
 
+//    public String questionContent(Integer quesID){
+//        rootRef = FirebaseDatabase.getInstance().getReference();
+//        DatabaseReference FeedQuesRef = rootRef.child("Question");
+//        Query codeQuery = FeedQuesRef.orderByChild("questionID").equalTo(quesID);
+//        String questionContent;
+//        codeQuery.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot ds) {
+//                if (ds.getValue() != null) {
+//                    for (DataSnapshot dataSnapshot : ds.getChildren()) {
+//                        questionContent = dataSnapshot.child("questionContent").getValue(String.class); // co question content
+//                    }
+//                }
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//            }
+//        });
+//        return questionContent;
+//    }
 
 
     @Override

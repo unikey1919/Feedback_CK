@@ -52,6 +52,10 @@ public class PopupCode extends AppCompatDialogFragment {
             txt.setText("Invalid Registation code (Null)!!!");
             img.setImageResource(R.drawable.ic_deny);
         }
+        else if(kq.equals("PleaseComplete")) {
+            txt.setText("Please Complete your feedback !");
+            img.setImageResource(R.drawable.ic_deny);
+        }
         else {
             txt.setText("You already join this module,\n     please try another!!!");
             img.setImageResource(R.drawable.ic_deny);
@@ -62,7 +66,11 @@ public class PopupCode extends AppCompatDialogFragment {
         btn_addCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goBackMain(v);
+                if (kq.equals("PleaseComplete") == false)
+                   goBackMain(v);
+                else
+                    dismiss();
+
             }
         });
         return builder.create();

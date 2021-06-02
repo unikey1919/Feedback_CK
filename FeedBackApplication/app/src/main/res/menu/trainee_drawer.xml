@@ -30,6 +30,7 @@
             android:icon="@drawable/ic_join"
             android:title="@string/menu_join" />
 
+
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_logout"
