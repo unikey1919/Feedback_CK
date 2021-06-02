@@ -3,64 +3,69 @@ package com.example.feedbackapplication.ui.feedback;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.feedbackapplication.R;
+import com.example.feedbackapplication.model.FeedBack;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link EditFeedbackFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class EditFeedbackFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public EditFeedbackFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment EditFeedbackFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static EditFeedbackFragment newInstance(String param1, String param2) {
-        EditFeedbackFragment fragment = new EditFeedbackFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private Button btnBack,btnReview;
+    private DatabaseReference database,reference;
+    private ValueEventListener listener;
+    private ArrayList<String> list;
+    private ArrayAdapter<String> adapter;
+    private AutoCompleteTextView edtType;
+    private TextInputEditText edtTitle;
+    private FeedBack feedback;
+    private int feedbackId, adminId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit_feedback, container, false);
+        View view = inflater.inflate(R.layout.fragment_edit_feedback, container, false);
+
+        edtTitle = view.findViewById(R.id.edtTitle);
+        edtType = view.findViewById(R.id.edtType);
+
+        //Take data to dropdown edtType
+        String[] types = getResources().getStringArray(R.array.types);
+        adapter = new ArrayAdapter<>(getActivity(),R.layout.item_type,types);
+        edtType.setAdapter(adapter);
+
+        btnBack = view.findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_nav_edit_feedback_to_nav_feedback);
+            }
+        });
+
+        //update
+        btnReview = view.findViewById(R.id.btnReview);
+        btnReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_nav_edit_feedback_to_nav_review_edit);
+            }
+        });
+        return view;
     }
 }

@@ -106,6 +106,8 @@ public class ReviewFeedbackFragment extends Fragment {
         final Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.add_question_success);
+        TextView textView = dialog.findViewById(R.id.textViewSuccess);
+        textView.setText("Add success!");
 
         Window window = dialog.getWindow();
         window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT);

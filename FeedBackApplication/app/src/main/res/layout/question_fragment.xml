@@ -43,9 +43,11 @@
         <AutoCompleteTextView
             android:id="@+id/actTopic"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp" />
+            android:layout_height="match_parent"
+            android:inputType="none"
+            android:padding="0dp"
+            android:text="topic1"
+            android:textSize="17sp"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -145,9 +146,34 @@ public class FeedbackFragment extends Fragment implements FeedbackAdapter.ClickL
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                Toast.makeText(getActivity(),"Update successfully" ,Toast.LENGTH_SHORT).show();
+                                SuccessDialog(Gravity.CENTER);
                             }
                         });
+            }
+        });
+        dialog.show();
+    }
+
+    private void SuccessDialog(int gravity){
+
+        final Dialog dialog = new Dialog(getContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.add_question_success);
+        TextView textView = dialog.findViewById(R.id.textViewSuccess);
+        textView.setText("Delete success!");
+
+        Window window = dialog.getWindow();
+        window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT);
+
+        WindowManager.LayoutParams windowAttributes = window.getAttributes();
+        windowAttributes.gravity = gravity;
+        window.setAttributes(windowAttributes);
+        dialog.setCancelable(false);
+        Button btnAddSuccess = dialog.findViewById(R.id.btnAddSuccess);
+        btnAddSuccess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
             }
         });
         dialog.show();
