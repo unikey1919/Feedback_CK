@@ -4,70 +4,82 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context=".ui.module.ModuleFragment">
 
-    <TextView
-        android:id="@+id/txt1"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/lable"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Question List"
-        android:textSize="40sp"
-        android:textColor="@color/black"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="50dp"
-        android:gravity="center_horizontal"
-        android:textStyle="bold"/>
+        android:gravity="center">
+        <TextView
+            android:id="@+id/txt1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Question List"
+            android:textSize="30sp"
+            android:textColor="@color/black"
+            android:layout_marginStart="50dp"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnNew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:backgroundTint="#6666FF"
+            android:src="@drawable/ic_baseline_add_24"
+            app:tint="#ffffff" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/txt2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/txt1"
+        android:layout_below="@id/lable"
+        android:layout_marginVertical="20dp"
+        android:layout_marginStart="20dp"
         android:text="Topic name:"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        app:hintEnabled="false"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:id="@+id/txt_ip_AdminID"
-        android:layout_width="280dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="7dp"
-        android:layout_below="@id/txt1"
-        android:inputType="textPassword"
-        android:layout_marginHorizontal="10dp"
-        app:errorEnabled="true"
-        android:layout_toRightOf="@+id/txt2">
-
-        <AutoCompleteTextView
-            android:id="@+id/actTopic"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="none"
-            android:padding="0dp"
-            android:text="topic1"
-            android:textSize="17sp"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnNew"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/lable2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_toRightOf="@+id/txt1"
-        android:backgroundTint="#6666FF"
-        android:src="@drawable/ic_baseline_add_24"
-        app:tint="#ffffff" />
+        android:gravity="center"
+        android:layout_below="@+id/txt2">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txt_ip_AdminID"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="250dp"
+            android:layout_height="30dp"
+            android:inputType="textPassword"
+            app:errorEnabled="true"
+            app:hintEnabled="false">
+
+            <AutoCompleteTextView
+                android:id="@+id/actTopic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:layout_gravity="center"
+                android:padding="0dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="topic1"
+                android:textSize="17sp" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvQuestion"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/txt2"
+        android:layout_below="@+id/lable2"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         tools:layout_editor_absoluteX="0dp"

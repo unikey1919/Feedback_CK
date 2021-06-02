@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.feedbackapplication.R;
@@ -19,6 +20,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,7 +37,8 @@ public class EditFeedbackFragment extends Fragment {
     private AutoCompleteTextView edtType;
     private TextInputEditText edtTitle;
     private FeedBack feedback;
-    private int feedbackId, adminId;
+    private int feedbackId;
+    private TextView adminId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,6 +48,10 @@ public class EditFeedbackFragment extends Fragment {
 
         edtTitle = view.findViewById(R.id.edtTitle);
         edtType = view.findViewById(R.id.edtType);
+
+        //edtTitle.setText(getArguments().getString("title"));
+        //adminId.setText(getArguments().getString("adminID"));
+        //feedbackId = getArguments().getInt("id");
 
         //Take data to dropdown edtType
         String[] types = getResources().getStringArray(R.array.types);

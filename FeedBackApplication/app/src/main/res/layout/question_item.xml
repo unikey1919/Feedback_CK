@@ -24,40 +24,44 @@
             android:id="@+id/txtTopicID"
             android:layout_width="match_parent"
             android:layout_height="20dp"
+            android:padding="0dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginVertical="5dp"
             android:layout_marginRight="10dp"
-            android:textSize="19sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txtTopicName"
             android:layout_width="match_parent"
             android:layout_height="20dp"
+            android:padding="0dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginVertical="5dp"
             android:layout_marginRight="10dp"
-            android:textSize="19sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txtQuestionID"
             android:layout_width="match_parent"
             android:layout_height="20dp"
+            android:padding="0dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginVertical="5dp"
             android:layout_marginRight="10dp"
-            android:textSize="19sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txtQuestionContent"
             android:layout_width="match_parent"
             android:layout_height="20dp"
+            android:padding="0dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginVertical="5dp"
             android:layout_marginRight="10dp"
-            android:textSize="19sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
 
