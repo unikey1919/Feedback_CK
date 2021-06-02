@@ -145,12 +145,14 @@ public class AddAssignmentFragment extends Fragment {
                                 FailDialog();
                                 return;
                             }
+
                         }
                         Assignment assignment = new Assignment(ModuleID, ClassID, TrainerID, Code);
                         inspirationalKey = FirebaseDatabase.getInstance().getReference("Assignment").push().getKey();
                         FirebaseDatabase.getInstance().getReference("Assignment").child(inspirationalKey).setValue(assignment);
-                        SuccessDialog(v);
                         refTrainer.removeEventListener(this);
+                        SuccessDialog(v);
+
                     }
 
                     @Override

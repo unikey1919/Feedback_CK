@@ -102,6 +102,7 @@ public class EditAssignmentFragment extends Fragment {
                                     }
                                 });
                         refTrainer.removeEventListener(this);
+
                     }
 
                     @Override
