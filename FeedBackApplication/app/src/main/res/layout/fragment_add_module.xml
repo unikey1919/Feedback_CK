@@ -170,7 +170,9 @@
             android:id="@+id/txt_ip_edt_FbStart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="dd/mm/yy"/>
+            android:hint="dd/mm/yy"
+            android:drawableEnd="@drawable/ic_baseline_calendar_today_24"/>
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView

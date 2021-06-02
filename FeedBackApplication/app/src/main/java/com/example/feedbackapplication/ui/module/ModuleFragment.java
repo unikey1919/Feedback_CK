@@ -54,7 +54,7 @@ public class ModuleFragment extends Fragment implements ModuleAdapter.ClickListe
     private ArrayList<Module> arrayList;
     private FloatingActionButton btnInsert;
     private FirebaseRecyclerOptions<Module> options;
-    static String role, userName;
+    static  String role, userName;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
