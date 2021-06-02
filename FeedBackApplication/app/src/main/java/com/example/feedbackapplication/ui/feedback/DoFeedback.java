@@ -20,6 +20,7 @@ import com.example.feedbackapplication.R;
 import com.example.feedbackapplication.model.Item_ListFeedBackTrainee;
 import com.example.feedbackapplication.model.QuestionContent;
 import com.example.feedbackapplication.model.QuestionTopic;
+import com.example.feedbackapplication.ui.join.PopupCode;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -94,10 +95,21 @@ public class DoFeedback extends Fragment {
         gettopic(Integer.parseInt(ModuleID), rvItem, layoutManager);
 
         //example
-//        TopicQAdapter itemAdapter =new TopicQAdapter(getTopicExample());
+//        TopicQAdapter itemAdapter =new TopicQAdapter(getTopicExample()); // khổ quá. trời ơi cứu con.
   //      rvItem.setAdapter(itemAdapter);
   //      rvItem.setLayoutManager(layoutManager);
 
+        TextView btfb = root.findViewById(R.id.button_dofb);
+        btfb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupCode popup = new PopupCode();
+                Bundle bundle = new Bundle();
+                popup.setArguments(bundle);
+                bundle.putString("kq", "PleaseComplete");
+                popup.show(getActivity().getSupportFragmentManager(), "customDialog");
+            }
+        });
 
         return root;
     }

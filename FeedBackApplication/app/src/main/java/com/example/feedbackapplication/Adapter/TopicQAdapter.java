@@ -54,7 +54,7 @@ public class TopicQAdapter extends RecyclerView.Adapter<TopicQAdapter.ItemViewHo
                 notifyDataSetChanged();
             }
         };
-        timerHandler.postDelayed(timerRunnable, 1500);  // hold 0.5s to load firebase (load < 0.2s)
+        timerHandler.postDelayed(timerRunnable, 100);  // hold 0.1s to load firebase (load < 0.2s)
 
 
         layoutManager.setInitialPrefetchItemCount(item.getQuestion().size());
@@ -69,7 +69,7 @@ public class TopicQAdapter extends RecyclerView.Adapter<TopicQAdapter.ItemViewHo
         itemViewHolder.tvItemTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(item.getTopic()=="...") {
+                if(item.getTopic().equals("...")) {
                     itemList.remove(i);
                     notifyDataSetChanged();
                 }
