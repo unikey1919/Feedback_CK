@@ -8,7 +8,7 @@
     <group android:checkableBehavior="single"
         xmlns:tools="http://schemas.android.com/tools"
         tools:context=".ui.join.TraineeDrawer"
-       >
+        >
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_house"
@@ -22,14 +22,13 @@
             android:icon="@drawable/ic_module"
             android:title="@string/menu_module" />
         <item
-            android:id="@+id/nav_join"
+            android:id="@+id/nav_contact"
             android:icon="@drawable/ic_contact"
             android:title="@string/menu_contact" />
         <item
-            android:id="@+id/nav_join2"
-            android:icon="@drawable/ic_join"
+            android:id="@+id/nav_join"
+            android:icon="@drawable/ic_joinx"
             android:title="@string/menu_join" />
-
 
         <item
             android:id="@+id/nav_logout"
