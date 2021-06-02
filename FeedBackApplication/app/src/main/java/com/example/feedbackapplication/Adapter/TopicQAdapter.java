@@ -48,20 +48,21 @@ public class TopicQAdapter extends RecyclerView.Adapter<TopicQAdapter.ItemViewHo
         );
         layoutManager.setInitialPrefetchItemCount(item.getQuestion().size());
 
-        // Create sub item view adapter
-//        QuestionAdapter subItemAdapter = new QuestionAdapter(item.getQuestion());
-//
-//        itemViewHolder.rvSubItem.setLayoutManager(layoutManager);
-//        itemViewHolder.rvSubItem.setAdapter(subItemAdapter);
-//        itemViewHolder.rvSubItem.setRecycledViewPool(viewPool);
 
-//        itemViewHolder.tvItemTitle.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                notifyDataSetChanged();
-//                Log.d("waiting", "run: waiting data");
-//            }
-//        });
+//         Create sub item view adapter
+        QuestionContentAdapter subItemAdapter = new QuestionContentAdapter(item.getQuestion());
+
+        itemViewHolder.rvSubItem.setLayoutManager(layoutManager);
+        itemViewHolder.rvSubItem.setAdapter(subItemAdapter);
+        itemViewHolder.rvSubItem.setRecycledViewPool(viewPool);
+
+        itemViewHolder.tvItemTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                notifyDataSetChanged();
+                Log.d("waiting", "run: waiting data");
+            }
+        });
 
     }
 

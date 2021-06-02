@@ -28,7 +28,6 @@
             android:id="@+id/action_nav_home_to_nav_edit"
             app:destination="@id/nav_edit_assignment" />
 
-
     </fragment>
 
     <fragment

@@ -28,7 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Iterator;
 //public class DoFeedback extends AppCompatDialogFragment {
 //
 //    @Override
@@ -47,29 +47,6 @@ public class DoFeedback extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    private List<QuestionTopic> gettopic(int ModuleID) {
-        List<QuestionTopic> itemList = new ArrayList<>();
-        rootRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference FeedQuesRef = rootRef.child("Feedback_Question");
-        Query codeQuery = FeedQuesRef.orderByChild("ModuleID").equalTo(ModuleID);      //
-        codeQuery.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot ds) {
-
-                if (ds.getValue() != null) {
-                    for (DataSnapshot dataSnapshot : ds.getChildren()) {
-                        Integer QuestionID = dataSnapshot.child("QuestionID").getValue(Integer.class); // da co question id
-                        getEverythingElse(QuestionID,itemList);
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-        return itemList;
     }
 
     private List<QuestionContent> getquesExample() {
@@ -111,19 +88,27 @@ public class DoFeedback extends Fragment {
         // phần mới (test):
         RecyclerView rvItem = root.findViewById(R.id.rv_item);
         LinearLayoutManager layoutManager = new LinearLayoutManager(root.getContext());//Integer.parseInt(ModuleID)
-        TopicQAdapter itemAdapter =new TopicQAdapter(getTopicExample());
 
+        gettopic(Integer.parseInt(ModuleID), rvItem, layoutManager);
+
+        TopicQAdapter itemAdapter =new TopicQAdapter(getTopicExample());
         rvItem.setAdapter(itemAdapter);
         rvItem.setLayoutManager(layoutManager);
 
+
         return root;
     }
+    static ArrayList<String> ques;
+    static ArrayList<String> topi;
 
     public List<QuestionTopic> getEverythingElse(Integer quesID,List<QuestionTopic> itemList)
     {
         rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference FeedQuesRef = rootRef.child("Question");
         Query codeQuery = FeedQuesRef.orderByChild("questionID").equalTo(quesID);
+        ques = new ArrayList<>();
+        topi = new ArrayList<>();
+
         codeQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot ds) {
@@ -132,11 +117,57 @@ public class DoFeedback extends Fragment {
                         String questionContent = dataSnapshot.child("questionContent").getValue(String.class); // co question content
                         Integer topicID = dataSnapshot.child("topicID").getValue(Integer.class); // co topic id
                         String topicName = dataSnapshot.child("topicName").getValue(String.class); // co  topic content
-
-                        QuestionTopic item = new QuestionTopic(topicName, getquesExample());
-                        itemList.add(item);
+                        ques.add(questionContent);
+                        topi.add(topicName);
+                        Log.d("TAG", "onDataChange: ques "+ques);
+                        Log.d("TAG", "onDataChange: topi"+topi);
 
                         Log.d("lamon", "ques content d:----------- " +questionContent+ " " +topicID+ " "+topicName);
+                    }
+                    // tien hanh add:
+                    List<QuestionTopic> itemList = new ArrayList<>();
+                    for(int i=0; i<ques.size(); i++)
+                    {
+                        ArrayList<String> X = new ArrayList<>();
+                        List<QuestionContent> itemListc = new ArrayList<>();
+                        for(int j=0; j<ques.size(); j++)
+                        {
+                           if(topi.get(i)==topi.get(j)) {
+                               X.add(ques.get(j));
+                               QuestionContent subItem = new QuestionContent(ques.get(j), String.valueOf(i) );
+                               itemListc.add(subItem);
+                           }
+                            QuestionTopic Item = new QuestionTopic(topi.get(i), itemListc);
+                            itemList.add(Item);
+//                           itemList.add(topi.get(i),)
+                        }
+                    }
+
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+        return itemList;
+    }
+
+    private List<QuestionTopic> gettopic(int ModuleID, RecyclerView rvItem, LinearLayoutManager layoutManager) {
+        List<QuestionTopic> itemList = new ArrayList<>();
+        rootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference FeedQuesRef = rootRef.child("Feedback_Question");
+        Query codeQuery = FeedQuesRef.orderByChild("ModuleID").equalTo(ModuleID);      //
+        codeQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot ds) {
+
+                if (ds.getValue() != null) {
+                    for (DataSnapshot dataSnapshot : ds.getChildren()) {
+                        Integer QuestionID = dataSnapshot.child("QuestionID").getValue(Integer.class); // da co question id
+                        TopicQAdapter itemAdapter =new TopicQAdapter(getEverythingElse(QuestionID,itemList));
+                        Log.d("fdf", "onDataChange: -------"+ itemAdapter);
+                        rvItem.setAdapter(itemAdapter);
+                        rvItem.setLayoutManager(layoutManager);
                     }
                 }
             }
@@ -146,6 +177,8 @@ public class DoFeedback extends Fragment {
         });
         return itemList;
     }
+
+
 
     @Override
     public void onResume() {
