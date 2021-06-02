@@ -1,13 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.contact.ContactFragment">
+    tools:context=".ui.contact.ContactFragment"
+    android:background="@drawable/khung2">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:id="@+id/tvFpt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="58dp"
+        android:text="FPT FEEDBACK MANAGEMENT"
+        android:textColor="@color/black" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tvWe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvFpt"
+        android:layout_marginTop="4dp"
+        android:gravity="center_horizontal"
+        android:text="We are ready for the challenge"
+        android:textColor="@color/black"
+        android:textSize="23sp" />
+
+    <TextView
+        android:id="@+id/tvVu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvWe"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="96dp"
+        android:gravity="center_horizontal"
+        android:text="vuhung1908@gmail.com"
+        android:textColor="@color/black"
+        android:textSize="23sp" />
+
+    <TextView
+        android:id="@+id/tvSay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvVu"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="36dp"
+        android:text="SAY HELLO"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/tv497"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvSay"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center_horizontal"
+        android:text="497 Evergreen Rd Rosevile"
+        android:textColor="@color/black"
+        android:textSize="23sp" />
+
+    <TextView
+        android:id="@+id/tvCa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv497"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="0dp"
+        android:gravity="center_horizontal"
+        android:text="CA 95673"
+        android:textColor="@color/black"
+        android:textSize="23sp" />
+
+    <TextView
+        android:id="@+id/tv44"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvCa"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="0dp"
+        android:gravity="center_horizontal"
+        android:text="+44 345 678 903"
+        android:textColor="@color/black"
+        android:textSize="23sp" />
+
+    <TextView
+        android:id="@+id/tvJoss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv44"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="36dp"
+        android:text="JOSS"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/tvWe1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvJoss"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="0dp"
+        android:gravity="center_horizontal"
+        android:text="We are always looking for talent"
+        android:textColor="@color/black"
+        android:textSize="23sp" />
+
+    <TextView
+        android:id="@+id/tvAdo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvWe1"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="0dp"
+        android:gravity="center_horizontal"
+        android:text="adobexd@gmail.com"
+        android:textColor="@color/black"
+        android:textSize="23sp" />
+
+    <ImageButton
+        android:id="@+id/ibtnCamera"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/tvAdo"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="61dp"
+        android:layout_marginEnd="263dp"
+        android:background="@drawable/camera" />
+
+    <ImageButton
+        android:id="@+id/ibtnChim"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/tvAdo"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="62dp"
+        android:layout_marginEnd="177dp"
+        android:background="@drawable/twitter" />
+
+    <ImageButton
+        android:id="@+id/ibtnFb"
+        android:layout_width="40dp"
+        android:layout_height="38dp"
+        android:layout_below="@id/tvAdo"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="62dp"
+        android:layout_marginEnd="99dp"
+        android:background="@drawable/fb" />
+
+</RelativeLayout>
