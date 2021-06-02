@@ -19,12 +19,14 @@
         android:name="com.example.feedbackapplication.ui.home.HomeFragment"
         tools:layout="@layout/fragment_home" >
         <action
-
             android:id="@+id/action_nav_add_admin_to_nav_add"
             app:destination="@id/nav_add_assignment" />
         <action
             android:id="@+id/action_nav_home_to_nav_do_fb"
             app:destination="@id/nav_do_fb" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_edit"
+            app:destination="@id/nav_edit_assignment" />
 
 
     </fragment>

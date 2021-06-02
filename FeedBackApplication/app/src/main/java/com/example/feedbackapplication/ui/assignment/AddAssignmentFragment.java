@@ -15,7 +15,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.feedbackapplication.R;
 import com.example.feedbackapplication.model.Assignment;
@@ -43,6 +45,7 @@ public class AddAssignmentFragment extends Fragment {
     private static int ClassID,ModuleID;
     private String inspirationalKey = "where_is_my_key";
     private Spinner spnModule, spnClass, spnTrainer;
+    private ImageView img;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -131,11 +134,31 @@ public class AddAssignmentFragment extends Fragment {
                 Long ts = System.currentTimeMillis()/1000;
                 String TrainerID = spnTrainer.getSelectedItem().toString();
                 String Code = "CL" + ClassID + "M" +ModuleID + "T" + ts.toString();
+                DatabaseReference refAssign = FirebaseDatabase.getInstance().getReference("Assignment");
+                Query refTrainer = refAssign.orderByChild("moduleID").equalTo(ModuleID);
+                refTrainer.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                            String a = dataSnapshot.child("trainerID").getValue().toString();
+                            if(TrainerID.equals(a)){
+                                FailDialog();
+                                return;
+                            }
+                        }
+                        Assignment assignment = new Assignment(ModuleID, ClassID, TrainerID, Code);
+                        inspirationalKey = FirebaseDatabase.getInstance().getReference("Assignment").push().getKey();
+                        FirebaseDatabase.getInstance().getReference("Assignment").child(inspirationalKey).setValue(assignment);
+                        SuccessDialog();
+                        refTrainer.removeEventListener(this);
+                    }
 
-                Assignment assignment = new Assignment(ModuleID,ClassID,TrainerID,Code);
-                inspirationalKey = FirebaseDatabase.getInstance().getReference("Assignment").push().getKey();
-                FirebaseDatabase.getInstance().getReference("Assignment").child(inspirationalKey).setValue(assignment);
-                SuccessDialog();
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
             }
         });
 
@@ -159,7 +182,6 @@ public class AddAssignmentFragment extends Fragment {
                 }
                 adapterModule.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -177,7 +199,6 @@ public class AddAssignmentFragment extends Fragment {
                 }
                 adapterClass.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -195,7 +216,6 @@ public class AddAssignmentFragment extends Fragment {
                 }
                 adapterTrainer.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -206,6 +226,22 @@ public class AddAssignmentFragment extends Fragment {
     private void SuccessDialog() {
         Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.success_dialog);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(getActivity().getDrawable(R.drawable.loginfail_background));
+        dialog.setCancelable(false);
+        btnSuccess = dialog.findViewById(R.id.btnSuccess);
+        btnSuccess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    private void FailDialog() {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.fail_dialog);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(getActivity().getDrawable(R.drawable.loginfail_background));
         dialog.setCancelable(false);

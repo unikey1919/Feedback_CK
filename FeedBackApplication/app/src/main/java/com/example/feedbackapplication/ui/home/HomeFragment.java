@@ -308,7 +308,14 @@ public class HomeFragment extends Fragment implements AssignmentAdapter.ClickLis
     }
 
     @Override
-    public void updateClicked(Assignment module, String moduleName, String className, String position) {
+    public void updateClicked(Assignment model, String moduleName, String className, String position) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("classID",model.getClassID());
+        bundle.putString("position",position);
+        bundle.putInt("moduleID",model.getModuleID());
+        bundle.putString("moduleName",moduleName);
+        bundle.putString("className",className);
+        Navigation.findNavController(getView()).navigate(R.id.action_nav_home_to_nav_edit,bundle);
     }
 
     @Override

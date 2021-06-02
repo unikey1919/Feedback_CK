@@ -12,6 +12,7 @@
         android:theme="@style/Theme.FeedBackApplication.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
+            android:backgroundTint="#FA4B14"
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -23,6 +24,7 @@
                 android:layout_marginStart="100dp"
                 android:padding="5dp"
                 android:src="@drawable/r2s"/>
+
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
