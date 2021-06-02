@@ -194,7 +194,6 @@ public class AddAssignmentFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    int a = dataSnapshot.child("classID").getValue(Integer.class);
                     listClass.add(dataSnapshot.child("className").getValue().toString());
                 }
                 adapterClass.notifyDataSetChanged();

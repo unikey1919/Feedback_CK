@@ -167,6 +167,7 @@
         android:layout_marginHorizontal="10dp"
         app:errorEnabled="true">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_ip_edt_FbStart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="dd/mm/yy"/>
@@ -190,6 +191,7 @@
         android:layout_marginHorizontal="10dp"
         app:errorEnabled="true">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_ip_edt_FbEnd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="dd/mm/yy"

@@ -68,8 +68,8 @@ public class AddModuleFragment extends Fragment {
         feedbackStartDate = view.findViewById(R.id.txt_ip_edt_FbStart);
         showStartDate(startDate);
         showStartDate(endDate);
-        showStartDate(feedbackEndDate);
-        showStartDate(feedbackStartDate);
+//        showStartDate(feedbackEndDate);
+//        showStartDate(feedbackStartDate);
 
         //Take data to dropdown adminID
         adminID = view.findViewById(R.id.actAdminID);
