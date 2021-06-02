@@ -66,11 +66,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_result"
-        android:name="com.example.feedbackapplication.ui.result.ResultFragment"
-        tools:layout="@layout/result_fragment" />
-
-    <fragment
         android:id="@+id/nav_question"
         android:name="com.example.feedbackapplication.ui.question.QuestionFragment"
         tools:layout="@layout/question_fragment" >
@@ -204,6 +199,37 @@
         <action
             android:id="@+id/action_nav_view_to_nav_enrollment"
             app:destination="@id/nav_enrollment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_result"
+        android:name="com.example.feedbackapplication.ui.result.ResultFragment"
+        tools:layout="@layout/result_fragment">
+        <action
+            android:id="@+id/action_nav_result_to_nav_show_detail"
+            app:destination="@id/nav_show_detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_view_comment"
+        android:name="com.example.feedbackapplication.ui.result.CommentFragment"
+        tools:layout="@layout/comment_fragment">
+        <action
+            android:id="@+id/action_nav_view_comment_to_nav_result"
+            app:destination="@id/nav_result" />
+        <action
+            android:id="@+id/action_nav_view_comment_to_nav_show_detail"
+            app:destination="@id/nav_show_detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_show_detail"
+        android:name="com.example.feedbackapplication.ui.result.ShowDetailFragment"
+        tools:layout="@layout/show_detail_fragment">
+        <action
+            android:id="@+id/action_nav_show_detail_to_nav_result"
+            app:destination="@id/nav_result" />
+        <action
+            android:id="@+id/action_nav_show_detail_to_nav_view_comment"
+            app:destination="@id/nav_view_comment" />
     </fragment>
 
 </navigation>

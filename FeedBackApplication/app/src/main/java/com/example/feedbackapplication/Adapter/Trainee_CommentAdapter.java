@@ -47,7 +47,7 @@ public class Trainee_CommentAdapter extends RecyclerView.Adapter<Trainee_Comment
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Trainee_Comment comment = comments.get(position);
         //boc dua len
-        holder.txtNumber.setText(String.valueOf(position));
+        holder.txtNumber.setText(String.valueOf(position+1));
         holder.txtTraineeID.setText(String.valueOf(comment.getTraineeID()));
         holder.txtContent.setText(String.valueOf(comment.getComment()));
     }

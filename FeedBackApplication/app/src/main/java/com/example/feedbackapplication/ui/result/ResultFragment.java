@@ -1,7 +1,11 @@
 package com.example.feedbackapplication.ui.result;
 
-import android.app.Dialog;
+import android.annotation.SuppressLint;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,108 +21,144 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.feedbackapplication.R;
-import com.example.feedbackapplication.model.Enrollment;
-import com.google.android.material.textfield.TextInputEditText;
+import com.example.feedbackapplication.model.Answer;
+import com.example.feedbackapplication.model.Class;
+import com.example.feedbackapplication.model.Module;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.DefaultValueFormatter;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.List;
 
-public class ResultFragment extends Fragment {
-    private final ArrayList<String> list = new ArrayList<>();
-    private ArrayAdapter<String> adapterClassID;
-    private AutoCompleteTextView classID;
-    private TextInputEditText traineeID;
-    private String inspirationalKey = "where_is_my_key";
+public class ResultFragment extends Fragment implements OnChartValueSelectedListener {
 
-    private FirebaseDatabase databaseReference;
-    private ValueEventListener fetchInClass;
-    private ValueEventListener fetchInTrainee;
-    private ValueEventListener fetchInEnrollment;
+    // for AutoCompleteTextView ClassName
+    private final ArrayList<String> arrayListClassName = new ArrayList<>();
+    // for AutoCompleteTextView ModuleName
+    private final ArrayList<String> arrayListModuleName = new ArrayList<>();
+    //pie chart info
+    String[] info = {"not this plz","Strongly Disagree", "Disagree", "Neutral", "Agree", "Strong Agree"};
+    private ArrayAdapter<String> adapterClassName;
+    private AutoCompleteTextView actClassName;
+    private ArrayAdapter<String> adapterModuleName;
+    private AutoCompleteTextView actModuleName;
+    private TextView txtClassName;
+    private TextView txtModuleName;
+    //bo 3 huy diet
+    private ValueEventListener fetchDataForPieChart;
+    private ValueEventListener fetchDataForPieChart2;
+    private ValueEventListener fetchDataForPieChart3;
+    //PieChart pieChart
+    private PieChart pieChart;
+    private ArrayList<Integer> integerArrayList;
 
+    @SuppressLint("SetTextI18n")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add_enrollment, container, false);
+        View root = inflater.inflate(R.layout.result_fragment, container, false);
 
-        //sep tong
-        databaseReference = FirebaseDatabase.getInstance();
+        //getting views
+        actClassName = root.findViewById(R.id.actClassName);
+        actModuleName = root.findViewById(R.id.actModuleName);
+        txtClassName = root.findViewById(R.id.txtClassName);
+        txtModuleName = root.findViewById(R.id.txtModuleName);
+        pieChart = root.findViewById(R.id.pieChart);
+        Button btnShowOverview = root.findViewById(R.id.btnShowOverview);
+        Button btnShowDetail = root.findViewById(R.id.btnShowDetail);
 
-        //views
-        classID = view.findViewById(R.id.actClassID);
-        traineeID = view.findViewById(R.id.txt_ip_edt_TraineeID);
+        //set text first
+        actClassName.setText("All");
+        actModuleName.setText("All");
 
-        //Take data to dropdown classID
-        adapterClassID = new ArrayAdapter<>(getActivity(), R.layout.option_item, list);
-        classID.setAdapter(adapterClassID);
-
-        //Insert Data
-        Button btnAdd = view.findViewById(R.id.btnAdd);
-        btnAdd.setOnClickListener(v -> {
-            String trainee_ID = String.valueOf(traineeID.getText());
-            int class_ID = Integer.parseInt(classID.getText().toString().trim());
-
-            fetchInClass(trainee_ID, class_ID);
-        });
-
-        //Back
-        Button btnBack = view.findViewById(R.id.btnBack);
-        btnBack.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_nav_add_to_nav_enrollment));
-
-        fetchData();
-        return view;
-    }
-
-    //for classID dropdown
-    public void fetchData() {
-        databaseReference.getReference("Class").addValueEventListener(new ValueEventListener() {
+        //Take data to dropdown classID //done
+        adapterClassName = new ArrayAdapter<>(getContext(), R.layout.option_item, arrayListClassName);
+        fetchDataForACTVClassName();
+        actClassName.setAdapter(adapterClassName);
+        actClassName.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    if (dataSnapshot != null) {
-                        com.example.feedbackapplication.model.Class temp = dataSnapshot.getValue(com.example.feedbackapplication.model.Class.class);
-                        if (temp != null) {
-                            list.add(String.valueOf(temp.getClassID()));
-                        }
-                    }
-                }
-                adapterClassID.notifyDataSetChanged();
-                classID.setText(adapterClassID.getItem(0), false);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //Toast.makeText(getContext(), "test_result", Toast.LENGTH_LONG).show();
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //Toast.makeText(getContext(), "test_results", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //Retrieve data
+                //currentClassName = s.toString();
+                fetchDataForPieChart();
             }
         });
+        //Take data to dropdown moduleName //done
+        adapterModuleName = new ArrayAdapter<>(getContext(), R.layout.option_item, arrayListModuleName);
+        fetchDataForACTVModuleName();
+        actModuleName.setAdapter(adapterModuleName);
+        actModuleName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //Toast.makeText(getContext(), "test_result", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //Toast.makeText(getContext(), "test_results", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //Retrieve data
+                //currentModuleName = s.toString();
+                //fetchDataForPieChart(module_Name, class_Name);
+                fetchDataForPieChart();
+            }
+        });
+
+        //btnShowOverview
+        btnShowOverview.setOnClickListener(v -> {
+            //dang o day
+            fetchDataForPieChart();
+            Toast.makeText(getContext(), "ahoy~", Toast.LENGTH_LONG).show();
+        });
+
+        //btnShowDetail
+        btnShowDetail.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_nav_result_to_nav_show_detail));
+
+        return root;
     }
 
-    private void fetchInClass(String trainee_ID, int class_ID) {
-        fetchInClass = databaseReference.getReference("Class")
-                .orderByChild("classID").equalTo(class_ID).limitToFirst(1)
+    //for className dropdown //done
+    public void fetchDataForACTVClassName() {
+        FirebaseDatabase.getInstance().getReference("Class")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        boolean flag = true;
-                        if (snapshot.exists()) {
-                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                if (dataSnapshot != null) {
-                                    //exist class_ID
-                                    flag = false;
-                                    killFetchInClass();
-                                    fetchInTrainee(trainee_ID, class_ID);
-                                }
-                            }
+                        arrayListClassName.add("All");
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            Class temp = dataSnapshot.getValue(Class.class);
+                            if (temp != null)
+                                arrayListClassName.add(temp.getClassName());
                         }
-                        if (flag) {
-                            //class_ID not exists
-                            killFetchInClass();
-                            addFailDialog(String.valueOf(class_ID), "not exists");
-                        }
+                        adapterClassName.notifyDataSetChanged();
+                        actClassName.setText(adapterClassName.getItem(0), false);
                     }
 
                     @Override
@@ -127,28 +167,22 @@ public class ResultFragment extends Fragment {
                 });
     }
 
-    private void fetchInTrainee(String trainee_ID, int class_ID) {
-        //query id cua new_class_Name
-        fetchInTrainee = databaseReference.getReference("Trainee")
-                .orderByChild("UserName").equalTo(trainee_ID).limitToFirst(1)
+    //for moduleName dropdown //done
+    public void fetchDataForACTVModuleName() {
+        FirebaseDatabase.getInstance().getReference("Module")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        boolean flag = true;
-                        if (snapshot.exists()) {
-                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                if (dataSnapshot != null) {
-                                    //exist trainee_ID
-                                    flag = false;
-                                    killFetchInTrainee();
-                                    fetchInEnrollment(trainee_ID, class_ID);
-                                }
+                        arrayListModuleName.add("All");
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            if (dataSnapshot != null) {
+                                Module temp = dataSnapshot.getValue(Module.class);
+                                if (temp != null)
+                                    arrayListModuleName.add(temp.getModuleName());
                             }
                         }
-                        if (flag) {
-                            killFetchInTrainee();
-                            addFailDialog(trainee_ID, "not exists");
-                        }
+                        adapterModuleName.notifyDataSetChanged();
+                        actModuleName.setText(adapterClassName.getItem(0), false);
                     }
 
                     @Override
@@ -157,124 +191,276 @@ public class ResultFragment extends Fragment {
                 });
     }
 
-    private void fetchInEnrollment(String trainee_ID, int class_ID) {
-        fetchInEnrollment = databaseReference.getReference("Enrollment")
-                .orderByChild("classID").equalTo(class_ID).limitToFirst(1)
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        boolean flag = true;
-                        if (snapshot.exists()) {
-                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                if (dataSnapshot.exists()) { //toi day dc r, tip cho vui
-                                    //exist class_ID
-                                    Enrollment temp = dataSnapshot.getValue(Enrollment.class);
-                                    if (temp != null) {
-                                        if (temp.getTraineeID().equals(trainee_ID)) {
-                                            //already exits in Enrollment
-                                            flag = false;
-                                            killFetchInEnrollment();
-                                            alreadyExistDialog(trainee_ID + " in " + class_ID, "already exists");
+    ////for PieChart
+    //step1: find moduleID in Module
+    @SuppressLint("SetTextI18n")
+    private void fetchDataForPieChart() {
+        //get newest filter texts
+        String class_Name = String.valueOf(actClassName.getText()); //ko xai ham contains vi className vs moduleName must be shown
+        String module_Name = String.valueOf(actModuleName.getText());
+
+        //query id cua new_module_Name
+        integerArrayList = new ArrayList<>(); //cho list ve empty
+        integerArrayList.add(0, 0);
+        integerArrayList.add(1, 0);
+        integerArrayList.add(2, 0);
+        integerArrayList.add(3, 0);
+        integerArrayList.add(4, 0);
+        integerArrayList.add(5, 0);
+        if (module_Name.equals("All")) {
+            txtModuleName.setText("All");
+            fetchDataForPieChart2(0, class_Name);
+        } else {
+            fetchDataForPieChart = FirebaseDatabase.getInstance().getReference("Module")
+                    .orderByChild("moduleName").equalTo(module_Name).limitToFirst(1)
+                    .addValueEventListener(new ValueEventListener() {
+                        @SuppressLint("SetTextI18n")
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            boolean flag = true;
+                            if (snapshot.exists()) {
+                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                    if (dataSnapshot != null) {
+                                        Module temp = dataSnapshot.getValue(Module.class);
+                                        if (temp != null) {
+                                            int temp1 = temp.getModuleID();
+                                            if (temp1 != 0) {
+                                                ////found module_ID
+                                                flag = false;
+                                                killFetch("Module", fetchDataForPieChart);
+                                                txtModuleName.setText(temp.getModuleName());
+                                                fetchDataForPieChart2(temp1, class_Name);
+                                            }
                                         }
                                     }
                                 }
                             }
+                            if (flag) {
+                                //no module with moduleName //Fetching ends
+                                killFetch("Module", fetchDataForPieChart);
+                                txtClassName.setText("404:Not Found");
+                                Toast.makeText(getContext(), "No module matches "+module_Name, Toast.LENGTH_LONG).show();
+                                updatePieChart();
+                                fetchDataForPieChart();
+                            }
                         }
-                        if (flag) {
-                            //exists in Class, exits in Trainee, no exist in Enrollment
-                            killFetchInEnrollment();
-                            String trainee_ID = Objects.requireNonNull(traineeID.getText()).toString().trim();
-                            int class_ID = Integer.parseInt(classID.getText().toString().trim());
-                            Enrollment enrollment = new Enrollment(class_ID, trainee_ID);
-                            inspirationalKey = FirebaseDatabase.getInstance().getReference("Enrollment").push().getKey();
-                            Map<String, Object> map = new HashMap<>();
-                            map.put("status", 0);
-                            map.put("classID", enrollment.getClassID());
-                            map.put("traineeID", enrollment.getTraineeID());
-                            FirebaseDatabase.getInstance().getReference("Enrollment")
-                                    .child(inspirationalKey)
-                                    .setValue(map, (error, ref) -> {
-                                        if (error != null) {
-                                            //System.out.println("Data could not be saved. " + error.getMessage());
-                                            Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_LONG).show();
 
-                                        } else {
-                                            //System.out.println("Data saved successfully.");
-                                            Toast.makeText(getContext(), "Add successfully", Toast.LENGTH_SHORT).show();
-                                            addSuccessDialog("Trainee", "added to class");
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
+        }
+    }
+
+    //step2: find classID in Class
+    @SuppressLint("SetTextI18n")
+    private void fetchDataForPieChart2(int module_ID, String class_Name) {
+        //query id cua new_module_Name
+        if (class_Name.equals("All")) {
+            txtClassName.setText("All"); //set className on screen
+            fetchDataForPieChart3(module_ID, 0);
+        } else {
+            fetchDataForPieChart2 = FirebaseDatabase.getInstance().getReference("Class")
+                    .orderByChild("className").equalTo(class_Name).limitToFirst(1)
+                    .addValueEventListener(new ValueEventListener() {
+                        @SuppressLint("SetTextI18n")
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            boolean flag = true;
+                            if (snapshot.exists()) {
+                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                    if (dataSnapshot != null) {
+                                        Class temp = dataSnapshot.getValue(Class.class);
+                                        if (temp != null) {
+                                            int temp1 = temp.getClassID();
+                                            if (temp1 != 0) {
+                                                ////found class_ID
+                                                flag = false;
+                                                killFetch("Class", fetchDataForPieChart2);
+                                                txtClassName.setText(temp.getClassName());  //set className on screen
+                                                fetchDataForPieChart3(module_ID, temp1);
+                                            }
                                         }
-                                    });
+                                    }
+                                }
+                            }
+                            if (flag) {
+                                //no class with class//Fetching ends
+                                killFetch("Class", fetchDataForPieChart2);
+                                txtClassName.setText("404:Not Found");
+                                Toast.makeText(getContext(), "No class matches "+class_Name, Toast.LENGTH_LONG).show();
+                                updatePieChart();
+                                fetchDataForPieChart();
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-                });
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
+        }
     }
 
-    private void alreadyExistDialog(String s1, String s2) {
-        Dialog dialog = new Dialog(getContext());
-        dialog.setContentView(R.layout.dialog_red_2_red);
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.setCancelable(false);
-        TextView text1 = dialog.findViewById(R.id.text1);
-        if (!String.valueOf(s1).isEmpty())
-            text1.setText(String.valueOf(s1));
-        TextView text2 = dialog.findViewById(R.id.text2);
-        if (!String.valueOf(s2).isEmpty())
-            text2.setText(String.valueOf(s2));
-        Button btnOK = dialog.findViewById(R.id.btnOK);
-        btnOK.setOnClickListener(v -> {
-            dialog.dismiss(); //already exists thi o lai
-        });
-        dialog.show();
+    //step3: get list Answer
+    private void fetchDataForPieChart3(int module_ID, int class_ID) {
+        //query id cua new_module_Name
+        if (class_ID == 0) {
+            fetchDataForPieChart3 = FirebaseDatabase.getInstance().getReference("Answer")
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                    if (dataSnapshot != null) {
+                                        Answer temp = dataSnapshot.getValue(Answer.class);
+                                        if (temp != null) {
+                                            if (module_ID == 0) {
+                                                ////found Answer with className=All and moduleName=All
+                                                int temp1 = temp.getValue();
+                                                integerArrayList.set(temp1, integerArrayList.get(temp1)+1);
+                                            } else {
+                                                int temp1 = temp.getModuleID();
+                                                if (temp1 != 0 && temp1 == module_ID) {
+                                                    ////found Trainee_Comment with className=ALl and moduleID=module_ID
+                                                    integerArrayList.set(temp1, integerArrayList.get(temp1)+1);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                //no Trainee_Comment with className=All and moduleName=All //Fetching ends
+                                killFetch("Answer", fetchDataForPieChart3);
+                                updatePieChart();
+                                fetchDataForPieChart();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
+        } else {
+            fetchDataForPieChart3 = FirebaseDatabase.getInstance().getReference("Answer")
+                    .orderByChild("classID").equalTo(class_ID)
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                    if (dataSnapshot != null) {
+                                        Answer temp = dataSnapshot.getValue(Answer.class);
+                                        if (temp != null) {
+                                            int temp1 = temp.getValue();
+                                            if (module_ID == 0) {
+                                                ////found Trainee_Comment with classID=class_ID and moduleName=All
+                                                integerArrayList.set(temp1, integerArrayList.get(temp1)+1);
+                                            } else {
+                                                int temp2 = temp.getModuleID();
+                                                if (temp2 != 0 && temp2 == module_ID) {
+                                                    ////found Trainee_Comment with classID=class_ID and moduleID=module_ID
+                                                    integerArrayList.set(temp1, integerArrayList.get(temp1)+1);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            //no Trainee_Comment with classID=class_ID and moduleName=All //Fetching ends
+                            killFetch("Answer", fetchDataForPieChart3);
+                            updatePieChart();
+                            fetchDataForPieChart();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
+        }
     }
 
-    private void addSuccessDialog(String s1, String s2) {
-        Dialog dialog = new Dialog(getContext());
-        dialog.setContentView(R.layout.dialog_green_2_blue);
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.setCancelable(false);
-        TextView text1 = dialog.findViewById(R.id.text1);
-        if (!String.valueOf(s1).isEmpty())
-            text1.setText(String.valueOf(s1));
-        TextView text2 = dialog.findViewById(R.id.text2);
-        if (!String.valueOf(s2).isEmpty())
-            text2.setText(String.valueOf(s2));
-        Button btnOK = dialog.findViewById(R.id.btnOK);
-        btnOK.setOnClickListener(v -> {
-            dialog.dismiss();
-            Navigation.findNavController(requireView()).navigate(R.id.action_nav_add_to_nav_enrollment);
-        });
-        dialog.show();
+    //kill any ValueEventListener //done
+    private void killFetch(String path, ValueEventListener valueEventListener) {
+        if (valueEventListener != null)
+            FirebaseDatabase.getInstance().getReference(path).removeEventListener(valueEventListener);
     }
 
-    private void addFailDialog(String s1, String s2) {
-        Dialog dialog = new Dialog(getContext());
-        dialog.setContentView(R.layout.dialog_red_2_red);
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.setCancelable(false);
-        TextView text1 = dialog.findViewById(R.id.text1);
-        text1.setText(String.valueOf(s1));
-        TextView text2 = dialog.findViewById(R.id.text2);
-        text2.setText(String.valueOf(s2));
-        Button btnOK = dialog.findViewById(R.id.btnOK);
-        btnOK.setOnClickListener(v -> {
-            dialog.dismiss(); //fail thi o lai
-        });
-        dialog.show();
+    //pieChar stuff
+    @Override
+    public void onValueSelected(Entry e, Highlight h) {
+        if (e == null || h == null)
+            return;
+        //Toast.makeText(getContext(), "Value: " + e.getY() + ", index: " + h.getX() + "data: " + info[h.getDataIndex() + 1], Toast.LENGTH_SHORT).show();
+
     }
 
-    private void killFetchInClass() {
-        FirebaseDatabase.getInstance().getReference("Class").removeEventListener(fetchInClass);
+    @Override
+    public void onNothingSelected() {
+        // do nothing
     }
 
-    private void killFetchInTrainee() {
-        FirebaseDatabase.getInstance().getReference("Trainee").removeEventListener(fetchInTrainee);
+    private void updatePieChart() {
+
+        //data here
+        int total = 0;
+        for (int i = 1; i < integerArrayList.size(); i++) { //can than size//da +1 vi co index0
+            total += integerArrayList.get(i);
+        }
+        float f1 = 0;
+        float f3 = 0;
+        float f5 = 0;
+        if (total > 0) {
+            f1 = (float) (100 * integerArrayList.get(1) / total);
+            f3 = (float) (100 * integerArrayList.get(3) / total);
+            f5 = (float) (100 * integerArrayList.get(5) / total);
+        }
+
+        List<PieEntry> yValues = new ArrayList<>(); //in the chart
+        yValues.add(new PieEntry(f1,info[1]));
+        yValues.add(new PieEntry(f3,info[3]));
+        yValues.add(new PieEntry(f5,info[5]));
+        PieDataSet dataSet = new PieDataSet(yValues,"");
+        PieData data = new PieData(dataSet);
+        pieChart.setData(data);
+        pieChart.setDrawEntryLabels(true);
+
+        Description d = pieChart.getDescription();
+        d.setEnabled(false);
+
+        pieChart.setUsePercentValues(true);
+        pieChart.setDrawHoleEnabled(false); //hole
+
+        Legend l = pieChart.getLegend();
+        l.setDrawInside(true);
+        l.setEnabled(true);
+        l.setFormSize(10);
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        l.setOrientation(Legend.LegendOrientation.VERTICAL);
+        l.setEnabled(false);
+        l.setWordWrapEnabled(true);
+        //l.setDrawInside(true); //legends outside the chart
+        //l.setXEntrySpace(7f); //7dp by far to the chart
+        //l.setYEntrySpace(0f); //
+        //l.setYOffset(30f);
+
+        int[] colors = {
+                Color.parseColor("#FFCC99"),
+                Color.parseColor("#FF9966"),
+                Color.parseColor("#FF6633"),
+                Color.parseColor("#FF6600"),
+                Color.parseColor("#FF3300"),
+                Color.parseColor("#CC3300")};
+        dataSet.setColors(ColorTemplate.createColors(colors));
+
+        data.setValueTextColor(Color.WHITE); //color of numbers
+
+        //dataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+        dataSet.setValueLinePart1OffsetPercentage(80.f);
+        dataSet.setValueLinePart1Length(1.2f);
+        dataSet.setValueLinePart2Length(0.4f);
+
+        //pieChart.setOnChartValueSelectedListener(this);
+
     }
 
-    private void killFetchInEnrollment() {
-        FirebaseDatabase.getInstance().getReference("Enrollment").removeEventListener(fetchInEnrollment);
-    }
 }
