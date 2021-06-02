@@ -52,15 +52,6 @@ public class AddFeedbackFragment extends Fragment {
         edtTitle = root.findViewById(R.id.edtTitle);
         edtType = root.findViewById(R.id.edtType);
 
-        chk1 = root.findViewById(R.id.chk1);
-        chk2 = root.findViewById(R.id.chk2);
-        chk3 = root.findViewById(R.id.chk3);
-        chk4 = root.findViewById(R.id.chk4);
-        chk5 = root.findViewById(R.id.chk5);
-        chk6 = root.findViewById(R.id.chk6);
-        chk7 = root.findViewById(R.id.chk7);
-        chk8 = root.findViewById(R.id.chk8);
-
         //Take data to dropdown edtType
         String[] types = getResources().getStringArray(R.array.types);
         adapter = new ArrayAdapter<>(getActivity(),R.layout.item_type,types);
