@@ -59,7 +59,7 @@ public class EditQuestionFragment extends Fragment {
         topicN.setText(getArguments().getString("topicName"));
         questionID = getArguments().getInt("questionId");
         topicId = getArguments().getInt("topicId");
-
+        //
         //update
         inputQuestion = view.findViewById(R.id.edtContent);
         btnSave = view.findViewById(R.id.btnSave);
