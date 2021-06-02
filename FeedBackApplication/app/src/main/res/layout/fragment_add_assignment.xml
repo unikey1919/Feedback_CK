@@ -84,7 +84,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="50dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/main"
         android:text="Back" />
 
     <Button
@@ -93,10 +93,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/spnTrainer"
         android:layout_marginTop="30dp"
-
+        android:backgroundTint="#5175F4"
         android:layout_marginRight="10dp"
         android:layout_toLeftOf="@+id/btnBack"
-        android:backgroundTint="@color/black"
         android:text="Add" />
 
 

@@ -12,11 +12,20 @@
         android:theme="@style/Theme.FeedBackApplication.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
+            android:backgroundTint="#FA4B14"
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.FeedBackApplication.PopupOverlay" />
+            android:background="@color/main"
+            app:popupTheme="@style/Theme.FeedBackApplication.PopupOverlay" >
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="100dp"
+                android:padding="5dp"
+                android:src="@drawable/r2s"/>
+
+        </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 

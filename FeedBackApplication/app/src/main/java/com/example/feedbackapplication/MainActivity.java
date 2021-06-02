@@ -1,8 +1,11 @@
 package com.example.feedbackapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
@@ -20,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -37,13 +41,16 @@ public class MainActivity extends AppCompatActivity {
     private Button btnLogin;
     private static String KEY_ROLE = "default";
     private static String UserName;
+    private static String join;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         //get role for each user
         try {
             KEY_ROLE = getIntent().getStringExtra("role");
+            join = getIntent().getStringExtra("join");
             String username = getIntent().getStringExtra("username");
             Toast.makeText(this, "Show username in main: "+username, Toast.LENGTH_LONG/2).show();
 
@@ -60,8 +67,9 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.activity_main);
         }
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -93,10 +101,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int a = item.getItemId();
-        if(a==R.id.nav_join2)
-            Log.d("TAGq", "xxxxx "+item+" *** "+a);
-        Log.d("TAGq", "onOptionsItemSelected: "+item+" *** "+a);
+//        int a = item.getItemId();
+//        if(a==R.id.nav_join2)
+//            Log.d("TAGq", "xxxxx "+item+" *** "+a);
+//        Log.d("TAGq", "onOptionsItemSelected: "+item+" *** "+a);
         return super.onOptionsItemSelected(item);
     }
 
@@ -105,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         //send data to fragment
         KEY_ROLE = getIntent().getStringExtra("role");
         UserName = getIntent().getStringExtra("username");
+        join = getIntent().getStringExtra("join");
         Bundle hm = new Bundle();
         hm.putString("username",UserName);
         if(KEY_ROLE == null){
@@ -119,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
         }
         if(KEY_ROLE.equals("trainee")){
             hm.putString("val1","trainee");
+            hm.putString("join",join);
         }
         return hm;
     }

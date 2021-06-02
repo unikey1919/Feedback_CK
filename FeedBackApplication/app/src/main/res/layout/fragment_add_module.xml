@@ -203,7 +203,7 @@
         android:text="Back"
         android:layout_below="@id/txt_ip_FbEnd"
         android:layout_alignParentRight="true"
-        android:backgroundTint="@color/black"/>
+        android:backgroundTint="@color/main"/>
     <Button
         android:id="@+id/btnAdd"
         android:layout_width="wrap_content"
@@ -212,6 +212,6 @@
         android:layout_marginRight="10dp"
         android:layout_below="@id/txt_ip_FbEnd"
         android:layout_toLeftOf="@+id/btnBack"
-        android:backgroundTint="@color/black"/>
+        android:backgroundTint="#5175F4"/>
 
 </RelativeLayout>

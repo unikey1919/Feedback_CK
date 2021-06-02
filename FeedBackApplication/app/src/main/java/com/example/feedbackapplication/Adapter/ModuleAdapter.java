@@ -27,6 +27,7 @@ public class ModuleAdapter extends FirebaseRecyclerAdapter<Module, ModuleAdapter
     /**
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
      * {@link FirebaseRecyclerOptions} for configuration options.
+     *
      * @param options
      */
     public ModuleAdapter(@NonNull FirebaseRecyclerOptions<Module> options,ClickListener clickListener) {
@@ -39,12 +40,18 @@ public class ModuleAdapter extends FirebaseRecyclerAdapter<Module, ModuleAdapter
         holder.txtModuleID.setText("Module ID: " + model.getModuleID());
         holder.txtModuleName.setText("Module Name: " + model.getModuleName());
         holder.txtAdminID.setText("Admin ID: " + model.getAdminID());
+        holder.txtStartDate.setText("Start Date: " + model.getStartDate());
+        holder.txtEndDate.setText("End Date: " + model.getEndDate() );
+        holder.txtFeedBack.setText("Feedback Title: " + model.getFeedbackTitle());
+        holder.txtFbStart.setText("Feedback StartTime: " + model.getFeedbackStartDate() );
+        holder.txtFbEnd.setText("Feedback EndTime: " + model.getFeedbackEndDate() );
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickListener.updateClicked(model);
             }
         });
+
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,10 +66,9 @@ public class ModuleAdapter extends FirebaseRecyclerAdapter<Module, ModuleAdapter
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_module, parent, false);
+
         return new MyViewHolder(view);
     }
-
-  ////////////////////  //
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView txtModuleID, txtModuleName, txtAdminID, txtStartDate, txtEndDate, txtFeedBack, txtFbStart, txtFbEnd;
@@ -78,7 +84,7 @@ public class ModuleAdapter extends FirebaseRecyclerAdapter<Module, ModuleAdapter
             txtEndDate= itemView.findViewById(R.id.txtEndDate);
             txtFeedBack = itemView.findViewById(R.id.txtFeedBack);
             txtFbStart= itemView.findViewById(R.id.txtFbStart);
-            txtEndDate= itemView.findViewById(R.id.txtFbEnd);
+            txtFbEnd= itemView.findViewById(R.id.txtFbEnd);
             edit = itemView.findViewById(R.id.btnEditModule);
             btnDelete = itemView.findViewById(R.id.btnDeleteModule);
         }

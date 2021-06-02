@@ -34,7 +34,7 @@ public class TopicQAdapter extends RecyclerView.Adapter<TopicQAdapter.ItemViewHo
         return new ItemViewHolder(view);
     }
 
-
+    Handler timerHandler = new Handler();
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder itemViewHolder, int i) {
         QuestionTopic item = itemList.get(i);
@@ -46,22 +46,37 @@ public class TopicQAdapter extends RecyclerView.Adapter<TopicQAdapter.ItemViewHo
                 LinearLayoutManager.VERTICAL,
                 false
         );
+        Runnable timerRunnable = new Runnable() {
+            @Override
+            public void run() {
+                if(itemViewHolder.tvItemTitle.getText()=="...")
+                    itemViewHolder.tvItemTitle.performClick();
+                notifyDataSetChanged();
+            }
+        };
+        timerHandler.postDelayed(timerRunnable, 100);  // hold 0.1s to load firebase (load < 0.2s)
+
+
         layoutManager.setInitialPrefetchItemCount(item.getQuestion().size());
 
-        // Create sub item view adapter
-//        QuestionAdapter subItemAdapter = new QuestionAdapter(item.getQuestion());
-//
-//        itemViewHolder.rvSubItem.setLayoutManager(layoutManager);
-//        itemViewHolder.rvSubItem.setAdapter(subItemAdapter);
-//        itemViewHolder.rvSubItem.setRecycledViewPool(viewPool);
 
-//        itemViewHolder.tvItemTitle.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                notifyDataSetChanged();
-//                Log.d("waiting", "run: waiting data");
-//            }
-//        });
+//         Create sub item view adapter
+        QuestionContentAdapter subItemAdapter = new QuestionContentAdapter(item.getQuestion());
+
+        itemViewHolder.rvSubItem.setLayoutManager(layoutManager);
+        itemViewHolder.rvSubItem.setAdapter(subItemAdapter);
+        itemViewHolder.rvSubItem.setRecycledViewPool(viewPool);
+
+        itemViewHolder.tvItemTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(item.getTopic().equals("...")) {
+                    itemList.remove(i);
+                    notifyDataSetChanged();
+                }
+                Log.d("waiting", "run: waiting data");
+            }
+        });
 
     }
 

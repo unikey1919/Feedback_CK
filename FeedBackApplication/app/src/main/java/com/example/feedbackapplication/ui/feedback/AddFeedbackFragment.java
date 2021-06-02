@@ -33,7 +33,6 @@ import java.util.ArrayList;
 public class AddFeedbackFragment extends Fragment {
 
     private Button btnBack,btnReview;
-    private CheckBox chk1, chk2, chk3, chk4, chk5, chk6, chk7, chk8;
     private DatabaseReference database,reference;
     private ValueEventListener listener;
     private ArrayList<String> list;
@@ -71,11 +70,6 @@ public class AddFeedbackFragment extends Fragment {
         btnReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String titles = edtTitle.getText().toString().trim();
-                String types = edtType.getText().toString().trim();
-                Bundle bundle = new Bundle();
-                bundle.putString("titles", titles);
-                bundle.putString("types", types);
 
                 Navigation.findNavController(v).navigate(R.id.action_nav_add_feedback_to_nav_review_feedback);
             }

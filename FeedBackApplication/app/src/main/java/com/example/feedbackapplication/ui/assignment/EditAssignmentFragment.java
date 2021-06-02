@@ -24,6 +24,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -74,19 +75,41 @@ public class EditAssignmentFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String trainerID = actTrainerID.getText().toString().trim();
-                Map<String,Object> map = new HashMap<>();
-                map.put("trainerID",trainerID);
 
-                FirebaseDatabase.getInstance().getReference()
-                        .child("Assignment")
-                        .child(key)
-                        .updateChildren(map)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                SuccessDialog(v);
+                DatabaseReference refAssign = FirebaseDatabase.getInstance().getReference("Assignment");
+                Query refTrainer = refAssign.orderByChild("moduleID").equalTo(getArguments().getInt("moduleID"));
+                refTrainer.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot dataSnapshot:snapshot.getChildren()){
+                            String a = dataSnapshot.child("trainerID").getValue().toString();
+                            if(trainerID.equals(a)){
+                                FailDialog();
+                                return;
                             }
-                        });
+                        }
+                        Map<String,Object> map = new HashMap<>();
+                        map.put("trainerID",trainerID);
+
+                        FirebaseDatabase.getInstance().getReference()
+                                .child("Assignment")
+                                .child(key)
+                                .updateChildren(map)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        SuccessDialog(v);
+                                    }
+                                });
+                        refTrainer.removeEventListener(this);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
             }
         });
 
@@ -133,6 +156,22 @@ public class EditAssignmentFragment extends Fragment {
             public void onClick(View v) {
                 dialog.dismiss();
                 Navigation.findNavController(view).navigate(R.id.action_nav_edit_to_nav_assignment);
+            }
+        });
+        dialog.show();
+    }
+
+    private void FailDialog() {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.fail_dialog);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(getActivity().getDrawable(R.drawable.loginfail_background));
+        dialog.setCancelable(false);
+        btnSuccess = dialog.findViewById(R.id.btnSuccess);
+        btnSuccess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
             }
         });
         dialog.show();

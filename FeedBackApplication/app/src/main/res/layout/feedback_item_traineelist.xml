@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
     android:background="#00C32121"
+    android:paddingLeft="15dp"
     android:orientation="horizontal"
     >
 
@@ -89,10 +90,10 @@
 
     <ImageButton
         android:id="@+id/btnEditQuestion"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="-20dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="-25dp"
+        android:layout_marginTop="70dp"
 
         android:adjustViewBounds="true"
         android:background="#00FFFFFF"
