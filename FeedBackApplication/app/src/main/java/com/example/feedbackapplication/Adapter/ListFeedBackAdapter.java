@@ -137,8 +137,7 @@ public class ListFeedBackAdapter extends RecyclerView.Adapter<ListFeedBackAdapte
                 notifyDataSetChanged();
             }
         };
-
-        timerHandler.postDelayed(timerRunnable, 2000);  // hold 0.5s to load firebase (load < 0.2s)
+        timerHandler.postDelayed(timerRunnable, 1500);  // hold 0.5s to load firebase (load < 0.2s)
 
         holder.txtStatus.setText(x.getImage());
 

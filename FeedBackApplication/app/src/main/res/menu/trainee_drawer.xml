@@ -23,12 +23,12 @@
             android:title="@string/menu_module" />
         <item
             android:id="@+id/nav_join"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_join__3_"
             android:title="@string/menu_join" />
-        <item
-            android:id="@+id/nav_join2"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Join test" />
+<!--        <item-->
+<!--            android:id="@+id/nav_join2"-->
+<!--            android:icon="@drawable/ic_menu_slideshow"-->
+<!--            android:title="Join test" />-->
 
         <item
             android:id="@+id/nav_logout"
