@@ -32,14 +32,14 @@ import java.util.Map;
 
 public class ReviewEditFragment extends Fragment {
 
-    private TextView txtTitle;
+    private TextView txtTitle, adminID;
     private Button btnSave, btnBack;
     private DatabaseReference database,reference;
     private ValueEventListener listener;
     private ArrayList<String> list;
     private ArrayAdapter<String> adapter;
     private FeedBack feedBack;
-    private int feedbackId, adminID;
+    private int maxID;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,25 +48,12 @@ public class ReviewEditFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_review_edit, container, false);
 
         txtTitle = view.findViewById(R.id.txtTitle);
-//        txtTitle.setText(getArguments().getString("titles"));
-//        adminID = getArguments().getInt("adminID");
-//        feedbackId = getArguments().getInt("id");
 
         //Insert Data
         btnSave = view.findViewById(R.id.btnSave);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String key = String.valueOf(feedbackId);
-                Map<String,Object> map = new HashMap<>();
-                map.put("title",txtTitle.getText().toString().trim());
-                //map.put("adminID",adminID.getText().toString().trim());
-
-                FirebaseDatabase.getInstance().getReference()
-                        .child("Feedback")
-                        .child(key)
-                        .updateChildren(map);
-                Toast.makeText(v.getContext(),"Update successfully" ,Toast.LENGTH_SHORT).show();
                 SuccessDialog(Gravity.CENTER);
                 Navigation.findNavController(v).navigate(R.id.action_nav_review_edit_to_nav_feedback);
             }

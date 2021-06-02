@@ -29,7 +29,7 @@ import java.util.Map;
 
 public class DetailFeedbackFragment extends Fragment {
 
-    private TextView txtTitle, adminID;
+    private TextView txtTitle, txtAdminId;
     private Button btnEdit, btnBack;
     private DatabaseReference database,reference;
     private ValueEventListener listener;
@@ -43,10 +43,11 @@ public class DetailFeedbackFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_detail_feedback, container, false);
-
         txtTitle = view.findViewById(R.id.txtTitle);
-        txtTitle.setText(getArguments().getString("titles"));
-        adminID.setText(getArguments().getString("adminID"));
+        txtAdminId = view.findViewById(R.id.txtAdminId);
+
+        txtTitle.setText(getArguments().getString("title"));
+        txtAdminId.setText(getArguments().getString("adminID"));
         feedbackId = getArguments().getInt("id");
 
         btnEdit = view.findViewById(R.id.btnEdit);

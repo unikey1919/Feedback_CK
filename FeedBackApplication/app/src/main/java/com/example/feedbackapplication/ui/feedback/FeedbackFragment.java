@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.example.feedbackapplication.Adapter.FeedbackAdapter;
 import com.example.feedbackapplication.Adapter.ModuleAdapter;
 import com.example.feedbackapplication.LoginActivity;
+import com.example.feedbackapplication.MainActivity;
 import com.example.feedbackapplication.R;
 import com.example.feedbackapplication.model.FeedBack;
 import com.example.feedbackapplication.model.Module;
@@ -146,6 +147,7 @@ public class FeedbackFragment extends Fragment implements FeedbackAdapter.ClickL
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
+                                dialog.dismiss();
                                 SuccessDialog(Gravity.CENTER);
                             }
                         });

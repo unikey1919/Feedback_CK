@@ -40,7 +40,7 @@ public class AddFeedbackFragment extends Fragment {
     private AutoCompleteTextView edtType;
     private TextInputEditText edtTitle;
     private FeedBack feedBack;
-    private int maxID = 0;
+    private int feedbackId;
 
     @Nullable
     @Override
