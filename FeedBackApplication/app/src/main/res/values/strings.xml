@@ -18,7 +18,7 @@
     <string name="menu_contact">CONTACT</string>
     <string name="menu_logout">LOGOUT</string>
     <string name="menu_join">JOIN</string>
-
+    <string name="permission">We are sorry! <br/> You do NOT have <br/> permission access this link</string>
     <string name="login_fail">Login Failed, Check Your Login Detail</string>
     <string name="delete1">This Module has been started. You really want to delete this Module</string>
     <string name="add_success">Add question success</string>
