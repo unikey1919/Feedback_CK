@@ -79,6 +79,7 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.Cl
         if(role.equals("trainer")){
             query = database.orderByChild("trainerID").equalTo(userName);
         }
+
         FirebaseRecyclerOptions<Assignment> options =
                 new FirebaseRecyclerOptions.Builder<Assignment>()
                         .setQuery(query, Assignment.class)
@@ -153,7 +154,6 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.Cl
         else {
             WarningDialogExist(key);
         }
-
     }
 
     private void WarningDialog(String key) {
@@ -207,6 +207,7 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.Cl
                 dialog.dismiss();
             }
         });
+
         btnCancel = dialog.findViewById(R.id.btnCancel);
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override

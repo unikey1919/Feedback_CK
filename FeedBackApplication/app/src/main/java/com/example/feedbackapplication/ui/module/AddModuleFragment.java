@@ -135,7 +135,7 @@ public class AddModuleFragment extends Fragment {
 
                     Module module = new Module(moduleID,adminId,name,start,end,fTitle,fbStart,fbEnd);
                     reference.child(String.valueOf(moduleID)).setValue(module);
-                    SuccessDialog();
+                    SuccessDialog(v);
                 }
 
             }
@@ -312,7 +312,7 @@ public class AddModuleFragment extends Fragment {
         return b;
     }
 
-    private void SuccessDialog() {
+    private void SuccessDialog(View view) {
         Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.success_dialog);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -323,6 +323,7 @@ public class AddModuleFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                Navigation.findNavController(view).navigate(R.id.action_nav_add_to_nav_module);
             }
         });
         dialog.show();

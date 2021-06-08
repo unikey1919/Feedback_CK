@@ -31,7 +31,7 @@
         android:layout_gravity="center"
         android:textAlignment="center"
         android:layout_marginVertical="5dp"
-        android:text="This Question is in use with 1 Feedback. You really want to delete this Question?"
+        android:text="Do you really want to Delete this?"
         android:textColor="@color/black"
         android:textSize="20sp"/>
 

@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.example.feedbackapplication.R;
 import com.example.feedbackapplication.model.Question;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,9 +43,10 @@ public class AddQuestionFragment extends Fragment {
     private ValueEventListener listener;
     private ArrayList<String> list;
     private ArrayAdapter<String> adapter;
-    private AutoCompleteTextView topicName, questionContent;
+    private AutoCompleteTextView topicName;
     private TextInputLayout inputQuestion;
     private Question question;
+    private TextInputEditText questionContent;
     private int maxID = 0;
 
     @Nullable
